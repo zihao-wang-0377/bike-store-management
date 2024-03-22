@@ -1,0 +1,47 @@
+planung-1
+
+++ Aufgaben
+- Projekt in Gitlab bereitstellen
+- Die erforderliche Software herunterladen und installieren
+- Die benötigten Webseiten erstellen
+- Datenbank entwerfen und verbinden
+
+
+++ Features
+- Anlegen von Kunden, Produkten und Bestellungen
+- Anzeigen von Kunden, Produkten und Bestellungen
+
+
+++ Entwurf von Webseiten
+- Für Kunden, Produkte und Bestellungen werden separate Datendarstellungsseiten erstellt, jeweils mit einer Seite zum Anlegen von neuen Daten.
+
+
+++ Gestaltung der Datenbank
+Kunden
+- KundeID
+- Name
+- Adresse
+- Telefonnummer
+- Email
+
+Produkte
+- ProduktID
+- Produktname
+- Preis
+- Beschreibung
+
+Bestellung
+- Bestellnummer
+- KundeID
+- Bestelldatum
+
+Bestellpositionen
+- Bestellnummer
+- ProduktID
+- Anzahl
+
+
+++ Zuweisung von Aufgaben
+- Frontend: Jinang
+- Datenbank: Zihao, Zijian
+- Verbindung: Felix
