@@ -3,8 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
 
-  <datasource jndi-name="java:jboss/datasources/sep" pool-name="sep" enabled="true" use-java-context="true">
-    <connection-url>jdbc:postgresql://localhost:5432/sep</connection-url>
+  <datasource jndi-name="java:jboss/datasources/team10" pool-name="team10" enabled="true" use-java-context="true">
+    <connection-url>jdbc:postgresql://localhost:5432/team10</connection-url>
     <driver>postgresql-42.7.3.jar</driver>
 <!--    <security>-->
 <!--      <user-name>postgres</user-name>-->

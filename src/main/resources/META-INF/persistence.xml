@@ -6,7 +6,7 @@
 	<persistence-unit name="default">
 
 <!--		<jta-data-source>java:jboss/datasources/sep</jta-data-source>-->
-
+		<jta-data-source>java:jboss/datasources/team10</jta-data-source>
 
 		<properties>
 			<!--
