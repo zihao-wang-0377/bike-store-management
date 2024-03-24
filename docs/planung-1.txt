@@ -33,11 +33,13 @@ Produkte
 Bestellung
 - Bestellnummer
 - KundeID
+- Bestellsumme
 - Bestelldatum
 
 Bestellpositionen
+- BestellpositionID
 - Bestellnummer
-- ProduktID
+- KundeID
 - Anzahl
 
 
