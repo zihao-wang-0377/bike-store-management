@@ -1,4 +1,4 @@
-package de.pdbm.starter.business.messages.boundary.form;
+package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Product;
