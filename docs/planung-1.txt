@@ -19,7 +19,8 @@ planung-1
 ++ Gestaltung der Datenbank
 Kunden
 - KundeID
-- Name
+- Vorname
+- Nachname
 - Adresse
 - Telefonnummer
 - Email
@@ -33,13 +34,14 @@ Produkte
 Bestellung
 - Bestellnummer
 - KundeID
-- Bestellsumme
+- Gesamtbetrag
 - Bestelldatum
 
 Bestellpositionen
 - BestellpositionID
 - Bestellnummer
 - KundeID
+- ProduktID
 - Anzahl
 
 

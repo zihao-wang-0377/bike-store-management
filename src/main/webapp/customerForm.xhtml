@@ -6,6 +6,31 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <h:head>
+        <title>Kundenformular</title>
+    </h:head>
+    <h:body>
+        <h:form immediate="true">
+            <h:commandButton value="Zurück" action="#{customerForm.navigateToHomePage()}"/>
+        </h:form>
+        <h:form>
+            <h:outputLabel for="vorname">Vorname:</h:outputLabel>
+            <h:inputText id="vorname" value="#{customerForm.firstname}"/>
+            <br></br>
+            <h:outputLabel for="nachname">Nachname:</h:outputLabel>
+            <h:inputText id="nachname" value="#{customerForm.lastname}"/>
+            <br></br>
+            <h:outputLabel for="address">Addresse:</h:outputLabel>
+            <h:inputText id="address" value="#{customerForm.address}"/>
+            <br></br>
+            <h:outputLabel for="phone">Telefonnummer:</h:outputLabel>
+            <h:inputText id="phone" value="#{customerForm.phone}"/>
+            <br></br>
+            <h:outputLabel for="email">E-Mail:</h:outputLabel>
+            <h:inputText id="email" value="#{customerForm.email}"/>
+            <br></br>
+            <h:commandButton value="Speichern" action="#{customerForm.save()}"/>
+        </h:form>
+    </h:body>
 </f:view>
 </html>
