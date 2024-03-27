@@ -1,4 +1,4 @@
-package de.pdbm.starter.business.messages.boundary;
+package de.pdbm.starter.business.messages.control;
 
 import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.ejb.Stateless;
