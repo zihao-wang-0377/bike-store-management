@@ -28,5 +28,61 @@ public class Order {
             cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
             mappedBy = "order"
     )
-    private Set<OrderItem> orderItems = new HashSet<>();
+    private Set<OrderItem> orderItems;
+
+    public Order(Integer id, Customer customer, BigDecimal total, LocalDate orderDate) {
+        this.id = id;
+        this.customer = customer;
+        this.total = total;
+        this.orderDate = orderDate;
+    }
+
+    public Order() {
+    }
+
+    @Override
+    public String toString() {
+        return "Bestellung{" +
+                "id=" + id +
+                ", kunde=" + customer +
+                ", gesamtbetrag=" + total +
+                ", bestelldatum=" + orderDate +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 }

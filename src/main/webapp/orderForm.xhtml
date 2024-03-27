@@ -6,6 +6,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <h:head>
+        <title>Bestellformular</title>
+    </h:head>
+    <h:body>
+        <h:form immediate="true">
+            <h:commandButton value="Zurück" action="#{orderForm.navigateToHomePage()}"/>
+        </h:form>
+        <h:form>
+            <h:outputLabel for="customerID" value="KundeID: "/>
+            <h:inputText id="customerID" value="#{orderForm.customerId}"/>
+            <br></br>
+            <h:outputLabel for="total" value="Gesamtbetrag: "/>
+            <h:inputText id="total" value="#{orderForm.total}"/>
+            <br></br>
+            <h:outputLabel for="orderDate" value="Bestelldatum: "/>
+            <h:inputText id="orderDate" value="#{orderForm.orderDate}"/>
+            <br></br>
+            <h:commandButton value="Speichern" action="#{orderForm.save}"/>
+        </h:form>
+    </h:body>
 </f:view>
 </html>

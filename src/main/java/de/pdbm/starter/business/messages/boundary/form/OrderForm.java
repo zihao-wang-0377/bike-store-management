@@ -1,0 +1,83 @@
+package de.pdbm.starter.business.messages.boundary.form;
+
+import de.pdbm.starter.business.messages.control.ProductService;
+import de.pdbm.starter.business.messages.control.CustomerService;
+import de.pdbm.starter.business.messages.control.OrderService;
+import de.pdbm.starter.business.messages.entity.Order;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Named
+@ViewScoped
+public class OrderForm implements Serializable {
+    @Inject
+    OrderService orderService;
+
+    @Inject
+    CustomerService customerService;
+
+    @Inject
+    ProductService productService;
+
+    @NotNull(message = "KundeID kann nicht leer sein")
+    private Integer customerId;
+
+    @NotNull(message = "Gesamtbetrag kann nicht leer sein")
+    private BigDecimal total;
+
+    @NotNull(message = "Bestelldatum kann nicht leer sein")
+    private LocalDate orderDate;
+
+    public OrderForm() {
+    }
+
+    public void save() {
+        if (customerService.findById(customerId) == null) {
+            throw new IllegalArgumentException("Kunde mit ID " + customerId + " nicht gefunden");
+        }
+
+        Order order = new Order();
+        order.setCustomer(customerService.findById(customerId));
+        order.setTotal(total);
+        order.setOrderDate(orderDate);
+
+        orderService.save(order);
+        setCustomerId(null);
+        setTotal(null);
+        setOrderDate(null);
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String navigateToHomePage() {
+        return "homePage.xhtml";
+    }
+}

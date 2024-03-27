@@ -11,7 +11,6 @@ public class OrderItem implements Serializable {
     @Column(name = "order_item_id")
     private Integer id;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -20,12 +19,17 @@ public class OrderItem implements Serializable {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     private Integer quantity;
 
-    public OrderItem(Integer id, Order order, Customer customer, Integer quantity) {
+    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
         this.id = id;
         this.order = order;
         this.customer = customer;
+        this.product = product;
         this.quantity = quantity;
     }
 
@@ -34,11 +38,12 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        return "OderItem{" +
+        return "Bestellposition{" +
                 "id=" + id +
-                ", order=" + order +
-                ", customer=" + customer +
-                ", quantity=" + quantity +
+                ", bestellung=" + order +
+                ", kunde=" + customer +
+                ", produkt=" + product +
+                ", anzahl=" + quantity +
                 '}';
     }
 
@@ -64,6 +69,14 @@ public class OrderItem implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {

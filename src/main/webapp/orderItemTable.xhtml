@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <title>Bestellpositionstabelle</title>
+    </h:head>
+    <h:body>
+        <h:form immediate="true">
+            <h:commandButton value="Zurück" action="#{orderItemTable.navigateToHomePage()}"/>
+        </h:form>
+        <h:dataTable value="#{orderItemTable.orderItems}" var="orderItem">
+            <h:column>
+                <f:facet name="header">BestellpositionID</f:facet>
+                <h:outputText value="#{orderItem.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bestellnummer</f:facet>
+                <h:outputText value="#{orderItem.order}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Kundennummer</f:facet>
+                <h:outputText value="#{orderItem.customer}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ProduktID</f:facet>
+                <h:outputText value="#{orderItem.product}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Anzahl</f:facet>
+                <h:outputText value="#{orderItem.quantity}"/>
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</f:view>
+</html>
