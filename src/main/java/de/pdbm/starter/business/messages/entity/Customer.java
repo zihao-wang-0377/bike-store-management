@@ -10,8 +10,11 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
-    @Column(name = "customer_name")
-    private String name;
+    @Column(name = "customer_firstname")
+    private String firstname;
+
+    @Column(name = "customer_lastname")
+    private String lastname;
 
     private String address;
 
@@ -19,9 +22,10 @@ public class Customer {
 
     private String email;
 
-    public Customer(Integer id, String name, String address, String phone, String email) {
+    public Customer(Integer id, String firstname, String lastname, String address, String phone, String email) {
         this.id = id;
-        this.name = name;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
         this.phone = phone;
         this.email = email;
@@ -32,11 +36,12 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Kunde{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
+                ", vorname='" + firstname + '\'' +
+                ", nachname='" + lastname + '\'' +
+                ", adresse='" + address + '\'' +
+                ", telefonnummer='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
@@ -49,12 +54,20 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getAddress() {
