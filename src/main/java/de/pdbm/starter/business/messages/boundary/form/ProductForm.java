@@ -2,9 +2,7 @@ package de.pdbm.starter.business.messages.boundary.form;
 
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Product;
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
@@ -60,5 +58,9 @@ public class ProductForm implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String navigateToHomePage() {
+        return "homePage.xhtml";
     }
 }

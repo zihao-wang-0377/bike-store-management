@@ -2,7 +2,6 @@ package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Product;
-import jakarta.faces.annotation.View;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -18,5 +17,9 @@ public class ProductTable implements Serializable {
 
     public List<Product> getProducts() {
         return productService.findAll();
+    }
+
+    public String navigateToHomePage() {
+        return "homePage.xhtml";
     }
 }

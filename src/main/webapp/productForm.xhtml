@@ -10,6 +10,9 @@
         <title>Produktformular</title>
     </h:head>
     <h:body>
+        <h:form immediate="true">
+            <h:commandButton value="Zurück" action="#{productForm.navigateToHomePage()}"/>
+        </h:form>
         <h:form>
             <h:outputLabel for="name" value="Name: "/>
             <h:inputText id="name" value="#{productForm.name}"/>
