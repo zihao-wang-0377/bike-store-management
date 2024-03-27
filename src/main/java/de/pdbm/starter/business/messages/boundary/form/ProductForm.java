@@ -2,7 +2,7 @@ package de.pdbm.starter.business.messages.boundary.form;
 
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Product;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class ProductForm implements Serializable {
     @Inject
     ProductService productService;
