@@ -21,7 +21,9 @@
             <h:inputText id="total" value="#{orderForm.total}"/>
             <br></br>
             <h:outputLabel for="orderDate" value="Bestelldatum: "/>
-            <h:inputText id="orderDate" value="#{orderForm.orderDate}"/>
+            <h:inputText id="orderDate" value="#{orderForm.orderDate}">
+                <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+            </h:inputText>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderForm.save}"/>
         </h:form>

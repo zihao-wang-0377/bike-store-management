@@ -1,6 +1,5 @@
 package de.pdbm.starter.business.messages.boundary.form;
 
-import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.control.CustomerService;
 import de.pdbm.starter.business.messages.control.OrderService;
 import de.pdbm.starter.business.messages.entity.Order;
@@ -21,9 +20,6 @@ public class OrderForm implements Serializable {
 
     @Inject
     CustomerService customerService;
-
-    @Inject
-    ProductService productService;
 
     @NotNull(message = "KundeID kann nicht leer sein")
     private Integer customerId;
@@ -50,7 +46,7 @@ public class OrderForm implements Serializable {
         orderService.save(order);
         setCustomerId(null);
         setTotal(null);
-        setOrderDate(null);
+//        setOrderDate(null);
     }
 
     public Integer getCustomerId() {

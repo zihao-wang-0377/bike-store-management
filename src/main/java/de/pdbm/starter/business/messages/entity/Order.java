@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,6 +30,7 @@ public class Order {
     private Set<OrderItem> orderItems;
 
     public Order(Integer id, Customer customer, BigDecimal total, LocalDate orderDate) {
+//    public Order(Integer id, Customer customer, BigDecimal total) {
         this.id = id;
         this.customer = customer;
         this.total = total;
