@@ -8,12 +8,13 @@
 <f:view>
     <h:head>
         <title>Bestellpositionstabelle</title>
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderItemTable.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{orderItemTable.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
-        <h:dataTable value="#{orderItemTable.orderItems}" var="orderItem">
+        <h:dataTable value="#{orderItemTable.orderItems}" var="orderItem" styleClass="order-table">
             <h:column>
                 <f:facet name="header">BestellpositionID</f:facet>
                 <h:outputText value="#{orderItem.id}"/>

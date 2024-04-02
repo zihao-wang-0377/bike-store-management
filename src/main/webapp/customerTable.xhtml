@@ -8,12 +8,13 @@
 <f:view>
     <h:head>
         <title>Kundentabelle</title>
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerTable.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{customerTable.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
-        <h:dataTable value="#{customerTable.customers}" var="product">
+        <h:dataTable value="#{customerTable.customers}" var="product" styleClass="order-table">
             <h:column>
                 <f:facet name="header">KundeID</f:facet>
                 #{product.id}

@@ -8,12 +8,13 @@
 <f:view>
     <h:head>
         <title>Bestellungstabelle</title>
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
-    <h:body>
+    <body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderTable.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{orderTable.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
-        <h:dataTable value="#{orderTable.orders}" var="order">
+        <h:dataTable value="#{orderTable.orders}" var="order" styleClass="order-table">
             <h:column>
                 <f:facet name="header">Bestellnummer</f:facet>
                 #{order.id}
@@ -31,6 +32,6 @@
                 #{order.orderDate}
             </h:column>
         </h:dataTable>
-    </h:body>
+    </body>
 </f:view>
 </html>
