@@ -26,6 +26,9 @@
             <h:inputText id="orderDate" value="#{orderForm.orderDate}">
                 <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
             </h:inputText>
+            <h:commandButton value="Heute" action="#{orderForm.setOrderDateToToday()}" styleClass="today-button">
+                <f:ajax render="orderDate"/>
+            </h:commandButton>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderForm.save}" styleClass="save-button"/>
         </h:form>

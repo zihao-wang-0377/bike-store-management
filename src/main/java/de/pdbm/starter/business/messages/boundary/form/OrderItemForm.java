@@ -8,6 +8,7 @@ import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -37,6 +38,7 @@ public class OrderItemForm implements Serializable {
     private Integer productId;
 
     @NotNull(message = "Anzahl kann nicht leer sein")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Anzahl muss größer als 0 sein")
     private Integer quantity;
 
     public OrderItemForm() {

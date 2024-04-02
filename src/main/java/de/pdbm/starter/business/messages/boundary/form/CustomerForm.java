@@ -5,10 +5,11 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -16,19 +17,21 @@ public class CustomerForm implements Serializable {
     @Inject
     CustomerService customerService;
 
-    @NotNull(message = "Vorname kann nicht leer sein")
+    @NotBlank(message = "Vorname kann nicht leer sein")
     private String firstname;
 
-    @NotNull(message = "Nachname kann nicht leer sein")
+    @NotBlank(message = "Nachname kann nicht leer sein")
     private String lastname;
 
-    @NotNull(message = "Adresse kann nicht leer sein")
+    @NotBlank(message = "Adresse kann nicht leer sein")
     private String address;
 
-    @NotNull(message = "Telefonnummer kann nicht leer sein")
+    @NotBlank(message = "Telefonnummer kann nicht leer sein")
+    @Pattern(regexp = "\\d+", message = "Telefonnummer kann nur Zahlen enthalten")
     private String phone;
 
-    @NotNull(message = "E-Mail kann nicht leer sein")
+    @NotBlank(message = "E-Mail kann nicht leer sein")
+    @Email(message = "Ungültige E-Mail-Adresse")
     private String email;
 
     public CustomerForm() {

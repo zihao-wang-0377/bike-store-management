@@ -5,6 +5,8 @@ import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -16,10 +18,13 @@ public class ProductForm implements Serializable {
     @Inject
     ProductService productService;
 
-    @NotNull(message = "Name kann nicht leer sein")
+    @NotBlank(message = "Name kann nicht leer sein")
     private String name;
+
     @NotNull(message = "Preis kann nicht leer sein")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Preis muss größer als 0 sein")
     private BigDecimal price;
+
     private String description;
 
     public ProductForm() {

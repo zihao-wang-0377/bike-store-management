@@ -35,3 +35,13 @@ input[type="text"] {
     font-size: 14px;
     text-align: center;
 }
+
+.today-button {
+    margin: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    height: 35px;
+    font-size: 14px;
+    text-align: center;
+    -webkit-appearance: none;
+}

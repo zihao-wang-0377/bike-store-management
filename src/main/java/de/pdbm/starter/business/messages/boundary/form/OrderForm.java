@@ -6,7 +6,7 @@ import de.pdbm.starter.business.messages.entity.Order;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -25,6 +25,8 @@ public class OrderForm implements Serializable {
     private Integer customerId;
 
     @NotNull(message = "Gesamtbetrag kann nicht leer sein")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Gesamtbetrag muss größer als 0 sein")
+    @Digits(integer = 10, fraction = 2, message = "Gesamtbetrag muss eine Dezimalzahl mit maximal 10 Ziffern insgesamt und 2 Dezimalstellen sein")
     private BigDecimal total;
 
     @NotNull(message = "Bestelldatum kann nicht leer sein")
@@ -46,7 +48,7 @@ public class OrderForm implements Serializable {
         orderService.save(order);
         setCustomerId(null);
         setTotal(null);
-//        setOrderDate(null);
+        setOrderDate(null);
     }
 
     public Integer getCustomerId() {
@@ -71,6 +73,10 @@ public class OrderForm implements Serializable {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public void setOrderDateToToday() {
+        this.orderDate = LocalDate.now();
     }
 
     public String navigateToHomePage() {
