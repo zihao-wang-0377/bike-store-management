@@ -32,12 +32,15 @@ public class OrderForm implements Serializable {
     @NotNull(message = "Bestelldatum kann nicht leer sein")
     private LocalDate orderDate;
 
+    private String errorMessage;
+
     public OrderForm() {
     }
 
     public void save() {
         if (customerService.findById(customerId) == null) {
-            throw new IllegalArgumentException("Kunde mit ID " + customerId + " nicht gefunden");
+            setErrorMessage("• Kunde mit ID " + customerId + " nicht gefunden");
+            return;
         }
 
         Order order = new Order();
@@ -49,6 +52,16 @@ public class OrderForm implements Serializable {
         setCustomerId(null);
         setTotal(null);
         setOrderDate(null);
+    }
+
+    public String getErrorMessage() {
+        // 返回 errorMessage 属性的值
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        // 设置 errorMessage 属性的值
+        this.errorMessage = errorMessage;
     }
 
     public Integer getCustomerId() {

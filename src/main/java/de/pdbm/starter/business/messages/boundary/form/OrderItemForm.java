@@ -5,6 +5,8 @@ import de.pdbm.starter.business.messages.control.OrderItemService;
 import de.pdbm.starter.business.messages.control.OrderService;
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.OrderItem;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -41,18 +43,23 @@ public class OrderItemForm implements Serializable {
     @DecimalMin(value = "0.0", inclusive = false, message = "Anzahl muss größer als 0 sein")
     private Integer quantity;
 
+    private String errorMessage;
+
     public OrderItemForm() {
     }
 
     public void save() {
         if (orderService.findById(orderId) == null) {
-            throw new IllegalArgumentException("Bestellnummer " + orderId + " nicht gefunden");
+            setErrorMessage("• Bestellnummer " + orderId + " nicht gefunden");
+            return;
         }
         if (customerService.findById(customerId) == null) {
-            throw new IllegalArgumentException("Kunde mit ID " + customerId + " nicht gefunden");
+            setErrorMessage("• Kunde mit ID " + customerId + " nicht gefunden");
+            return;
         }
         if (productService.findById(productId) == null) {
-            throw new IllegalArgumentException("Produkt mit ID " + productId + " nicht gefunden");
+            setErrorMessage("• Produkt mit ID " + productId + " nicht gefunden");
+            return;
         }
 
         OrderItem orderItem = new OrderItem();
@@ -65,6 +72,16 @@ public class OrderItemForm implements Serializable {
         setCustomerId(null);
         setProductId(null);
         setQuantity(null);
+    }
+
+    public String getErrorMessage() {
+        // 返回 errorMessage 属性的值
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        // 设置 errorMessage 属性的值
+        this.errorMessage = errorMessage;
     }
 
     public Integer getOrderId() {

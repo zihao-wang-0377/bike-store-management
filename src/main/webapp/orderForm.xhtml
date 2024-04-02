@@ -31,6 +31,10 @@
             </h:commandButton>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderForm.save}" styleClass="save-button"/>
+            <br></br>
+            <div style="margin-top: 10px;">
+                <h:outputText id="errorMessage" value="#{orderForm.errorMessage}" rendered="#{not empty orderForm.errorMessage}" styleClass="error-message" />
+            </div>
         </h:form>
     </h:body>
 </f:view>

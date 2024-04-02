@@ -29,6 +29,10 @@
             <h:inputText id="quantity" value="#{orderItemForm.quantity}"/>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderItemForm.save()}" styleClass="save-button"/>
+            <br></br>
+            <div style="margin-top: 10px;">
+                <h:outputText id="errorMessage" value="#{orderForm.errorMessage}" rendered="#{not empty orderForm.errorMessage}" styleClass="error-message" />
+            </div>
         </h:form>
     </h:body>
 </f:view>
