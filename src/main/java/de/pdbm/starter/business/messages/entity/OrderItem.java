@@ -54,6 +54,10 @@ public class OrderItem {
         this.id = id;
     }
 
+    public Integer getOrderId() {
+        return order.getId();
+    }
+
     public Order getOrder() {
         return order;
     }
@@ -62,12 +66,20 @@ public class OrderItem {
         this.order = order;
     }
 
+    public Integer getCustomerId() {
+        return customer.getId();
+    }
+
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Integer getProductId() {
+        return product.getId();
     }
 
     public Product getProduct() {

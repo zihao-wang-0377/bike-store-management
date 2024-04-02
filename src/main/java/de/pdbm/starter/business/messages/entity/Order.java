@@ -58,6 +58,10 @@ public class Order {
         this.id = id;
     }
 
+    public Integer getCustomerId() {
+        return customer.getId();
+    }
+
     public Customer getCustomer() {
         return customer;
     }
