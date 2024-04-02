@@ -11,6 +11,27 @@ input[type="text"] {
     margin-bottom: 10px;
 }
 
+.back-button {
+    background-image: url('../svg/left.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+}
+
 .save-button {
     margin-left: 110px;
+    background-image: url('../svg/save.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
 }

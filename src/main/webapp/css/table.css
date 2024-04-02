@@ -22,3 +22,15 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
+.back-button {
+    background-image: url('../svg/left.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+}
