@@ -20,6 +20,6 @@ public class OrderTable implements Serializable {
     }
 
     public String navigateToHomePage() {
-        return "homePage.xhtml";
+        return "homePage.xhtml?faces-redirect=true";
     }
 }
