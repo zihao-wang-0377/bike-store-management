@@ -17,7 +17,7 @@
             <h:outputLabel for="orderID" value="Bestellnummer: "/>
             <h:inputText id="orderID" value="#{orderItemForm.orderId}"/>
             <br></br>
-            <h:outputLabel for="customerID" value="Kundennummer: "/>
+            <h:outputLabel for="customerID" value="KundeID: "/>
             <h:inputText id="customerID" value="#{orderItemForm.customerId}"/>
             <br></br>
             <h:outputLabel for="productID" value="ProduktID: "/>
@@ -26,7 +26,7 @@
             <h:outputLabel for="quantity" value="Anzahl: "/>
             <h:inputText id="quantity" value="#{orderItemForm.quantity}"/>
             <br></br>
-            <h:commandButton value="Bestellung hinzufügen" action="#{orderItemForm.save()}"/>
+            <h:commandButton value="Speichern" action="#{orderItemForm.save()}"/>
         </h:form>
     </h:body>
 </f:view>

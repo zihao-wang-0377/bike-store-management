@@ -2,12 +2,11 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "order_items")
-public class OrderItem implements Serializable {
+public class OrderItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_item_id")
     private Integer id;
 

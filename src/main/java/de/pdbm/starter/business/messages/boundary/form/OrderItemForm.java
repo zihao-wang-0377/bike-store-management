@@ -2,6 +2,7 @@ package de.pdbm.starter.business.messages.boundary.form;
 
 import de.pdbm.starter.business.messages.control.CustomerService;
 import de.pdbm.starter.business.messages.control.OrderItemService;
+import de.pdbm.starter.business.messages.control.OrderService;
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.faces.view.ViewScoped;
@@ -16,6 +17,9 @@ import java.io.Serializable;
 public class OrderItemForm implements Serializable {
     @Inject
     OrderItemService orderItemService;
+
+    @Inject
+    OrderService orderService;
 
     @Inject
     CustomerService customerService;
@@ -39,12 +43,26 @@ public class OrderItemForm implements Serializable {
     }
 
     public void save() {
+        if (orderService.findById(orderId) == null) {
+            throw new IllegalArgumentException("Bestellnummer " + orderId + " nicht gefunden");
+        }
+        if (customerService.findById(customerId) == null) {
+            throw new IllegalArgumentException("Kunde mit ID " + customerId + " nicht gefunden");
+        }
+        if (productService.findById(productId) == null) {
+            throw new IllegalArgumentException("Produkt mit ID " + productId + " nicht gefunden");
+        }
+
         OrderItem orderItem = new OrderItem();
-        orderItem.setId(orderId);
+        orderItem.setOrder(orderService.findById(orderId));
         orderItem.setCustomer(customerService.findById(customerId));
         orderItem.setProduct(productService.findById(productId));
         orderItem.setQuantity(quantity);
         orderItemService.save(orderItem);
+        setOrderId(null);
+        setCustomerId(null);
+        setProductId(null);
+        setQuantity(null);
     }
 
     public Integer getOrderId() {
