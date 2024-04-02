@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 import java.util.Set;
 
 @Entity
@@ -81,7 +84,14 @@ public class Order {
     public LocalDate getOrderDate() {
         return orderDate;
     }
-
+    public String getLocalizedOrderDate() {
+        if (orderDate == null) {
+            return "";
+        }
+        Locale locale = Locale.GERMANY; // Deutsch (Deutschland)
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale);
+        return orderDate.format(formatter);
+    }
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }

@@ -24,7 +24,7 @@
             <br></br>
             <h:outputLabel for="orderDate" value="Bestelldatum: "/>
             <h:inputText id="orderDate" value="#{orderForm.orderDate}">
-                <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" locale="de_DE"/>
             </h:inputText>
             <h:commandButton value="Heute" action="#{orderForm.setOrderDateToToday()}" styleClass="today-button">
                 <f:ajax render="orderDate"/>
