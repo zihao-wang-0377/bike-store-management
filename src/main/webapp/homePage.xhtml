@@ -13,16 +13,16 @@
     <h:body>
         <h:form>
             <h1>Anzeigen</h1>
-            <h:commandButton value="Produkttabelle" action="productTable" styleClass="button"/>
-            <h:commandButton value="Kundentabelle" action="customerTable" styleClass="button"/>
-            <h:commandButton value="Bestellungstabelle" action="orderTable" styleClass="button"/>
-            <h:commandButton value="Bestellpositionstabelle" action="orderItemTable" styleClass="button"/>
+            <h:commandButton value="Produkttabelle" action="productTable?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Kundentabelle" action="customerTable?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Bestellungstabelle" action="orderTable?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Bestellpositionstabelle" action="orderItemTable?faces-redirect=true" styleClass="button"/>
             <br></br>
             <h1>Anlegen</h1>
-            <h:commandButton value="Produktformular" action="productForm" styleClass="button"/>
-            <h:commandButton value="Kundenformular" action="customerForm" styleClass="button"/>
-            <h:commandButton value="Bestellformular" action="orderForm" styleClass="button"/>
-            <h:commandButton value="Bestellpositionsformular" action="orderItemForm" styleClass="button"/>
+            <h:commandButton value="Produktformular" action="productForm?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Kundenformular" action="customerForm?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Bestellformular" action="orderForm?faces-redirect=true" styleClass="button"/>
+            <h:commandButton value="Bestellpositionsformular" action="orderItemForm?faces-redirect=true" styleClass="button"/>
        </h:form>
     </h:body>
 </f:view>
