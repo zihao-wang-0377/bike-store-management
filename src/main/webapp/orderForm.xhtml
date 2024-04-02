@@ -8,11 +8,13 @@
 <f:view>
     <h:head>
         <title>Bestellformular</title>
+        <link rel="stylesheet" type="text/css" href="css/form.css"/>
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderForm.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{orderForm.navigateToHomePage()}" styleClass="back-button"/>
         </h:form>
+        <h1>Neue Bestellung anlegen</h1>
         <h:form>
             <h:outputLabel for="customerID" value="KundeID: "/>
             <h:inputText id="customerID" value="#{orderForm.customerId}"/>
@@ -25,7 +27,7 @@
                 <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
             </h:inputText>
             <br></br>
-            <h:commandButton value="Speichern" action="#{orderForm.save}"/>
+            <h:commandButton value="Speichern" action="#{orderForm.save}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

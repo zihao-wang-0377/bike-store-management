@@ -8,11 +8,13 @@
 <f:view>
     <h:head>
         <title>Bestellpositionsformular</title>
+        <link rel="stylesheet" type="text/css" href="css/form.css"/>
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderItemForm.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{orderItemForm.navigateToHomePage()}" styleClass="back-button"/>
         </h:form>
+        <h1>Neue Bestellposition anlegen</h1>
         <h:form>
             <h:outputLabel for="orderID" value="Bestellnummer: "/>
             <h:inputText id="orderID" value="#{orderItemForm.orderId}"/>
@@ -26,7 +28,7 @@
             <h:outputLabel for="quantity" value="Anzahl: "/>
             <h:inputText id="quantity" value="#{orderItemForm.quantity}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{orderItemForm.save()}"/>
+            <h:commandButton value="Speichern" action="#{orderItemForm.save()}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

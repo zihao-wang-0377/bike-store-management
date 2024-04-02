@@ -8,11 +8,13 @@
 <f:view>
     <h:head>
         <title>Kundenformular</title>
+        <link rel="stylesheet" type="text/css" href="css/form.css"/>
     </h:head>
     <h:body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerForm.navigateToHomePage()}"/>
+        <h:form>
+            <h:commandButton value="Zurück" action="#{customerForm.navigateToHomePage()}" immediate="true" styleClass="back-button"/>
         </h:form>
+        <h1>Neues Produkt anlegen</h1>
         <h:form>
             <h:outputLabel for="vorname">Vorname:</h:outputLabel>
             <h:inputText id="vorname" value="#{customerForm.firstname}"/>
@@ -29,7 +31,7 @@
             <h:outputLabel for="email">E-Mail:</h:outputLabel>
             <h:inputText id="email" value="#{customerForm.email}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{customerForm.save()}"/>
+            <h:commandButton value="Speichern" action="#{customerForm.save()}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

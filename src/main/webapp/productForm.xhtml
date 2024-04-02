@@ -8,11 +8,13 @@
 <f:view>
     <h:head>
         <title>Produktformular</title>
+        <link rel="stylesheet" type="text/css" href="css/form.css"/>
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{productForm.navigateToHomePage()}"/>
+            <h:commandButton value="Zurück" action="#{productForm.navigateToHomePage()}" styleClass="back-button"/>
         </h:form>
+        <h1>Neuen Kunden anlegen</h1>
         <h:form>
             <h:outputLabel for="name" value="Name: "/>
             <h:inputText id="name" value="#{productForm.name}"/>
@@ -23,7 +25,7 @@
             <h:outputLabel for="description" value="Beschreibung: "/>
             <h:inputTextarea id="description" value="#{productForm.description}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{productForm.save}"/>
+            <h:commandButton value="Speichern" action="#{productForm.save}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>
