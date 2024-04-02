@@ -41,6 +41,8 @@ public class OrderForm implements Serializable {
         if (customerService.findById(customerId) == null) {
             setErrorMessage("• Kunde mit ID " + customerId + " nicht gefunden");
             return;
+        } else {
+            setErrorMessage(null);
         }
 
         Order order = new Order();

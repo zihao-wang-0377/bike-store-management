@@ -43,22 +43,32 @@ public class OrderItemForm implements Serializable {
     @DecimalMin(value = "0.0", inclusive = false, message = "Anzahl muss größer als 0 sein")
     private Integer quantity;
 
-    private String errorMessage;
+    private String errorMessage1;
+
+    private String errorMessage2;
+
+    private String errorMessage3;
 
     public OrderItemForm() {
     }
 
     public void save() {
         if (orderService.findById(orderId) == null) {
-            setErrorMessage("• Bestellnummer " + orderId + " nicht gefunden");
-            return;
+            setErrorMessage1("• Bestellung mit Bestellnummer " + orderId + " nicht gefunden");
+        } else {
+            setErrorMessage1(null);
         }
         if (customerService.findById(customerId) == null) {
-            setErrorMessage("• Kunde mit ID " + customerId + " nicht gefunden");
-            return;
+            setErrorMessage2("• Kunde mit ID " + customerId + " nicht gefunden");
+        } else {
+            setErrorMessage2(null);
         }
         if (productService.findById(productId) == null) {
-            setErrorMessage("• Produkt mit ID " + productId + " nicht gefunden");
+            setErrorMessage3("• Produkt mit ID " + productId + " nicht gefunden");
+        } else {
+            setErrorMessage3(null);
+        }
+        if (getErrorMessage1() != null || getErrorMessage2() != null || getErrorMessage3() != null) {
             return;
         }
 
@@ -74,14 +84,34 @@ public class OrderItemForm implements Serializable {
         setQuantity(null);
     }
 
-    public String getErrorMessage() {
+    public String getErrorMessage1() {
         // 返回 errorMessage 属性的值
-        return errorMessage;
+        return errorMessage1;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage1(String errorMessage1) {
         // 设置 errorMessage 属性的值
-        this.errorMessage = errorMessage;
+        this.errorMessage1 = errorMessage1;
+    }
+
+    public String getErrorMessage2() {
+        // 返回 errorMessage 属性的值
+        return errorMessage2;
+    }
+
+    public void setErrorMessage2(String errorMessage2) {
+        // 设置 errorMessage 属性的值
+        this.errorMessage2 = errorMessage2;
+    }
+
+    public String getErrorMessage3() {
+        // 返回 errorMessage 属性的值
+        return errorMessage3;
+    }
+
+    public void setErrorMessage3(String errorMessage3) {
+        // 设置 errorMessage 属性的值
+        this.errorMessage3 = errorMessage3;
     }
 
     public Integer getOrderId() {
