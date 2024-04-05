@@ -8,38 +8,50 @@
 <f:view>
     <h:head>
         <title>Kundentabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css" />
+<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerTable.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
         <h1>Kunden</h1>
-        <h:dataTable value="#{customerTable.customers}" var="product" styleClass="order-table">
+        <h:dataTable value="#{customerController.customerList}" var="customer" styleClass="order-table">
             <h:column>
                 <f:facet name="header">KundeID</f:facet>
-                #{product.id}
+                #{customer.id}
             </h:column>
             <h:column>
-                <f:facet name="header">Vorname</f:facet>
-                #{product.firstname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nachname</f:facet>
-                #{product.lastname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Adresse</f:facet>
-                #{product.address}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Telefonnummer</f:facet>
-                #{product.phone}
+                <f:facet name="header">Stadt</f:facet>
+                #{customer.city}
             </h:column>
             <h:column>
                 <f:facet name="header">Email</f:facet>
-                #{product.email}
+                #{customer.email}
             </h:column>
+            <h:column>
+                <f:facet name="header">Vorname</f:facet>
+                #{customer.firstname}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nachname</f:facet>
+                #{customer.lastname}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telefonnummer</f:facet>
+                #{customer.phone}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Staat</f:facet>
+                #{customer.state}
+            </h:column>
+            <h:column>
+            <f:facet name="header">Straße</f:facet>
+            #{customer.street}
+        </h:column>
+            <h:column>
+            <f:facet name="header">Postleitzahl</f:facet>
+            #{customer.zipcode}
+        </h:column>
         </h:dataTable>
     </h:body>
 </f:view>
