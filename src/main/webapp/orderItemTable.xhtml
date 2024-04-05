@@ -12,10 +12,10 @@
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderItemTable.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Zurück" action="#{orderItemController.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
         <h1>Bestellpositionen</h1>
-        <h:dataTable value="#{orderItemTable.orderItems}" var="orderItem" styleClass="order-table">
+        <h:dataTable value="#{orderItemController.orderItemList}" var="orderItem" styleClass="order-table">
             <h:column>
                 <f:facet name="header">BestellpositionID</f:facet>
                 <h:outputText value="#{orderItem.id}"/>
@@ -25,16 +25,20 @@
                 <h:outputText value="#{orderItem.orderId}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">KundeID</f:facet>
-                <h:outputText value="#{orderItem.customerId}"/>
+                <f:facet name="header">Rabatte</f:facet>
+                <h:outputText value="#{orderItem.discount}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">ProduktID</f:facet>
-                <h:outputText value="#{orderItem.productId}"/>
+                <f:facet name="header">ListenPreis</f:facet>
+                <h:outputText value="#{orderItem.price}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">Anzahl</f:facet>
                 <h:outputText value="#{orderItem.quantity}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ProduktNummer</f:facet>
+                <h:outputText value="#{orderItem.productId}"/>
             </h:column>
         </h:dataTable>
     </h:body>
