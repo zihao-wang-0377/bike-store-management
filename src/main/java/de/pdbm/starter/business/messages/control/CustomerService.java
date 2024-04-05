@@ -21,15 +21,19 @@ public class CustomerService implements Serializable {
     }
 
     public List<Customer> findAll(){
+        // Erstelle eine Abfrage, um alle Kunden aus der Datenbank abzurufen
         TypedQuery<Customer> query = em.createQuery(
                 "select c from Customer c ", Customer.class
         );
+
         return query.getResultList();
     }
 
     public Customer findById(Integer id){
+        // Suche einen Kunden in der Datenbank anhand seiner ID
         return em.find(Customer.class, id);
     }
+
 
     public void delete(Customer customer) {
         em.remove(customer);
