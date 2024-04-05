@@ -39,19 +39,25 @@ public class CustomerForm implements Serializable {
     }
 
     public void save() {
+        // Objekt wird erstellt und setze Vorname, Nachname, Adresse, Telefon und E-Mail gesetzt
         Customer customer = new Customer();
         customer.setFirstname(firstname);
         customer.setLastname(lastname);
         customer.setAddress(address);
         customer.setPhone(phone);
         customer.setEmail(email);
+
+        // Speichere den Kunden über den customerService
         customerService.save(customer);
+
+        // Setze die Eingaben für Vorname, Nachname, Adresse, Telefon und E-Mail zurück
         setFirstname(null);
         setLastname(null);
         setAddress(null);
         setPhone(null);
         setEmail(null);
     }
+
 
     public String getFirstname() {
         return firstname;
