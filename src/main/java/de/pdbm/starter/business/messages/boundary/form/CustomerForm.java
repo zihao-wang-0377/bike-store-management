@@ -41,7 +41,7 @@ public class CustomerForm implements Serializable {
         Customer customer = new Customer();
         customer.setFirstname(firstname);
         customer.setLastname(lastname);
-        customer.setAddress(address);
+//        customer.setAddress(address);
         customer.setPhone(phone);
         customer.setEmail(email);
         customerService.save(customer);

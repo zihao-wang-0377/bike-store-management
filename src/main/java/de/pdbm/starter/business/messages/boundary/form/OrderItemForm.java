@@ -74,7 +74,7 @@ public class OrderItemForm implements Serializable {
 
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(orderService.findById(orderId));
-        orderItem.setCustomer(customerService.findById(customerId));
+//        orderItem.setCustomer(customerService.findById(customerId));
         orderItem.setProduct(productService.findById(productId));
         orderItem.setQuantity(quantity);
         orderItemService.save(orderItem);
