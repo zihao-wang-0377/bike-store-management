@@ -8,30 +8,46 @@
 <f:view>
     <h:head>
         <title>Bestellungstabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css" />
+<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
     </h:head>
     <body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderTable.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Zurück" action="#{orderController.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
         <h1>Bestellungen</h1>
-        <h:dataTable value="#{orderTable.orders}" var="order" styleClass="order-table">
+        <h:dataTable value="#{orderController.orderList}" var="order" styleClass="order-table">
             <h:column>
                 <f:facet name="header">Bestellnummer</f:facet>
                 #{order.id}
             </h:column>
             <h:column>
-                <f:facet name="header">KundeID</f:facet>
-                #{order.customerId}
+                <f:facet name="header">Bestlldatum</f:facet>
+                #{order.orderDate}
             </h:column>
             <h:column>
-                <f:facet name="header">Gesamtbetrag</f:facet>
-                #{order.total}
+                <f:facet name="header">BestellungZustand</f:facet>
+                #{order.oderStatus}
             </h:column>
             <h:column>
-                <f:facet name="header">Bestelldatum</f:facet>
-                #{order.localizedOrderDate}
+                <f:facet name="header">Erwartetes Lieferdatum</f:facet>
+                #{order.requiredDate}
             </h:column>
+            <h:column>
+                <f:facet name="header">Versanddatum</f:facet>
+                #{order.shippedDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Kunden-ID </f:facet>
+                #{order.customer.id}
+            </h:column>
+<!--            <h:column>-->
+<!--                <f:facet name="header"> Mitarbeiter-ID</f:facet>-->
+<!--             staffkalssen soll noch machen um die Id holen   #{order.staff}-->
+<!--            </h:column>-->
+<!-- so bei store klassen           <h:column>-->
+<!--                <f:facet name="header">Geschäfts-ID</f:facet>-->
+<!--                #{order.store}-->
+<!--            </h:column>-->
         </h:dataTable>
     </body>
 </f:view>

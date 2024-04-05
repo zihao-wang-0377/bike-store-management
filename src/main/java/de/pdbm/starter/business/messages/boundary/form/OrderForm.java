@@ -47,7 +47,7 @@ public class OrderForm implements Serializable {
 
         Order order = new Order();
         order.setCustomer(customerService.findById(customerId));
-        order.setTotal(total);
+//        order.setTotal(total);
         order.setOrderDate(orderDate);
 
         orderService.save(order);
