@@ -28,8 +28,7 @@ public class OrderService implements Serializable {
     }
 
     public Order findById(Integer id){
-        Order order = em.find(Order.class, id);
-        return order;
+        return em.find(Order.class, id);
     }
 
     public void delete(Order order) {

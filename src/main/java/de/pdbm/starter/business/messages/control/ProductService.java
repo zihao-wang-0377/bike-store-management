@@ -28,8 +28,7 @@ public class ProductService implements Serializable {
     }
 
     public Product findById(Integer id){
-        Product product = em.find(Product.class, id);
-        return product;
+        return em.find(Product.class, id);
     }
 
     public Product findByName(String name) {

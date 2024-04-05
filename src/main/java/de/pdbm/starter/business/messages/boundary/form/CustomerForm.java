@@ -17,22 +17,22 @@ public class CustomerForm implements Serializable {
     @Inject
     CustomerService customerService;
 
-    @NotBlank(message = "Vorname kann nicht leer sein")
+    @NotBlank(message = "Vorname darf nicht leer sein!")
     private String firstname;
 
-    @NotBlank(message = "Nachname kann nicht leer sein")
+    @NotBlank(message = "Nachname darf nicht leer sein!")
     private String lastname;
 
-    @NotBlank(message = "Adresse kann nicht leer sein")
+    @NotBlank(message = "Adresse darf nicht leer sein!")
     private String address;
 
-    @NotBlank(message = "Telefonnummer kann nicht leer sein")
-    @Pattern(regexp = "\\d+", message = "Telefonnummer kann nur Zahlen enthalten")
+    @NotBlank(message = "Telefonnummer darf nicht leer sein!")
+    @Pattern(regexp = "\\d+", message = "Telefonnummer kann nur Zahlen enthalten!")
     private String phone;
 
-    @NotBlank(message = "E-Mail kann nicht leer sein")
+    @NotBlank(message = "E-Mail darf nicht leer sein!")
     //@Email(message = "Ungültige E-Mail-Adresse")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Ungültige E-Mail-Adresse")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Ungültige E-Mail-Adresse!")
     private String email;
 
     public CustomerForm() {

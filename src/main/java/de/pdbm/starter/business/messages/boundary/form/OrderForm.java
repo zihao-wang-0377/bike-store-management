@@ -21,15 +21,15 @@ public class OrderForm implements Serializable {
     @Inject
     CustomerService customerService;
 
-    @NotNull(message = "KundeID kann nicht leer sein")
+    @NotNull(message = "KundeID darf nicht leer sein")
     private Integer customerId;
 
-    @NotNull(message = "Gesamtbetrag kann nicht leer sein")
+    @NotNull(message = "Gesamtbetrag darf nicht leer sein")
     @DecimalMin(value = "0.0", inclusive = false, message = "Gesamtbetrag muss größer als 0 sein")
     @Digits(integer = 10, fraction = 2, message = "Gesamtbetrag muss eine Dezimalzahl mit maximal 10 Ziffern insgesamt und 2 Dezimalstellen sein")
     private BigDecimal total;
 
-    @NotNull(message = "Bestelldatum kann nicht leer sein")
+    @NotNull(message = "Bestelldatum darf nicht leer sein")
     private LocalDate orderDate;
 
     private String errorMessage;
@@ -39,7 +39,7 @@ public class OrderForm implements Serializable {
 
     public void save() {
         if (customerService.findById(customerId) == null) {
-            setErrorMessage("• Kunde mit ID " + customerId + " nicht gefunden");
+            setErrorMessage("• Kunde mit ID " + customerId + " wurde nicht gefunden!");
             return;
         } else {
             setErrorMessage(null);

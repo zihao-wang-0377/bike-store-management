@@ -28,8 +28,7 @@ public class CustomerService implements Serializable {
     }
 
     public Customer findById(Integer id){
-        Customer customer = em.find(Customer.class, id);
-        return customer;
+        return em.find(Customer.class, id);
     }
 
     public void delete(Customer customer) {

@@ -19,21 +19,18 @@ public class OrderItemService {
     }
 
     public List<OrderItem> findAll(){
-        List<OrderItem> orderItems = em.createQuery("select oi from OrderItem oi", OrderItem.class)
+        return em.createQuery("select oi from OrderItem oi", OrderItem.class)
                 .getResultList();
-        return orderItems;
     }
 
     public OrderItem findById(Integer id){
-        OrderItem orderItem = em.find(OrderItem.class, id);
-        return orderItem;
+        return em.find(OrderItem.class, id);
     }
 
     public List<OrderItem> findByOrderId(Integer orderId){
-        List<OrderItem> orderItems = em.createQuery("select oi from OrderItem oi where oi.order.id = :orderId", OrderItem.class)
+        return em.createQuery("select oi from OrderItem oi where oi.order.id = :orderId", OrderItem.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
-        return orderItems;
     }
 
     public void delete(OrderItem orderItem) {
