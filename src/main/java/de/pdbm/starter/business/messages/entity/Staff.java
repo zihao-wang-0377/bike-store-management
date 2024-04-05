@@ -3,6 +3,7 @@ package de.pdbm.starter.business.messages.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "staffs")
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
