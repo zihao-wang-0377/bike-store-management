@@ -1,0 +1,12 @@
+Was lief aus Ihrer Sicht in der Zusammenarbeit in Ihrer Gruppe seit dem letzten Protokoll besonders
+gut bzw. positiv?
+
+- Gute Erreichbarkeit in der Gruppe.
+- Einzelarbeit auf einzelnen Branches.
+
+Welche Aspekte in der Zusammenarbeit in Ihrer Gruppe sind seit dem letzten Protokoll aufgetreten,
+bei denen Sie hinsichtlich der Zusammenarbeit in der Gruppe noch Verbesserungsmöglichkeiten sehen?
+
+- Feste Termine zur Besprechung(wöchentlich).
+- Variablen und Klassen einheitlich benennen.
+- Die Aufgaben sollten verteilt werden um Code-Duplicates zu vermeiden.
