@@ -1,0 +1,16 @@
+planung-2
+
+++ Aufgaben
+- Verschiedene Konfigurationsdateien modifizieren (.xml)
+- Die Attribute der Entitäten und entsprechender Serviceklassen an die Sample Database anpassen
+- Neue Entitäten und entsprechender Serviceklassen erstellen
+- Das Formular auf der Webseite ändern (.xhtml)
+
+++ Features
+- Listendarstellung von Kunden, Produkten und Bestellungen mit Bestellpositionen
+
+++ Zuweisung von Aufgaben
+- Die ursprüngliche Entität modifizieren (orders, order_items, customers und products): Zijian
+- Neue Entität erstellen (staffs, brands und categories): Zihao
+- Serviceklassen für die Entitäten anpassen und erstellen: Jinang
+- Das Formular auf der Webseite ändern (.xhtml): Felix
