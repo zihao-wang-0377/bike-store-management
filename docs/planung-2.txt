@@ -11,6 +11,7 @@ planung-2
 
 ++ Zuweisung von Aufgaben
 - Die ursprüngliche Entität modifizieren (orders, order_items, customers und products): Zijian
-- Neue Entität erstellen (staffs, brands und categories): Zihao
-- Serviceklassen für die Entitäten anpassen und erstellen: Jinang
-- Das Formular auf der Webseite ändern (.xhtml): Felix
+- Refactor des Codes, Zusammenführung von Form und Tabelle in den Controller: Zijian
+- Neue Entität erstellen (staffs, brands, stocks, stores und categories): Zihao
+- Tabelle seitenweise anzeigen: Jinang
+- Anpassung des Stils der Frontend-Tabelle, Änderung des Datumsformats in deutscher Sprache, Hinzufügen von Code-Kommentaren: Felix
