@@ -1,0 +1,12 @@
+Was lief gut?
+- Gute Erreichbarkeit in der Gruppe.
+- Einzelarbeit auf einzelnen Branches.
+
+Was ist nicht gut gelaufen?
+- Fehlende Mockups für die UI, was zu einer unklaren Entwicklungsrichtung führte.
+- Keine klare Regelung, wie der Code geschrieben werden sollte, Deutsch oder Englisch.
+
+Verbesserung:
+- Feste Termine zur Besprechung(wöchentlich).
+- Variablen und Klassen einheitlich benennen.
+- Die Aufgaben sollten verteilt werden um Code-Duplicates zu vermeiden -> Issueboard nutzen

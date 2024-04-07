@@ -8,11 +8,11 @@
 <f:view>
     <h:head>
         <title>Kundentabelle</title>
-<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Zurück" action="#{customerTable.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
         <h1>Kunden</h1>
         <h:dataTable value="#{customerController.customerList}" var="customer" styleClass="order-table">

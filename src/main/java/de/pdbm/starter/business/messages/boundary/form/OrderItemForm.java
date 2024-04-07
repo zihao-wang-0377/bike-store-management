@@ -30,16 +30,16 @@ public class OrderItemForm implements Serializable {
     @Inject
     ProductService productService;
 
-    @NotNull(message = "Bestellnummer kann nicht leer sein")
+    @NotNull(message = "Bestellnummer darf nicht leer sein")
     private Integer orderId;
 
-    @NotNull(message = "KundeID kann nicht leer sein")
+    @NotNull(message = "KundeID darf nicht leer sein")
     private Integer customerId;
 
-    @NotNull(message = "ProduktID kann nicht leer sein")
+    @NotNull(message = "ProduktID darf nicht leer sein")
     private Integer productId;
 
-    @NotNull(message = "Anzahl kann nicht leer sein")
+    @NotNull(message = "Anzahl darf nicht leer sein")
     @DecimalMin(value = "0.0", inclusive = false, message = "Anzahl muss größer als 0 sein")
     private Integer quantity;
 
@@ -53,64 +53,72 @@ public class OrderItemForm implements Serializable {
     }
 
     public void save() {
-        if (orderService.findById(orderId) == null) {
-            setErrorMessage1("• Bestellung mit Bestellnummer " + orderId + " nicht gefunden");
+        // Überprüfe, ob die Bestellung, der Kunde und das Produkt existieren
+        if (orderService.findById(orderId) == null) { // Überprüfe, ob die Bestellung existiert
+            setErrorMessage1("• Bestellung mit Bestellnummer " + orderId + " wurde nicht gefunden"); // Fehlermeldung, falls nicht
         } else {
-            setErrorMessage1(null);
+            setErrorMessage1(null); // Setze Fehlermeldung zurück, falls Bestellung existiert
         }
-        if (customerService.findById(customerId) == null) {
-            setErrorMessage2("• Kunde mit ID " + customerId + " nicht gefunden");
+        if (customerService.findById(customerId) == null) { // Überprüfe, ob der Kunde existiert
+            setErrorMessage2("• Kunde mit ID " + customerId + " wurde nicht gefunden"); // Fehlermeldung, falls nicht
         } else {
-            setErrorMessage2(null);
+            setErrorMessage2(null); // Setze Fehlermeldung zurück, falls Kunde existiert
         }
-        if (productService.findById(productId) == null) {
-            setErrorMessage3("• Produkt mit ID " + productId + " nicht gefunden");
+        if (productService.findById(productId) == null) { // Überprüfe, ob das Produkt existiert
+            setErrorMessage3("• Produkt mit ID " + productId + " wurde nicht gefunden"); // Setze eine Fehlermeldung
         } else {
-            setErrorMessage3(null);
+            setErrorMessage3(null); // Setze Fehlermeldung zurück, falls Produkt existiert
         }
+        // Überprüfe, ob Fehlermeldungen vorhanden sind
         if (getErrorMessage1() != null || getErrorMessage2() != null || getErrorMessage3() != null) {
-            return;
+            return; // Falls Fehler vorhanden sind, wird nicht gespeichert
         }
 
+        // Neues Objekt wird erstellt und die Bestellung, den Kunden, das Produkt und die Menge gesetzt
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(orderService.findById(orderId));
 //        orderItem.setCustomer(customerService.findById(customerId));
         orderItem.setProduct(productService.findById(productId));
         orderItem.setQuantity(quantity);
+
+        // Speichere das OrderItem
         orderItemService.save(orderItem);
+
+        // Setze die IDs und die Menge zurück
         setOrderId(null);
         setCustomerId(null);
         setProductId(null);
         setQuantity(null);
     }
 
+
     public String getErrorMessage1() {
-        // 返回 errorMessage 属性的值
+
         return errorMessage1;
     }
 
     public void setErrorMessage1(String errorMessage1) {
-        // 设置 errorMessage 属性的值
+
         this.errorMessage1 = errorMessage1;
     }
 
     public String getErrorMessage2() {
-        // 返回 errorMessage 属性的值
+
         return errorMessage2;
     }
 
     public void setErrorMessage2(String errorMessage2) {
-        // 设置 errorMessage 属性的值
+
         this.errorMessage2 = errorMessage2;
     }
 
     public String getErrorMessage3() {
-        // 返回 errorMessage 属性的值
+
         return errorMessage3;
     }
 
     public void setErrorMessage3(String errorMessage3) {
-        // 设置 errorMessage 属性的值
+
         this.errorMessage3 = errorMessage3;
     }
 

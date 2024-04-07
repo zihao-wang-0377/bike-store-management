@@ -20,25 +20,35 @@ public class ProductService implements Serializable {
         em.persist(product);
     }
 
-    public List<Product> findAll(){
+    public List<Product> findAll() {
+        // Erstelle eine Abfrage, um alle Produkte aus der Datenbank abzurufen
         TypedQuery<Product> query = em.createQuery(
                 "select p from Product p", Product.class
         );
+
+        // Führe die Abfrage aus und gib die Ergebnisliste zurück
         return query.getResultList();
     }
 
-    public Product findById(Integer id){
-        Product product = em.find(Product.class, id);
-        return product;
+    public Product findById(Integer id) {
+        // Suche ein Produkt in der Datenbank anhand seiner ID
+        return em.find(Product.class, id);
     }
 
+
     public Product findByName(String name) {
+        // Erstelle eine Abfrage, um ein Produkt anhand seines Namens zu suchen
         TypedQuery<Product> query = em.createQuery(
                 "select p from Product p where p.name = :name", Product.class
         );
+
+        // Setze den Parameter für den Produktnamen in der Abfrage
         query.setParameter("name", name);
+
+        // Führe die Abfrage aus und gib das gefundene Produkt zurück
         return query.getSingleResult();
     }
+
 
     public void delete(Product product) {
         em.remove(product);

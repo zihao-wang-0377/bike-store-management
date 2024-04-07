@@ -19,22 +19,23 @@ public class OrderItemService {
     }
 
     public List<OrderItem> findAll(){
-        List<OrderItem> orderItems = em.createQuery("select oi from OrderItem oi", OrderItem.class)
+        // Erstelle eine Abfrage, um alle Bestellpositionen aus der Datenbank abzurufen
+        return em.createQuery("select oi from OrderItem oi", OrderItem.class)
                 .getResultList();
-        return orderItems;
     }
 
     public OrderItem findById(Integer id){
-        OrderItem orderItem = em.find(OrderItem.class, id);
-        return orderItem;
+        // Suche eine Bestellposition in der Datenbank anhand ihrer ID
+        return em.find(OrderItem.class, id);
     }
 
     public List<OrderItem> findByOrderId(Integer orderId){
-        List<OrderItem> orderItems = em.createQuery("select oi from OrderItem oi where oi.order.id = :orderId", OrderItem.class)
+        // Suche alle Bestellpositionen in der Datenbank für eine bestimmte Bestellnummer
+        return em.createQuery("select oi from OrderItem oi where oi.order.id = :orderId", OrderItem.class)
                 .setParameter("orderId", orderId)
                 .getResultList();
-        return orderItems;
     }
+
 
     public void delete(OrderItem orderItem) {
         em.remove(orderItem);
