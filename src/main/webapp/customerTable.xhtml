@@ -12,10 +12,12 @@
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerTable.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}" styleClass="back-button" />
+            <h:commandButton value="Previous" action="#{customerController.nextPage()}" disabled="#{customerController.currentPage == 0}" />
+            <h:commandButton value="Next" action="#{customerController.nextPage}" />
         </h:form>
         <h1>Kunden</h1>
-        <h:dataTable value="#{customerController.customerList}" var="customer" styleClass="order-table">
+        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
             <h:column>
                 <f:facet name="header">KundeID</f:facet>
                 #{customer.id}
