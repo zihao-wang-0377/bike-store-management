@@ -33,7 +33,9 @@ public class OrderService implements Serializable {
         // Suche eine Bestellung in der Datenbank anhand ihrer ID
         return em.find(Order.class, id);
     }
-
+    public long getOrderCount(){
+        return em.createQuery("select count(c) from Order c", Long.class).getSingleResult();
+    }
 
     public void delete(Order order) {
         em.remove(order);

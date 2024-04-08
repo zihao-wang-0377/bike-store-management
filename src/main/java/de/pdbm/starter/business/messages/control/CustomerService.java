@@ -27,6 +27,9 @@ public class CustomerService implements Serializable {
         query.setMaxResults(size);
         return query.getResultList();
     }
+    public long getCustomerCount(){
+        return em.createQuery("select count(c) from Customer c", Long.class).getSingleResult();
+    }
 
     public Customer findById(Integer id){
         // Suche einen Kunden in der Datenbank anhand seiner ID

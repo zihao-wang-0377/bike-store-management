@@ -32,6 +32,9 @@ public class ProductService implements Serializable {
         // Suche ein Produkt in der Datenbank anhand seiner ID
         return em.find(Product.class, id);
     }
+    public long getProductCount(){
+        return em.createQuery("select count(c) from Product c", Long.class).getSingleResult();
+    }
 
 
     public Product findByName(String name) {

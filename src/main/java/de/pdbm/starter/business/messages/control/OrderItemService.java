@@ -28,6 +28,9 @@ public class OrderItemService {
         query.setMaxResults(size);
         return query.getResultList();
     }
+    public long getOrderItemCount(){
+        return em.createQuery("select count(c) from OrderItem c", Long.class).getSingleResult();
+    }
 
     public OrderItem findById(Integer id){
         // Suche eine Bestellposition in der Datenbank anhand ihrer ID
