@@ -1,18 +1,21 @@
 package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.OrderItemService;
+import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class OrderItemController {
+@ViewScoped
+public class OrderItemController implements Serializable {
     private Integer itemId;
     private Integer orderId;
     private BigDecimal discount;
@@ -20,6 +23,8 @@ public class OrderItemController {
     private Integer quantity;
     private Integer productId;
     private List<OrderItem> orderItemList;
+    private int currentPage = 0;
+    private int pageSize = 10;
     @Inject
     OrderItemService orderItemService;
 
@@ -33,6 +38,35 @@ public class OrderItemController {
         this.price = price;
         this.quantity = quantity;
         this.productId = productId;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        if (orderItemList == null || orderItemList.isEmpty()) {
+            loadOrderItemList();
+        }
+        return orderItemList;
+    }
+    public void loadOrderItemList(){
+        this.orderItemList = orderItemService.findPaginated(currentPage, pageSize);
+    }
+    public void nextPage(){
+        currentPage++;
+        loadOrderItemList();
+    }
+    public void prevPage(){
+        if(currentPage > 0){
+            currentPage--;
+            loadOrderItemList();
+        }
+
     }
 
     public Integer getItemId() {
@@ -81,13 +115,6 @@ public class OrderItemController {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
-    }
-    @PostConstruct
-    public void OrderItemListInit(){
-        orderItemList=orderItemService.findAll();
-    }
-    public List<OrderItem> getOrderItemList(){
-        return orderItemList;
     }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";

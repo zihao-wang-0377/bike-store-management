@@ -1,5 +1,6 @@
 package de.pdbm.starter.business.messages.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -21,13 +22,10 @@ public class OrderService implements Serializable {
         em.persist(order);
     }
 
-    public List<Order> findAll(){
-        // Erstelle eine Abfrage, um alle Bestellungen und ihre Kunden aus der Datenbank abzurufen
-        TypedQuery<Order> query = em.createQuery(
-                "select o from Order o join fetch o.customer", Order.class
-        );
-
-        // Führe die Abfrage aus und gib die Ergebnisliste zurück
+    public List<Order> findPaginated(int page, int size){
+        TypedQuery<Order> query = em.createQuery("select c from Order c", Order.class);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
         return query.getResultList();
     }
 

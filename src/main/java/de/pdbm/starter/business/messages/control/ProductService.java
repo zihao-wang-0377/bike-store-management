@@ -1,5 +1,6 @@
 package de.pdbm.starter.business.messages.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -20,13 +21,10 @@ public class ProductService implements Serializable {
         em.persist(product);
     }
 
-    public List<Product> findAll() {
-        // Erstelle eine Abfrage, um alle Produkte aus der Datenbank abzurufen
-        TypedQuery<Product> query = em.createQuery(
-                "select p from Product p", Product.class
-        );
-
-        // Führe die Abfrage aus und gib die Ergebnisliste zurück
+    public List<Product> findPaginated(int page, int size){
+        TypedQuery<Product> query = em.createQuery("select c from Product c", Product.class);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
         return query.getResultList();
     }
 

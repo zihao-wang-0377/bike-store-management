@@ -5,15 +5,17 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class OrderController {
+@ViewScoped
+public class OrderController implements Serializable {
 private Integer orderId;
 private LocalDate orderDate;
 private Integer orderStatus;
@@ -23,10 +25,41 @@ private Integer customerId;
 private Integer staffId;
 private Integer storeId;
 private List<Order> orderList;
+private int currentPage = 0;
+private int pageSize = 10;
 @Inject
-    OrderService orderService;
+OrderService orderService;
 
     public OrderController() {
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public List<Order> getOrders() {
+        if (orderList == null || orderList.isEmpty()) {
+            loadOrderList();
+        }
+        return orderList;
+    }
+    public void loadOrderList(){
+        this.orderList = orderService.findPaginated(currentPage, pageSize);
+    }
+    public void nextPage(){
+        currentPage++;
+        loadOrderList();
+    }
+    public void prevPage(){
+        if(currentPage > 0){
+            currentPage--;
+            loadOrderList();
+        }
+
     }
 
     public OrderController(Integer orderId, LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Integer customerId, Integer staffId, Integer storeId) {
@@ -103,14 +136,7 @@ private List<Order> orderList;
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
-    @PostConstruct
-    public void OrderListInit() {
-        orderList=orderService.findAll();
-    }
 
-    public List<Order> getOrderList(){
-        return orderList;
-    }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }

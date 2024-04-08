@@ -1,9 +1,12 @@
 package de.pdbm.starter.business.messages.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
+import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
@@ -18,10 +21,12 @@ public class OrderItemService {
         em.persist(orderItem);
     }
 
-    public List<OrderItem> findAll(){
-        // Erstelle eine Abfrage, um alle Bestellpositionen aus der Datenbank abzurufen
-        return em.createQuery("select oi from OrderItem oi", OrderItem.class)
-                .getResultList();
+
+    public List<OrderItem> findPaginated(int page, int size){
+        TypedQuery<OrderItem> query = em.createQuery("select c from OrderItem c", OrderItem.class);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.getResultList();
     }
 
     public OrderItem findById(Integer id){
