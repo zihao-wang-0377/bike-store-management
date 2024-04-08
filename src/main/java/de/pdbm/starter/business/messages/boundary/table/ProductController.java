@@ -28,6 +28,7 @@ private Integer categoryId;
 private List<Product> productList;
 private int currentPage = 0;
 private int pageSize = 10;
+private long dataNumber;
 @Inject
     ProductService productService;
 
@@ -57,8 +58,13 @@ private int pageSize = 10;
             currentPage--;
             loadProduktList();
         }
-
     }
+
+    public long getDataNumber() {
+        this.dataNumber = productService.getProductCount();
+        return dataNumber;
+    }
+
 
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";

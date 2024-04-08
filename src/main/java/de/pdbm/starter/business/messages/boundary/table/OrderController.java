@@ -27,6 +27,7 @@ private Integer storeId;
 private List<Order> orderList;
 private int currentPage = 0;
 private int pageSize = 10;
+private long dataNumber ;
 @Inject
 OrderService orderService;
 
@@ -60,6 +61,15 @@ OrderService orderService;
             loadOrderList();
         }
 
+    }
+
+    public long getDataNumber() {
+        this.dataNumber = orderService.getOrderCount();
+        return dataNumber;
+    }
+
+    public void setDataNumber() {
+        this.dataNumber = orderService.getOrderCount();
     }
 
     public OrderController(Integer orderId, LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Integer customerId, Integer staffId, Integer storeId) {

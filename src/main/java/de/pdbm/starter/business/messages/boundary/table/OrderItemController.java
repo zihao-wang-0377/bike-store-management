@@ -25,6 +25,7 @@ public class OrderItemController implements Serializable {
     private List<OrderItem> orderItemList;
     private int currentPage = 0;
     private int pageSize = 10;
+    private long dataNumber;
     @Inject
     OrderItemService orderItemService;
 
@@ -68,6 +69,12 @@ public class OrderItemController implements Serializable {
         }
 
     }
+
+    public long getDataNumber() {
+        this.dataNumber = orderItemService.getOrderItemCount();
+        return dataNumber;
+    }
+
 
     public Integer getItemId() {
         return itemId;

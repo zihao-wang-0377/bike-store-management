@@ -13,9 +13,6 @@
     <body>
         <h:form immediate="true">
             <h:commandButton value="Zurück" action="#{orderController.navigateToHomePage()}" styleClass="back-button" />
-            <h:commandButton value="Previous" action="#{orderController.prevPage()}" disabled="#{orderController.currentPage == 0}" />
-            <h:commandButton value="Next" action="#{orderController.nextPage}"/>
-            <h:outputLabel value="#{orderController.currentPage}"/>
         </h:form>
         <h1>Bestellungen</h1>
         <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
@@ -52,6 +49,12 @@
 <!--                #{order.store}-->
 <!--            </h:column>-->
         </h:dataTable>
+        <h:form>
+            <h:commandButton value="Previous" action="#{orderController.prevPage()}" disabled="#{orderController.currentPage == 0}" />
+            <h:commandButton value="Next" action="#{orderController.nextPage}"/>
+        </h:form>
+        <h:outputLabel value="#{orderController.currentPage}"/>
+        <h:outputLabel value="Insgesamt #{orderController.dataNumber} Einträge"/>
     </body>
 </f:view>
 </html>
