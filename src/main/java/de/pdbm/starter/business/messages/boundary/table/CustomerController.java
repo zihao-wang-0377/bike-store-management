@@ -28,11 +28,35 @@ private String street;
 private String zipCode;
 
 private List<Customer> customerList;
+private int currentPage = 0;
+private int maxPage = 10;
 @Inject
-    CustomerService customerService;
-@PostConstruct
-public void customerListInit() {
-    customerList=customerService.findAll();
+CustomerService customerService;
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public List<Customer> getCustomers() {
+    if (customerList == null || customerList.isEmpty()) {
+        loadCustomerList();
+    }
+    return customerList;
+}
+public void loadCustomerList(){
+    this.customerList = customerService.findPaginated(currentPage, maxPage);
+}
+public void nextPage(){
+    currentPage++;
+    loadCustomerList();
+}
+public void prevPage(){
+    currentPage--;
+    loadCustomerList();
 }
 
 public List<Customer> getCustomerList(){
