@@ -75,6 +75,14 @@ public class OrderItemController implements Serializable {
         return dataNumber;
     }
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        loadOrderItemList();
+    }
 
     public Integer getItemId() {
         return itemId;

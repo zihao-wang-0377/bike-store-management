@@ -65,6 +65,14 @@ private long dataNumber;
         return dataNumber;
     }
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        loadProduktList();
+    }
 
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";

@@ -60,7 +60,15 @@ OrderService orderService;
             currentPage--;
             loadOrderList();
         }
+    }
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        loadOrderList();
     }
 
     public long getDataNumber() {

@@ -2,6 +2,7 @@ package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.CustomerService;
 import de.pdbm.starter.business.messages.entity.Customer;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -68,7 +69,14 @@ CustomerService customerService;
         return dataNumber;
     }
 
+    public int getPageSize() {
+        return pageSize;
+    }
 
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        loadCustomerList();
+    }
 
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
