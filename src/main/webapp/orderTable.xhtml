@@ -53,9 +53,9 @@
             <h:commandButton value="Previous" action="#{orderController.prevPage()}" disabled="#{orderController.currentPage == 0}" />
             <h:commandButton value="Next" action="#{orderController.nextPage}"/>
         </h:form>
-        <h:outputLabel value="#{orderController.currentPage}"/>
-        <h:outputLabel value="Insgesamt #{orderController.dataNumber} Einträge"/>
         <h:form>
+        <h:outputLabel value="zur #{orderController.currentPage} seite"/>
+        <h:outputLabel value="Insgesamt #{orderController.dataNumber} Einträge"/>
             <h:selectOneMenu value="#{orderController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
