@@ -11,6 +11,7 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -25,9 +26,9 @@ private Integer customerId;
 private Integer staffId;
 private Integer storeId;
 private List<Order> orderList;
-private int currentPage = 0;
+private int currentPage = 1;
 private int pageSize = 10;
-private long dataNumber ;
+private long totalRecords;
 @Inject
 OrderService orderService;
 
@@ -61,6 +62,32 @@ OrderService orderService;
             loadOrderList();
         }
     }
+    public void firstPage(){
+        currentPage = 1;
+        loadOrderList();
+    }
+    public void lastPage(){
+        currentPage = getTotalPages();
+        loadOrderList();
+    }
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalRecords / pageSize);
+    }
+    public Integer[] getPageNumbers() {
+        int startPage = Math.max(1, currentPage - 2);
+        int endPage = Math.min(getTotalPages(), currentPage + 4);
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = startPage; i <= endPage; i++) {
+            pageNumbers.add(i);
+        }
+        return pageNumbers.toArray(new Integer[0]);
+    }
+    public void setPage(int page){
+        if(page >= 1 && page <= getTotalPages()){
+            currentPage = page;
+            loadOrderList();
+        }
+    }
 
     public int getPageSize() {
         return pageSize;
@@ -71,13 +98,9 @@ OrderService orderService;
         loadOrderList();
     }
 
-    public long getDataNumber() {
-        this.dataNumber = orderService.getOrderCount();
-        return dataNumber;
-    }
-
-    public void setDataNumber() {
-        this.dataNumber = orderService.getOrderCount();
+    public long getTotalRecords() {
+        this.totalRecords = orderService.getOrderCount();
+        return totalRecords;
     }
 
     public OrderController(Integer orderId, LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Integer customerId, Integer staffId, Integer storeId) {

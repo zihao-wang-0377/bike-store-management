@@ -8,7 +8,7 @@
 <f:view>
     <h:head>
         <title>Bestellungstabelle</title>
-<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
+       <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <body>
         <h:form immediate="true">
@@ -50,12 +50,8 @@
 <!--            </h:column>-->
         </h:dataTable>
         <h:form>
-            <h:commandButton value="Previous" action="#{orderController.prevPage()}" disabled="#{orderController.currentPage == 0}" />
-            <h:commandButton value="Next" action="#{orderController.nextPage}"/>
-        </h:form>
-        <h:form>
         <h:outputLabel value="zur #{orderController.currentPage} seite"/>
-        <h:outputLabel value="Insgesamt #{orderController.dataNumber} Einträge"/>
+        <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
             <h:selectOneMenu value="#{orderController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
@@ -63,6 +59,15 @@
                 <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
+            <h:commandButton styleClass="firstPage" action="#{orderController.firstPage}" disabled="#{orderController.currentPage == 1}" />
+            <h:commandButton  value="P" action="#{orderController.prevPage}" disabled="#{orderController.currentPage == 1}" />
+            <ui:repeat value="#{orderController.pageNumbers}" var="pageNum">
+                <h:commandLink value="#{pageNum}" action="#{orderController.setPage(pageNum)}" rendered="#{pageNum != orderController.currentPage}" />
+                <h:outputText value="#{pageNum} " rendered="#{pageNum == orderController.currentPage}" styleClass="current-page"/>
+            </ui:repeat>
+            <h:outputText value="..." rendered="#{orderController.currentPage + 3 lt orderController.totalPages}" />
+            <h:commandButton value="N" action="#{orderController.nextPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
+            <h:commandButton value="L" action="#{orderController.lastPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
         </h:form>
     </body>
 </f:view>

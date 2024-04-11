@@ -11,6 +11,7 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -23,9 +24,9 @@ public class OrderItemController implements Serializable {
     private Integer quantity;
     private Integer productId;
     private List<OrderItem> orderItemList;
-    private int currentPage = 0;
+    private int currentPage = 1;
     private int pageSize = 10;
-    private long dataNumber;
+    private long totalRecords;
     @Inject
     OrderItemService orderItemService;
 
@@ -67,12 +68,31 @@ public class OrderItemController implements Serializable {
             currentPage--;
             loadOrderItemList();
         }
-
+    }
+    public void firstPage(){
+        currentPage = 1;
+        loadOrderItemList();
+    }
+    public void lastPage(){
+        currentPage = getTotalPages();
+        loadOrderItemList();
+    }
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalRecords / pageSize);
+    }
+    public Integer[] getPageNumbers() {
+        int startPage = Math.max(1, currentPage - 2);
+        int endPage = Math.min(getTotalPages(), currentPage + 4);
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = startPage; i <= endPage; i++) {
+            pageNumbers.add(i);
+        }
+        return pageNumbers.toArray(new Integer[0]);
     }
 
-    public long getDataNumber() {
-        this.dataNumber = orderItemService.getOrderItemCount();
-        return dataNumber;
+    public long getTotalRecords() {
+        this.totalRecords = orderItemService.getOrderItemCount();
+        return totalRecords;
     }
 
     public int getPageSize() {
@@ -82,6 +102,12 @@ public class OrderItemController implements Serializable {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
         loadOrderItemList();
+    }
+    public void setPage(int page){
+        if(page >= 1 && page <= getTotalPages()){
+            currentPage = page;
+            loadOrderItemList();
+        }
     }
 
     public Integer getItemId() {

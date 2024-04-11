@@ -23,7 +23,7 @@ public class ProductService implements Serializable {
 
     public List<Product> findPaginated(int page, int size){
         TypedQuery<Product> query = em.createQuery("select c from Product c", Product.class);
-        query.setFirstResult(page * size);
+        query.setFirstResult((page -1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }

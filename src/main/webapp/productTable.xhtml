@@ -42,12 +42,8 @@
 <!--            </h:column>-->
         </h:dataTable>
         <h:form>
-            <h:commandButton value="Previous" action="#{productController.prevPage()}" disabled="#{productController.currentPage == 0}" />
-            <h:commandButton value="Next" action="#{productController.nextPage}"/>
-        </h:form>
-        <h:form>
         <h:outputLabel value="zur #{productController.currentPage} seite"/>
-        <h:outputLabel value="Insgesamt #{productController.dataNumber} Einträge"/>
+        <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
             <h:selectOneMenu value="#{productController.pageSize}">
             <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
@@ -55,6 +51,15 @@
                 <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
+            <h:commandButton styleClass="firstPage" action="#{productController.firstPage}" disabled="#{productController.currentPage == 1}" />
+            <h:commandButton  value="P" action="#{productController.prevPage}" disabled="#{productController.currentPage == 1}" />
+            <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
+                <h:commandLink value="#{pageNum}" action="#{productController.setPage(pageNum)}" rendered="#{pageNum != productController.currentPage}" />
+                <h:outputText value="#{pageNum} " rendered="#{pageNum == productController.currentPage}" styleClass="current-page"/>
+            </ui:repeat>
+            <h:outputText value="..." rendered="#{productController.currentPage + 3 lt productController.totalPages}" />
+            <h:commandButton value="N" action="#{productController.nextPage}" disabled="#{productController.currentPage == productController.totalPages}" />
+            <h:commandButton value="L" action="#{productController.lastPage}" disabled="#{productController.currentPage == productController.totalPages}" />
         </h:form>
     </h:body>
 </f:view>

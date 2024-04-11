@@ -24,7 +24,7 @@ public class OrderService implements Serializable {
 
     public List<Order> findPaginated(int page, int size){
         TypedQuery<Order> query = em.createQuery("select c from Order c", Order.class);
-        query.setFirstResult(page * size);
+        query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }

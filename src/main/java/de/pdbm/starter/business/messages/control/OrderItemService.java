@@ -24,7 +24,7 @@ public class OrderItemService {
 
     public List<OrderItem> findPaginated(int page, int size){
         TypedQuery<OrderItem> query = em.createQuery("select c from OrderItem c", OrderItem.class);
-        query.setFirstResult(page * size);
+        query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
