@@ -37,7 +37,14 @@ private BigDecimal price;
         this.product = product;
     }
 
-    //    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
+    public OrderItem(Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
+        this.order = order;
+        this.discount = discount;
+        this.price = price;
+        this.quantity = quantity;
+        this.product = product;
+    }
+//    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
 //        this.id = id;
 //        this.order = order;
 //        this.customer = customer;

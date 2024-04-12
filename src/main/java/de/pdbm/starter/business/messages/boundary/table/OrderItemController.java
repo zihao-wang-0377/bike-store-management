@@ -1,13 +1,20 @@
 package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.OrderItemService;
+import de.pdbm.starter.business.messages.control.OrderService;
+import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
+import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,10 +25,16 @@ import java.util.List;
 @ViewScoped
 public class OrderItemController implements Serializable {
     private Integer itemId;
+    @ForeignKeyExists(entity = Order.class,customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
+    @Min(value = 0)
+    @Max(value = 1)
     private BigDecimal discount;
+    @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
+    @PositiveOrZero(message = "Anzahl muss größer als 0")
     private Integer quantity;
+    @ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Integer productId;
     private List<OrderItem> orderItemList;
     private int currentPage = 1;
@@ -29,7 +42,10 @@ public class OrderItemController implements Serializable {
     private long totalRecords;
     @Inject
     OrderItemService orderItemService;
-
+@Inject
+    OrderService orderService;
+@Inject
+    ProductService productService;
     public OrderItemController() {
     }
 
@@ -159,6 +175,12 @@ public class OrderItemController implements Serializable {
     }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
+    }
+
+    public void save(){
+        Order order = orderService.findById(orderId);
+        Product product = productService.findById(productId);
+        orderItemService.save(new OrderItem( order,  discount,  price,  quantity,  product));
     }
 }
 
