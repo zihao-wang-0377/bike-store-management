@@ -1,6 +1,9 @@
 package de.pdbm.starter.business.messages.boundary.table;
 
+import de.pdbm.starter.business.messages.control.CustomerService;
 import de.pdbm.starter.business.messages.control.OrderService;
+import de.pdbm.starter.business.messages.control.StaffService;
+import de.pdbm.starter.business.messages.control.StoreService;
 import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
@@ -11,6 +14,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 
@@ -44,7 +48,12 @@ private int pageSize = 10;
 private long totalRecords;
 @Inject
 OrderService orderService;
-
+    @Inject
+    StaffService staffService;
+    @Inject
+    StoreService storeService;
+    @Inject
+    CustomerService customerService;
     public OrderController() {
     }
 
@@ -185,5 +194,12 @@ OrderService orderService;
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
-
+public void save(){
+  Integer oderStatusInt = Integer.parseInt(orderStatus);
+  requiredDate=null;
+  Customer customer = customerService.findById(customerId);
+  Staff staff = staffService.findStaffById(staffId);
+  Store store = storeService.findStoreById(storeId);
+        orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
+}
 }

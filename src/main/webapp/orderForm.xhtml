@@ -19,6 +19,12 @@
             <h:outputLabel for="customerID" value="KundeID: "/>
             <h:inputText id="customerID" value="#{orderController.customerId}"/>
             <br></br>
+            <h:outputLabel for="staffID" value="MitarbeiterID: "/>
+            <h:inputText id="staffID" value="#{orderController.staffId}"/>
+            <br></br>
+            <h:outputLabel for="storeID" value="GeschäftsID: "/>
+            <h:inputText id="storeID" value="#{orderController.storeId}"/>
+            <br></br>
             <h:outputLabel for="Bestelldatum" value="Bestelldatum: "/>
             <h:inputText id="Bestelldatum" value="#{orderController.orderDate}"/>
             <br></br>
@@ -31,6 +37,10 @@
 
             </h:selectOneMenu>
             <br></br>
+            <h:outputLabel for="ErwartetesLieferdatum" value="Erwartetes Liferdatum: "/>
+            <h:inputText id="ErwartetesLieferdatum" value="#{orderController.requiredDate}"/>
+            <br></br>
+
 <!--            <h:outputLabel for="orderDate" value="Bestelldatum: "/>-->
 <!--            <h:inputText id="orderDate" value="#{orderForm.orderDate}">-->
 <!--                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" locale="de_DE"/>-->
@@ -39,11 +49,11 @@
 <!--                <f:ajax render="orderDate"/>-->
 <!--            </h:commandButton>-->
             <br></br>
-            <h:commandButton value="Speichern" action="#{orderForm.save}" styleClass="save-button"/>
+            <h:commandButton value="Speichern" action="#{orderController.save()}" styleClass="save-button"/>
             <br></br>
-            <div style="margin-top: 10px;">
-                <h:outputText id="errorMessage" value="#{orderForm.errorMessage}" rendered="#{not empty orderForm.errorMessage}" styleClass="error-message" />
-            </div>
+<!--            <div style="margin-top: 10px;">-->
+<!--                <h:outputText id="errorMessage" value="#{orderForm.errorMessage}" rendered="#{not empty orderForm.errorMessage}" styleClass="error-message" />-->
+<!--            </div>-->
         </h:form>
     </h:body>
 </f:view>
