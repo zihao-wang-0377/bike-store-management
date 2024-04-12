@@ -48,7 +48,14 @@ private Integer modelYear;
         this.category = category;
     }
 
-    //    @Override
+    public Product(BigDecimal price, Integer modelYear, String name, Brand brand, Category category) {
+        this.price = price;
+        this.modelYear = modelYear;
+        this.name = name;
+        this.brand = brand;
+        this.category = category;
+    }
+//    @Override
 //    public String toString() {
 //        return "Produkt{" +
 //                "id=" + id +
