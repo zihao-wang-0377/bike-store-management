@@ -40,7 +40,7 @@
             <h:outputLabel for="plz">Postleitzahl:</h:outputLabel>
             <h:inputText id="plz" value="#{customerController.zipCode}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{customerForm.save()}" styleClass="save-button"/>
+            <h:commandButton value="Speichern" action="#{customerController.save()}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

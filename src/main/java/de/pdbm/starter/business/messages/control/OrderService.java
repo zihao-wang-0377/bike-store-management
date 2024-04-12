@@ -13,7 +13,7 @@ import java.util.List;
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
-public class OrderService implements Serializable {
+public class OrderService  {
     @PersistenceContext(type = TRANSACTION )
     EntityManager em;
 
