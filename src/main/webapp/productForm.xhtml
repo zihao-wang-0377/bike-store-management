@@ -31,7 +31,7 @@
             <h:outputLabel for="categoryId" value="CategorieNummer: "/>
             <h:inputTextarea id="categoryId" value="#{productController.categoryId}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{productForm.save}" styleClass="save-button"/>
+            <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

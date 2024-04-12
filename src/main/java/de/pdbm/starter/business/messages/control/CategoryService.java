@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-public class CategoryService {
+import java.io.Serializable;
+
+public class CategoryService implements Serializable {
     @PersistenceContext
     EntityManager em ;
     public Category findCategoryById(Integer id){

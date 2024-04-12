@@ -1,5 +1,7 @@
 package de.pdbm.starter.business.messages.boundary.table;
 
+import de.pdbm.starter.business.messages.control.BrandService;
+import de.pdbm.starter.business.messages.control.CategoryService;
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.entity.Category;
@@ -39,6 +41,10 @@ private int pageSize = 10;
 private long totalRecords;
 @Inject
     ProductService productService;
+@Inject
+    BrandService brandService;
+@Inject
+    CategoryService categoryService;
 
     public int getCurrentPage() {
         return currentPage;
@@ -160,6 +166,8 @@ private long totalRecords;
         this.categoryId = categoryId;
     }
     public void save(){
+        Brand brand = brandService.findBrandById(brandId);
+        Category category = categoryService.findCategoryById(categoryId);
         productService.save(new Product( price,  year,  name,  brand,  category));
     }
 }

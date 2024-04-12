@@ -8,12 +8,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
-public class OrderItemService {
+public class OrderItemService implements Serializable {
     @PersistenceContext(type = TRANSACTION )
     EntityManager em;
 

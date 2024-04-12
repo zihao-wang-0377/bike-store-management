@@ -12,7 +12,7 @@ import java.util.List;
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
-public class CustomerService  {
+public class CustomerService implements Serializable {
     @PersistenceContext(type = TRANSACTION )
     EntityManager em;
 

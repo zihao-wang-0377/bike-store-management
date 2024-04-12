@@ -4,7 +4,9 @@ import de.pdbm.starter.business.messages.entity.Brand;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-public class BrandService {
+import java.io.Serializable;
+
+public class BrandService implements Serializable {
     @PersistenceContext
     EntityManager em;
     public void save(Brand brand){
