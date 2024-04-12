@@ -8,7 +8,7 @@
 <f:view>
     <h:head>
         <title>Produkttabelle</title>
-<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <h:body>
         <h:form immediate="true">
@@ -32,14 +32,14 @@
                 <f:facet name="header">Name</f:facet>
                 #{product.name}
             </h:column>
-<!--            <h:column>-->
-<!--                <f:facet name="header">MarkeNummer</f:facet>-->
-<!--                #{product.brand.brandId}-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">CategorieNummer</f:facet>-->
-<!--     hier fehlt noch services klassen um dazugehorrige Ids zu holen           #{product.category.categorieId}-->
-<!--            </h:column>-->
+            <h:column>
+                <f:facet name="header">MarkeNummer</f:facet>
+                #{product.brand.brandId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">CategorieNummer</f:facet>
+               #{product.category.categoryId}
+            </h:column>
         </h:dataTable>
         <h:form>
         <h:outputLabel value="zur #{productController.currentPage} seite"/>
