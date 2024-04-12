@@ -17,18 +17,27 @@
         <h1>Neue Bestellung anlegen</h1>
         <h:form>
             <h:outputLabel for="customerID" value="KundeID: "/>
-            <h:inputText id="customerID" value="#{orderForm.customerId}"/>
+            <h:inputText id="customerID" value="#{orderController.customerId}"/>
             <br></br>
-            <h:outputLabel for="total" value="Gesamtbetrag: "/>
-            <h:inputText id="total" value="#{orderForm.total}"/>
+            <h:outputLabel for="Bestelldatum" value="Bestelldatum: "/>
+            <h:inputText id="Bestelldatum" value="#{orderController.orderDate}"/>
             <br></br>
-            <h:outputLabel for="orderDate" value="Bestelldatum: "/>
-            <h:inputText id="orderDate" value="#{orderForm.orderDate}">
-                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" locale="de_DE"/>
-            </h:inputText>
-            <h:commandButton value="Heute" action="#{orderForm.setOrderDateToToday()}" styleClass="today-button">
-                <f:ajax render="orderDate"/>
-            </h:commandButton>
+            <h:outputLabel  value="Bestellzustand: "/>
+            <h:selectOneMenu value="#{orderController.orderStatus}">
+                <f:selectItem itemValue="1" itemLabel="bestellt"></f:selectItem>
+                <f:selectItem itemValue="2" itemLabel="versendet"></f:selectItem>
+                <f:selectItem itemValue="3" itemLabel="zustellt"></f:selectItem>
+                <f:selectItem itemValue="4" itemLabel="zugestellt"></f:selectItem>
+
+            </h:selectOneMenu>
+            <br></br>
+<!--            <h:outputLabel for="orderDate" value="Bestelldatum: "/>-->
+<!--            <h:inputText id="orderDate" value="#{orderForm.orderDate}">-->
+<!--                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" locale="de_DE"/>-->
+<!--            </h:inputText>-->
+<!--            <h:commandButton value="Heute" action="#{orderForm.setOrderDateToToday()}" styleClass="today-button">-->
+<!--                <f:ajax render="orderDate"/>-->
+<!--            </h:commandButton>-->
             <br></br>
             <h:commandButton value="Speichern" action="#{orderForm.save}" styleClass="save-button"/>
             <br></br>
