@@ -5,6 +5,7 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,18 +15,25 @@ import java.util.List;
 @ViewScoped
 public class CustomerController implements Serializable {
 private Integer customerId;
+@NotBlank(message = "Stadt darf nicht null sein")
 private String city;
+@Email(message = "email entspricht syntax nicht")
 private String email;
-
+@NotBlank(message = "Vorname darf nicht null sein")
 private String firstName;
+@NotBlank(message = "Nachname darf nicht null sein")
+
 private String lastName;
-
+@Size(min = 0, message = "Telephone Nummer kann leer sein")
+@Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein")
 private String phone;
-
+//@Pattern(regexp = "^[A-Z]{2}$", message = "ungültige Staat Format")
+@Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung")
 private String state;
 
+@Pattern(regexp = "^\\d+\\s.*$" ,message = "bitte geben sie Zahl zuerst ein")
 private String street;
-
+@Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl")
 private String zipCode;
 
 private List<Customer> customerList;
