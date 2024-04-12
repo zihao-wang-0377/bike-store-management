@@ -14,7 +14,10 @@ import java.util.List;
 @Named
 @ViewScoped
 public class CustomerController implements Serializable {
-private Integer customerId;
+    @Inject
+    CustomerService customerService;
+
+    private Integer customerId;
 @NotBlank(message = "Stadt darf nicht null sein")
 private String city;
 @Email(message = "email entspricht syntax nicht")
@@ -41,8 +44,6 @@ private int currentPage = 1;
 private int pageSize = 10;
 private long totalRecords;
 
-@Inject
-CustomerService customerService;
 
     public int getCurrentPage() {
         return currentPage;
@@ -114,5 +115,95 @@ CustomerService customerService;
 
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
+    }
+
+    public CustomerController() {
+    }
+
+    public CustomerController(String city, String email, String firstName, String lastName, String phone, String state, String street, String zipCode) {
+        this.city = city;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.state = state;
+        this.street = street;
+        this.zipCode = zipCode;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+    public void save(){
+        customerService.save(new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode));
+
     }
 }
