@@ -1,6 +1,8 @@
 package de.pdbm.starter.business.messages.boundary.table;
 
 import de.pdbm.starter.business.messages.control.ProductService;
+import de.pdbm.starter.business.messages.entity.Brand;
+import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.annotation.PostConstruct;
@@ -8,6 +10,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,13 +21,17 @@ import java.util.List;
 @ViewScoped
 public class ProductController implements Serializable {
 private Integer productId;
+@Positive(message = "Preis muss positiv sein")
 private BigDecimal price;
-
+@Max(value = 2024,message = "Jahr kann nicht über 2024 sein" )
+@Min(value = 1900,message = "Jahr kann nicht früher als 1900")
+@PositiveOrZero(message = "Jahr kann nicht negativ sein")
 private Integer year;
-
+@Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
 private String name;
-
+@ForeignKeyExists(entity = Brand.class)
 private Integer brandId;
+@ForeignKeyExists(entity = Category.class)
 private Integer categoryId;
 private List<Product> productList;
 private int currentPage = 1;
