@@ -3,11 +3,16 @@ package de.pdbm.starter.business.messages.boundary.table;
 import de.pdbm.starter.business.messages.control.OrderService;
 import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
+import de.pdbm.starter.business.messages.entity.Staff;
+import de.pdbm.starter.business.messages.entity.Store;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,12 +23,20 @@ import java.util.List;
 @ViewScoped
 public class OrderController implements Serializable {
 private Integer orderId;
-private LocalDate orderDate;
-private Integer orderStatus;
-private LocalDate requiredDate;
+@PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
+private LocalDate orderDate;//hier kann man eine heute funktion schreiben
+@Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
+private String orderStatus;//hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
+    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
+    private LocalDate requiredDate;
 private LocalDate shippedDate;
+@ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+
 private Integer customerId;
+@ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
+
 private Integer staffId;
+@ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 private Integer storeId;
 private List<Order> orderList;
 private int currentPage = 1;
@@ -103,16 +116,7 @@ OrderService orderService;
         return totalRecords;
     }
 
-    public OrderController(Integer orderId, LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Integer customerId, Integer staffId, Integer storeId) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
-        this.requiredDate = requiredDate;
-        this.shippedDate = shippedDate;
-        this.customerId = customerId;
-        this.staffId = staffId;
-        this.storeId = storeId;
-    }
+
 
     public Integer getOrderId() {
         return orderId;
@@ -130,11 +134,11 @@ OrderService orderService;
         this.orderDate = orderDate;
     }
 
-    public Integer getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 
