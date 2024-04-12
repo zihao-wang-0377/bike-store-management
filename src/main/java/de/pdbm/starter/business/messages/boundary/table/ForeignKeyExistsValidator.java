@@ -6,20 +6,31 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class ForeignKeyExistsValidator implements ConstraintValidator<ForeignKeyExists, Integer> {
-
+@PersistenceContext
+EntityManager entityManager;
+    private String defaultMessage;
+    private String customMessage;
     private Class<?> entityClass;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     public void initialize(ForeignKeyExists constraintAnnotation) {
+        this.defaultMessage = constraintAnnotation.message();
+        this.customMessage = constraintAnnotation.customerMessage();
         this.entityClass = constraintAnnotation.entity();
     }
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        if (value == null) return true; // 可以根据需求处理 null 值
-        return entityManager.find(entityClass, value) != null;
+        if (value == null) return true;
+        boolean isValid = entityManager.find(entityClass, value) != null;
+
+        if (!isValid) {
+            context.disableDefaultConstraintViolation();
+            String effectiveMessage = customMessage.isEmpty() ? defaultMessage : customMessage;
+            context.buildConstraintViolationWithTemplate(effectiveMessage)
+                    .addConstraintViolation();
+        }
+
+        return isValid;
     }
 }

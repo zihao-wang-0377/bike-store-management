@@ -10,8 +10,11 @@ import java.lang.annotation.*;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ForeignKeyExists {
-    String message() default "The referenced entity does not exist.";
+    String customerMessage() default "";
+    String message() default "das BrandId oder CategorieId,die Sie gegeben haben exsist nicht";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<?> entity();
+
+
 }

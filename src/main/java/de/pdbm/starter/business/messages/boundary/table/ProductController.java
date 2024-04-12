@@ -31,9 +31,9 @@ private BigDecimal price;
 private Integer year;
 @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
 private String name;
-@ForeignKeyExists(entity = Brand.class)
+@ForeignKeyExists(entity = Brand.class,customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
 private Integer brandId;
-@ForeignKeyExists(entity = Category.class)
+@ForeignKeyExists(entity = Category.class,customerMessage= "das CategorieId,das Sie eingegeben haben existiert nicht")
 private Integer categoryId;
 private List<Product> productList;
 private int currentPage = 1;
