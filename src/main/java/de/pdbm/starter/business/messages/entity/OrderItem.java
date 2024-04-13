@@ -30,17 +30,12 @@ private BigDecimal price;
     @JoinColumn(name = "product_id")
     private Product product;
 
-//    public OrderItem(Integer id, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
-//        this.item_id = id;
-//        this.order = order;
-//        this.discount = discount;
-//        this.price = price;
-//        this.quantity = quantity;
-//        this.product = product;
-//    }
+
 
     public OrderItem(OrderItemPk orderItemPk, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
-        this.orderItemPk = orderItemPk;
+        this.orderItemPk = new OrderItemPk();
+        this.orderItemPk.setOrder_id(order.getId());
+        this.orderItemPk.setItem_id(orderItemPk.getItem_id());
         this.order = order;
         this.discount = discount;
         this.price = price;
@@ -48,26 +43,14 @@ private BigDecimal price;
         this.product = product;
     }
 
-    public OrderItem(OrderItemPk orderItemPk, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
-        this.orderItemPk = orderItemPk;
-        this.discount = discount;
-        this.price = price;
-        this.quantity = quantity;
-        this.product = product;
-    }
+
 
     public OrderItem() {
     }
 
 
 
-//    public Integer getId() {
-//        return item_id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.item_id = id;
-//    }
+
 
     public OrderItemPk getOrderItemPk() {
         return orderItemPk;
@@ -77,10 +60,7 @@ private BigDecimal price;
         this.orderItemPk = orderItemPk;
     }
 
-//    public Integer getOrderId() {
-//        return order.getId();
-//    }
-//
+
     public Order getOrder() {
         return order;
     }

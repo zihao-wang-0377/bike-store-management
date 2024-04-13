@@ -12,6 +12,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
@@ -36,7 +37,7 @@ public class OrderItemController implements Serializable {
     @ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Integer productId;
 
-    private OrderItemPk orderItemPk;
+    private OrderItemPk orderItemPk =new OrderItemPk();
     private List<OrderItem> orderItemList;
     private int currentPage = 1;
     private int pageSize = 10;
@@ -192,6 +193,7 @@ public class OrderItemController implements Serializable {
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
+
 
     public void save(){
         Integer itemIdInt =Integer.parseInt(itemId);

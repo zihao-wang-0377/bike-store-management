@@ -19,7 +19,11 @@ public class OrderItemService implements Serializable {
     EntityManager em;
 
     public void save(OrderItem orderItem){
-        em.persist(orderItem);
+        if (orderItem.getOrderItemPk() == null) {
+            em.persist(orderItem);
+        } else {
+            em.merge(orderItem);
+        }
     }
 
 

@@ -75,14 +75,14 @@ public class OrderItemForm implements Serializable {
         }
 
         // Neues Objekt wird erstellt und die Bestellung, den Kunden, das Produkt und die Menge gesetzt
-        OrderItem orderItem = new OrderItem();
+//        OrderItem orderItem = new OrderItem();
 //        orderItem.setOrder(orderService.findById(orderId));
 //        orderItem.setCustomer(customerService.findById(customerId));
-        orderItem.setProduct(productService.findById(productId));
-        orderItem.setQuantity(quantity);
-
-        // Speichere das OrderItem
-        orderItemService.save(orderItem);
+//        orderItem.setProduct(productService.findById(productId));
+//        orderItem.setQuantity(quantity);
+//
+//        // Speichere das OrderItem
+//        orderItemService.save(orderItem);
 
         // Setze die IDs und die Menge zurück
         setOrderId(null);

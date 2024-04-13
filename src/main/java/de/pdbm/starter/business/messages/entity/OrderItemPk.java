@@ -17,6 +17,11 @@ private Integer order_id;
     public OrderItemPk() {
     }
 
+    public OrderItemPk(Integer item_id, Integer order_id) {
+        this.item_id = item_id;
+        this.order_id = order_id;
+    }
+
     public Integer getItem_id() {
         return item_id;
     }

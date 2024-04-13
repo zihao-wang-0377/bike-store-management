@@ -22,7 +22,11 @@ public class OrderService implements Serializable {
 
     public void save(Order order){
         // Persistiere (speichere) die übergebene Bestellung in der Datenbank
-        em.persist(order);
+        if (order.getId() == null) {
+            em.persist(order);
+        } else {
+            em.merge(order);
+        }
     }
 
     public List<Order> findPaginated(int page, int size){
