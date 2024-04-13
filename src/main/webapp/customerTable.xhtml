@@ -13,8 +13,6 @@
     <h:body>
         <h:form immediate="true">
             <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}" styleClass="back-button" />
-            <h:commandButton value="Previous" action="#{customerController.nextPage()}" disabled="#{customerController.currentPage == 0}" />
-            <h:commandButton value="Next" action="#{customerController.nextPage}" />
         </h:form>
         <h1>Kunden</h1>
         <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
@@ -55,6 +53,27 @@
             #{customer.zipcode}
         </h:column>
         </h:dataTable>
+        <h:form>
+            <h:outputLabel value="zur #{customerController.currentPage} seite"/>
+            <h:outputLabel value="Insgesamt #{customerController.totalRecords} Einträge"/>
+            <h:selectOneMenu value="#{customerController.pageSize}" styleClass="select">
+            <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
+            <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
+            <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite" />
+            <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
+            <f:ajax event="change"  execute="@this" render="@all" />
+            </h:selectOneMenu>
+            <h:commandButton styleClass="firstPage" action="#{customerController.firstPage}" disabled="#{customerController.currentPage == 1}" />
+            <h:commandButton styleClass="previous"  action="#{customerController.prevPage}" disabled="#{customerController.currentPage == 1}" />
+            <ui:repeat value="#{customerController.pageNumbers}" var="pageNum">
+                <h:commandLink value="#{pageNum}" action="#{customerController.setPage(pageNum)}" rendered="#{pageNum != customerController.currentPage}" />
+                <h:outputText value="#{pageNum} " rendered="#{pageNum == customerController.currentPage}" styleClass="current-page"/>
+            </ui:repeat>
+            <h:outputText styleClass="rest" value="..." rendered="#{customerController.currentPage + 3 lt customerController.totalPages}" />
+            <h:commandButton styleClass="next" action="#{customerController.nextPage}" disabled="#{customerController.currentPage == customerController.totalPages}" />
+            <h:commandButton styleClass="lastPage" action="#{customerController.lastPage}" disabled="#{customerController.currentPage == customerController.totalPages}" />
+        </h:form>
+
     </h:body>
 </f:view>
 </html>

@@ -1,16 +1,20 @@
 package de.pdbm.starter.business.messages.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
+import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
-public class OrderItemService {
+public class OrderItemService implements Serializable {
     @PersistenceContext(type = TRANSACTION )
     EntityManager em;
 
@@ -18,10 +22,15 @@ public class OrderItemService {
         em.persist(orderItem);
     }
 
-    public List<OrderItem> findAll(){
-        // Erstelle eine Abfrage, um alle Bestellpositionen aus der Datenbank abzurufen
-        return em.createQuery("select oi from OrderItem oi", OrderItem.class)
-                .getResultList();
+
+    public List<OrderItem> findPaginated(int page, int size){
+        TypedQuery<OrderItem> query = em.createQuery("select c from OrderItem c", OrderItem.class);
+        query.setFirstResult((page - 1) * size);
+        query.setMaxResults(size);
+        return query.getResultList();
+    }
+    public long getOrderItemCount(){
+        return em.createQuery("select count(c) from OrderItem c", Long.class).getSingleResult();
     }
 
     public OrderItem findById(Integer id){

@@ -8,14 +8,14 @@
 <f:view>
     <h:head>
         <title>Produkttabelle</title>
-<!--        <link rel="stylesheet" type="text/css" href="css/table.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/table.css" />
     </h:head>
     <h:body>
         <h:form immediate="true">
             <h:commandButton value="Zurück" action="#{productController.navigateToHomePage()}" styleClass="back-button"/>
         </h:form>
         <h1>Produkten</h1>
-        <h:dataTable value="#{productController.productList}" var="product" styleClass="order-tabel" >
+        <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel" >
             <h:column>
                 <f:facet name="header">ProduktID</f:facet>
                 #{product.id}
@@ -32,15 +32,35 @@
                 <f:facet name="header">Name</f:facet>
                 #{product.name}
             </h:column>
-<!--            <h:column>-->
-<!--                <f:facet name="header">MarkeNummer</f:facet>-->
-<!--                #{product.brand.brandId}-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">CategorieNummer</f:facet>-->
-<!--     hier fehlt noch services klassen um dazugehorrige Ids zu holen           #{product.category.categorieId}-->
-<!--            </h:column>-->
+            <h:column>
+                <f:facet name="header">MarkeNummer</f:facet>
+                #{product.brand.brandId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">CategorieNummer</f:facet>
+               #{product.category.categoryId}
+            </h:column>
         </h:dataTable>
+        <h:form>
+        <h:outputLabel value="zur #{productController.currentPage} seite"/>
+        <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
+            <h:selectOneMenu value="#{productController.pageSize}">
+            <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
+                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
+                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite" />
+                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
+                <f:ajax event="change"  execute="@this" render="@all" />
+            </h:selectOneMenu>
+            <h:commandButton styleClass="firstPage" action="#{productController.firstPage}" disabled="#{productController.currentPage == 1}" />
+            <h:commandButton  value="P" action="#{productController.prevPage}" disabled="#{productController.currentPage == 1}" />
+            <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
+                <h:commandLink value="#{pageNum}" action="#{productController.setPage(pageNum)}" rendered="#{pageNum != productController.currentPage}" />
+                <h:outputText value="#{pageNum} " rendered="#{pageNum == productController.currentPage}" styleClass="current-page"/>
+            </ui:repeat>
+            <h:outputText value="..." rendered="#{productController.currentPage + 3 lt productController.totalPages}" />
+            <h:commandButton value="N" action="#{productController.nextPage}" disabled="#{productController.currentPage == productController.totalPages}" />
+            <h:commandButton value="L" action="#{productController.lastPage}" disabled="#{productController.currentPage == productController.totalPages}" />
+        </h:form>
     </h:body>
 </f:view>
 </html>

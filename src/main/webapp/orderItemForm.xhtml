@@ -16,27 +16,34 @@
         </h:form>
         <h1>Neue Bestellposition anlegen</h1>
         <h:form>
+            <h:outputLabel for="orderItemID" value="BestellPositionnummer: "/>
+            <h:inputText id="orderItemID" value="#{orderItemController.itemId}"/>
+            <br/>
             <h:outputLabel for="orderID" value="Bestellnummer: "/>
-            <h:inputText id="orderID" value="#{orderItemForm.orderId}"/>
+            <h:inputText id="orderID" value="#{orderItemController.orderId}"/>
             <br></br>
-            <h:outputLabel for="customerID" value="KundeID: "/>
-            <h:inputText id="customerID" value="#{orderItemForm.customerId}"/>
+            <h:outputLabel for="Rabatte" value="Rabatte: "/>
+            <h:inputText id="Rabatte" value="#{orderItemController.discount}"/>
             <br></br>
-            <h:outputLabel for="productID" value="ProduktID: "/>
-            <h:inputText id="productID" value="#{orderItemForm.productId}"/>
+            <h:outputLabel for="ListenPreis" value="ListenPreis: "/>
+            <h:inputText id="ListenPreis" value="#{orderItemController.price}"/>
             <br></br>
             <h:outputLabel for="quantity" value="Anzahl: "/>
-            <h:inputText id="quantity" value="#{orderItemForm.quantity}"/>
+            <h:inputText id="quantity" value="#{orderItemController.quantity}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{orderItemForm.save()}" styleClass="save-button"/>
+            <h:outputLabel for="ProduktID" value="ProduktId: "/>
+            <h:inputText id="ProduktID" value="#{orderItemController.productId}"/>
             <br></br>
-            <div style="margin-top: 10px;">
-                <h:outputText id="errorMessage1" value="#{orderItemForm.errorMessage1}" rendered="#{not empty orderItemForm.errorMessage1}" styleClass="error-message" />
-                <br></br>
-                <h:outputText id="errorMessage2" value="#{orderItemForm.errorMessage2}" rendered="#{not empty orderItemForm.errorMessage2}" styleClass="error-message" />
-                <br></br>
-                <h:outputText id="errorMessage3" value="#{orderItemForm.errorMessage3}" rendered="#{not empty orderItemForm.errorMessage3}" styleClass="error-message" />
-            </div>
+
+            <h:commandButton value="Speichern" action="#{orderItemController.save()}" styleClass="save-button"/>
+            <br></br>
+<!--            <div style="margin-top: 10px;">-->
+<!--                <h:outputText id="errorMessage1" value="#{orderItemForm.errorMessage1}" rendered="#{not empty orderItemForm.errorMessage1}" styleClass="error-message" />-->
+<!--                <br></br>-->
+<!--                <h:outputText id="errorMessage2" value="#{orderItemForm.errorMessage2}" rendered="#{not empty orderItemForm.errorMessage2}" styleClass="error-message" />-->
+<!--                <br></br>-->
+<!--                <h:outputText id="errorMessage3" value="#{orderItemForm.errorMessage3}" rendered="#{not empty orderItemForm.errorMessage3}" styleClass="error-message" />-->
+<!--            </div>-->
         </h:form>
     </h:body>
 </f:view>

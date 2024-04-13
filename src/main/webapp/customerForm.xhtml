@@ -12,26 +12,35 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:commandButton value="Zurück" action="#{customerForm.navigateToHomePage()}" immediate="true" styleClass="back-button"/>
+            <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}" immediate="true" styleClass="back-button"/>
         </h:form>
         <h1>Neuen Kunden anlegen</h1>
         <h:form>
             <h:outputLabel for="vorname">Vorname:</h:outputLabel>
-            <h:inputText id="vorname" value="#{customerForm.firstname}"/>
+            <h:inputText id="vorname" value="#{customerController.firstName}"/>
             <br></br>
             <h:outputLabel for="nachname">Nachname:</h:outputLabel>
-            <h:inputText id="nachname" value="#{customerForm.lastname}"/>
+            <h:inputText id="nachname" value="#{customerController.lastName}"/>
             <br></br>
-            <h:outputLabel for="address">Adresse:</h:outputLabel>
-            <h:inputText id="address" value="#{customerForm.address}"/>
+            <h:outputLabel for="strasse">Straße:</h:outputLabel>
+            <h:inputText id="strasse" value="#{customerController.street}"/>
             <br></br>
             <h:outputLabel for="phone">Telefonnummer:</h:outputLabel>
-            <h:inputText id="phone" value="#{customerForm.phone}"/>
+            <h:inputText id="phone" value="#{customerController.phone}"/>
             <br></br>
             <h:outputLabel for="email">E-Mail:</h:outputLabel>
-            <h:inputText id="email" value="#{customerForm.email}"/>
+            <h:inputText id="email" value="#{customerController.email}"/>
             <br></br>
-            <h:commandButton value="Speichern" action="#{customerForm.save()}" styleClass="save-button"/>
+            <h:outputLabel for="staat">Staat:</h:outputLabel>
+            <h:inputText id="staat" value="#{customerController.state}"/>
+            <br></br>
+            <h:outputLabel for="stadt">Stadt:</h:outputLabel>
+            <h:inputText id="stadt" value="#{customerController.city}"/>
+            <br></br>
+            <h:outputLabel for="plz">Postleitzahl:</h:outputLabel>
+            <h:inputText id="plz" value="#{customerController.zipCode}"/>
+            <br></br>
+            <h:commandButton value="Speichern" action="#{customerController.save()}" styleClass="save-button"/>
         </h:form>
     </h:body>
 </f:view>

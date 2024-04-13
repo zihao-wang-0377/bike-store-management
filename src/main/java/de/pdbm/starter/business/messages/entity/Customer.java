@@ -38,8 +38,19 @@ public class Customer {
 //        this.email = email;
 //    }
 
-    public Customer(Integer id, String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
-        this.id = id;
+//    public Customer(Integer id, String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
+//        this.id = id;
+//        this.city = city;
+//        this.email = email;
+//        this.firstname = firstname;
+//        this.lastname = lastname;
+//        this.phone = phone;
+//        this.state = state;
+//        this.street = street;
+//        this.zipcode = zipcode;
+//    }
+
+    public Customer(String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
         this.city = city;
         this.email = email;
         this.firstname = firstname;

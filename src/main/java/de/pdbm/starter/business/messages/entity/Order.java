@@ -64,6 +64,16 @@ public class Order {
         this.store = store;
     }
 
+    public Order(LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
+        this.orderDate = orderDate;
+        this.oderStatus = oderStatus;
+        this.requiredDate = requiredDate;
+        this.shippedDate = shippedDate;
+        this.customer = customer;
+        this.staff = staff;
+        this.store = store;
+    }
+
     public Order() {
     }
 

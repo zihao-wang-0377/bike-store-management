@@ -20,18 +20,15 @@ public class CustomerService implements Serializable {
         em.persist(customer);
     }
 
-    public List<Customer> findAll(){
-        // Erstelle eine Abfrage, um alle Kunden aus der Datenbank abzurufen
-        TypedQuery<Customer> query = em.createQuery(
-                "select c from Customer c ", Customer.class
-        );
-        return query.getResultList();
-    }
+
     public List<Customer> findPaginated(int page, int size){
         TypedQuery<Customer> query = em.createQuery("select c from Customer c", Customer.class);
-        query.setFirstResult(page * size);
+        query.setFirstResult((page-1)* size);
         query.setMaxResults(size);
         return query.getResultList();
+    }
+    public long getCustomerCount(){
+        return em.createQuery("select count(c) from Customer c", Long.class).getSingleResult();
     }
 
     public Customer findById(Integer id){

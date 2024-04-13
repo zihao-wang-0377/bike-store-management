@@ -1,17 +1,21 @@
 package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
+@IdClass(OrderItemPk.class)
 public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
-    private Integer id;
 
+    @Id
+    @Column(name = "item_id")
+    private Integer item_id;
+
+
+    @Id
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -20,16 +24,13 @@ public class OrderItem {
 @Column(name = "list_price")
 private BigDecimal price;
     private Integer quantity;
-//    @ManyToOne
-//    @JoinColumn(name = "customer_id")
-//    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     public OrderItem(Integer id, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
-        this.id = id;
+        this.item_id = id;
         this.order = order;
         this.discount = discount;
         this.price = price;
@@ -37,7 +38,14 @@ private BigDecimal price;
         this.product = product;
     }
 
-    //    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
+    public OrderItem(Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
+        this.order = order;
+        this.discount = discount;
+        this.price = price;
+        this.quantity = quantity;
+        this.product = product;
+    }
+//    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
 //        this.id = id;
 //        this.order = order;
 //        this.customer = customer;
@@ -60,11 +68,11 @@ private BigDecimal price;
 //    }
 
     public Integer getId() {
-        return id;
+        return item_id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.item_id = id;
     }
 
     public Integer getOrderId() {

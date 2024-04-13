@@ -15,7 +15,7 @@
             <h:commandButton value="Zurück" action="#{orderItemController.navigateToHomePage()}" styleClass="back-button" />
         </h:form>
         <h1>Bestellpositionen</h1>
-        <h:dataTable value="#{orderItemController.orderItemList}" var="orderItem" styleClass="order-table">
+        <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
             <h:column>
                 <f:facet name="header">BestellpositionID</f:facet>
                 <h:outputText value="#{orderItem.id}"/>
@@ -41,6 +41,26 @@
                 <h:outputText value="#{orderItem.productId}"/>
             </h:column>
         </h:dataTable>
+        <h:form>
+        <h:outputLabel value="zur #{orderItemController.currentPage} seite"/>
+        <h:outputLabel value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
+            <h:selectOneMenu value="#{orderItemController.pageSize}">
+                <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
+                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
+                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite" />
+                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
+                <f:ajax event="change"  execute="@this" render="@all" />
+            </h:selectOneMenu>
+            <h:commandButton styleClass="firstPage" action="#{orderItemController.firstPage}" disabled="#{orderItemController.currentPage == 1}" />
+            <h:commandButton  value="P" action="#{orderItemController.prevPage}" disabled="#{orderItemController.currentPage == 1}" />
+            <ui:repeat value="#{orderItemController.pageNumbers}" var="pageNum">
+                <h:commandLink value="#{pageNum}" action="#{orderItemController.setPage(pageNum)}" rendered="#{pageNum != orderItemController.currentPage}" />
+                <h:outputText value="#{pageNum} " rendered="#{pageNum == orderItemController.currentPage}" styleClass="current-page"/>
+            </ui:repeat>
+            <h:outputText value="..." rendered="#{orderItemController.currentPage + 3 lt customerController.totalPages}" />
+            <h:commandButton value="N" action="#{orderItemController.nextPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
+            <h:commandButton value="L" action="#{orderItemController.lastPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
+        </h:form>
     </h:body>
 </f:view>
 </html>
