@@ -7,3 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 target/
+.idea/misc.xml
+.idea/compiler.xml
+.idea/vcs.xml
