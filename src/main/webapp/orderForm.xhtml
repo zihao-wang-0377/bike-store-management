@@ -51,19 +51,11 @@
             </h:selectOneMenu>
 
 
-<!--            <h:outputLabel for="orderDate" value="Bestelldatum: "/>-->
-<!--            <h:inputText id="orderDate" value="#{orderForm.orderDate}">-->
-<!--                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" locale="de_DE"/>-->
-<!--            </h:inputText>-->
-<!--            <h:commandButton value="Heute" action="#{orderForm.setOrderDateToToday()}" styleClass="today-button">-->
-<!--                <f:ajax render="orderDate"/>-->
-<!--            </h:commandButton>-->
+
             <br></br>
             <h:commandButton value="Speichern" action="#{orderController.save()}" styleClass="save-button"/>
             <br></br>
-<!--            <div style="margin-top: 10px;">-->
-<!--                <h:outputText id="errorMessage" value="#{orderForm.errorMessage}" rendered="#{not empty orderForm.errorMessage}" styleClass="error-message" />-->
-<!--            </div>-->
+
         </h:form>
     </h:body>
 </f:view>

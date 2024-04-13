@@ -5,6 +5,7 @@ import de.pdbm.starter.business.messages.control.OrderService;
 import de.pdbm.starter.business.messages.control.ProductService;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
+import de.pdbm.starter.business.messages.entity.OrderItemPk;
 import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
@@ -34,6 +35,8 @@ public class OrderItemController implements Serializable {
     private Integer quantity;
     @ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Integer productId;
+
+    private OrderItemPk orderItemPk;
     private List<OrderItem> orderItemList;
     private int currentPage = 1;
     private int pageSize = 10;
@@ -190,11 +193,13 @@ public class OrderItemController implements Serializable {
         return "homePage.xhtml?faces-redirect=true";
     }
 
-//    public void save(){
-//        Integer itemIdInt =Integer.parseInt(itemId);
-//        Order order = orderService.findById(orderId);
-//        Product product = productService.findById(productId);
-//        orderItemService.save(new OrderItem( itemIdInt,order,  discount,  price,  quantity,  product));
-//    }
+    public void save(){
+        Integer itemIdInt =Integer.parseInt(itemId);
+        Order order = orderService.findById(orderId);
+        Product product = productService.findById(productId);
+        orderItemPk.setItem_id(itemIdInt);
+        orderItemPk.setOrder_id(orderId);
+        orderItemService.save(new OrderItem( orderItemPk,order,  discount,  price,  quantity,  product));
+    }
 }
 
