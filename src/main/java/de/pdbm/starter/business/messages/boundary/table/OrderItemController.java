@@ -173,6 +173,19 @@ public class OrderItemController implements Serializable {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
+
+    public void goToPage() {
+        if(currentPage < 1) {
+            currentPage = 1;
+            loadOrderItemList();
+        } else if(currentPage > getTotalPages()) {
+            currentPage = getTotalPages();
+            loadOrderItemList();
+        } else {
+            loadOrderItemList();
+        }
+    }
+
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }

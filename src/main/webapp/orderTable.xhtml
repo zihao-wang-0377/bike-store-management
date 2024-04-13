@@ -56,8 +56,9 @@
             </h:column>
         </h:dataTable>
         <h:form>
-        <h:outputLabel value="zur #{orderController.currentPage} seite"/>
-        <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
+            <h:outputLabel value="Zur Seite"/>
+            <h:inputText value="#{orderController.currentPage}" size="3" />
+            <h:commandButton value="Gehen" action="#{orderController.goToPage}" />
             <h:selectOneMenu value="#{orderController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />

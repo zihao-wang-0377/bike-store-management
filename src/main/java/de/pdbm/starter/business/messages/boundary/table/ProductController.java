@@ -114,6 +114,18 @@ private long totalRecords;
         loadProduktList();
     }
 
+    public void goToPage() {
+        if(currentPage < 1) {
+            currentPage = 1;
+            loadProduktList();
+        } else if(currentPage > getTotalPages()) {
+            currentPage = getTotalPages();
+            loadProduktList();
+        } else {
+            loadProduktList();
+        }
+    }
+
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
