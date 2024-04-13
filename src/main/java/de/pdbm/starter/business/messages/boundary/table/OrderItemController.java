@@ -190,11 +190,11 @@ public class OrderItemController implements Serializable {
         return "homePage.xhtml?faces-redirect=true";
     }
 
-    public void save(){
-        Integer itemIdInt =Integer.parseInt(itemId);
-        Order order = orderService.findById(orderId);
-        Product product = productService.findById(productId);
-        orderItemService.save(new OrderItem( itemIdInt,order,  discount,  price,  quantity,  product));
-    }
+//    public void save(){
+//        Integer itemIdInt =Integer.parseInt(itemId);
+//        Order order = orderService.findById(orderId);
+//        Product product = productService.findById(productId);
+//        orderItemService.save(new OrderItem( itemIdInt,order,  discount,  price,  quantity,  product));
+//    }
 }
 

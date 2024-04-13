@@ -2,14 +2,16 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-
+@Embeddable
 public class OrderItemPk implements Serializable {
-@Column(name = "item_id")
+
     private Integer item_id;
-@Column(name = "order_id")
+
 private Integer order_id;
 
     public OrderItemPk() {
