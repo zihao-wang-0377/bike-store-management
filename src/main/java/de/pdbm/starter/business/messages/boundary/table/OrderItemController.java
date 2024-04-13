@@ -11,10 +11,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,7 +21,8 @@ import java.util.List;
 @Named
 @ViewScoped
 public class OrderItemController implements Serializable {
-    private Integer itemId;
+    @Pattern(regexp = "^[12345]$",message = "BestellPosition soll zwischen 1 bis 5 sein")
+    private String itemId;
     @ForeignKeyExists(entity = Order.class,customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
     @Min(value = 0)
@@ -49,7 +47,7 @@ public class OrderItemController implements Serializable {
     public OrderItemController() {
     }
 
-    public OrderItemController(Integer itemId, Integer orderId, BigDecimal discount, BigDecimal price, Integer quantity, Integer productId) {
+    public OrderItemController(String itemId, Integer orderId, BigDecimal discount, BigDecimal price, Integer quantity, Integer productId) {
         this.itemId = itemId;
         this.orderId = orderId;
         this.discount = discount;
@@ -126,11 +124,13 @@ public class OrderItemController implements Serializable {
         }
     }
 
-    public Integer getItemId() {
+
+
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -178,9 +178,10 @@ public class OrderItemController implements Serializable {
     }
 
     public void save(){
+        Integer itemIdInt =Integer.parseInt(itemId);
         Order order = orderService.findById(orderId);
         Product product = productService.findById(productId);
-        orderItemService.save(new OrderItem( order,  discount,  price,  quantity,  product));
+        orderItemService.save(new OrderItem( itemIdInt,order,  discount,  price,  quantity,  product));
     }
 }
 

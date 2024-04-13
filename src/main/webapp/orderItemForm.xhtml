@@ -16,6 +16,9 @@
         </h:form>
         <h1>Neue Bestellposition anlegen</h1>
         <h:form>
+            <h:outputLabel for="orderItemID" value="BestellPositionnummer: "/>
+            <h:inputText id="orderItemID" value="#{orderItemController.itemId}"/>
+            <br/>
             <h:outputLabel for="orderID" value="Bestellnummer: "/>
             <h:inputText id="orderID" value="#{orderItemController.orderId}"/>
             <br></br>
