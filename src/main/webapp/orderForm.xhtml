@@ -26,8 +26,21 @@
             <h:inputText id="storeID" value="#{orderController.storeId}"/>
             <br></br>
             <h:outputLabel for="Bestelldatum" value="Bestelldatum: "/>
-            <h:inputText id="Bestelldatum" value="#{orderController.orderDate}"/>
+
+            <h:inputText id="Bestelldatum" value="#{orderController.orderDate}">
+                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate"></f:convertDateTime>
+
+            </h:inputText>
             <br></br>
+            <h:outputLabel for="ErwartetesLieferdatum" value="Erwartetes Liferdatum: "/>
+
+            <h:inputText id="ErwartetesLieferdatum" value="#{orderController.requiredDate}">
+                <f:convertDateTime pattern="dd.MM.yyyy" type="localDate" ></f:convertDateTime>
+
+            </h:inputText>
+            <br></br>
+            <br></br>
+
             <h:outputLabel  value="Bestellzustand: "/>
             <h:selectOneMenu value="#{orderController.orderStatus}">
                 <f:selectItem itemValue="1" itemLabel="bestellt"></f:selectItem>
@@ -36,10 +49,7 @@
                 <f:selectItem itemValue="4" itemLabel="zugestellt"></f:selectItem>
 
             </h:selectOneMenu>
-            <br></br>
-            <h:outputLabel for="ErwartetesLieferdatum" value="Erwartetes Liferdatum: "/>
-            <h:inputText id="ErwartetesLieferdatum" value="#{orderController.requiredDate}"/>
-            <br></br>
+
 
 <!--            <h:outputLabel for="orderDate" value="Bestelldatum: "/>-->
 <!--            <h:inputText id="orderDate" value="#{orderForm.orderDate}">-->

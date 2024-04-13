@@ -10,7 +10,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
-    private Integer id;
+    private Integer item_id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -29,7 +29,7 @@ private BigDecimal price;
     private Product product;
 
     public OrderItem(Integer id, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
-        this.id = id;
+        this.item_id = id;
         this.order = order;
         this.discount = discount;
         this.price = price;
@@ -67,11 +67,11 @@ private BigDecimal price;
 //    }
 
     public Integer getId() {
-        return id;
+        return item_id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.item_id = id;
     }
 
     public Integer getOrderId() {

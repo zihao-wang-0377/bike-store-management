@@ -196,7 +196,7 @@ OrderService orderService;
     }
 public void save(){
   Integer oderStatusInt = Integer.parseInt(orderStatus);
-  requiredDate=null;
+//  requiredDate=null;
   Customer customer = customerService.findById(customerId);
   Staff staff = staffService.findStaffById(staffId);
   Store store = storeService.findStoreById(storeId);
