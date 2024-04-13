@@ -22,7 +22,9 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Bestlldatum</f:facet>
-                #{order.orderDate}
+                <h:outputText value="#{order.orderDate}">
+                    <f:converter converterId="localDateConverter" />
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">BestellungZustand</f:facet>
@@ -30,11 +32,15 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Erwartetes Lieferdatum</f:facet>
-                #{order.requiredDate}
+                <h:outputText value="#{order.requiredDate}">
+                    <f:converter converterId="localDateConverter" />
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Versanddatum</f:facet>
-                #{order.shippedDate}
+                <h:outputText value="#{order.shippedDate}">
+                    <f:converter converterId="localDateConverter" />
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Kunden-ID </f:facet>

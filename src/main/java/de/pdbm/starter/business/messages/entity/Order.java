@@ -30,7 +30,6 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-//    private BigDecimal total;
     @ManyToOne
     @JoinColumn (name = "staff_id")
     private Staff staff;
@@ -39,19 +38,7 @@ public class Order {
     @JoinColumn(name = "store_id")
     private Store store;
 
-//    @OneToMany(
-//            cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
-//            mappedBy = "order"
-//    )
-//    private Set<OrderItem> orderItems; unnoetig kann man wegmachen
 
-//    public Order(Integer id, Customer customer, BigDecimal total, LocalDate orderDate) {
-////    public Order(Integer id, Customer customer, BigDecimal total) {
-//        this.id = id;
-//        this.customer = customer;
-//        this.total = total;
-//        this.orderDate = orderDate;
-//    }
 
     public Order(Integer id, LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.id = id;
