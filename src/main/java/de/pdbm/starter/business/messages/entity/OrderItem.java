@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
-@IdClass(OrderItemPk.class)
+//@IdClass(OrderItemPk.class)
 public class OrderItem {
 
     @Id
@@ -15,7 +15,7 @@ public class OrderItem {
     private Integer item_id;
 
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
