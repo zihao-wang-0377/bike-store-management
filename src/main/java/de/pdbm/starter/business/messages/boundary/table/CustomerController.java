@@ -206,4 +206,16 @@ private long totalRecords;
         customerService.save(new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode));
 
     }
+
+    public void goToPage() {
+        if(currentPage < 1) {
+            currentPage = 1;
+            loadCustomerList();
+        } else if(currentPage > getTotalPages()) {
+            currentPage = getTotalPages();
+            loadCustomerList();
+        } else {
+            loadCustomerList();
+        }
+    }
 }

@@ -42,8 +42,10 @@
             </h:column>
         </h:dataTable>
         <h:form>
-        <h:outputLabel value="zur #{productController.currentPage} seite"/>
-        <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
+            <h:outputLabel value="Zur Seite"/>
+            <h:inputText value="#{productController.currentPage}" size="3" />
+            <h:commandButton value="Gehen" action="#{productController.goToPage}" />
+            <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
             <h:selectOneMenu value="#{productController.pageSize}">
             <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />

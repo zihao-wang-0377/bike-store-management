@@ -191,6 +191,18 @@ OrderService orderService;
         this.storeId = storeId;
     }
 
+    public void goToPage() {
+        if(currentPage < 1) {
+            currentPage = 1;
+            loadOrderList();
+        } else if(currentPage > getTotalPages()) {
+            currentPage = getTotalPages();
+            loadOrderList();
+        } else {
+            loadOrderList();
+        }
+    }
+
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
