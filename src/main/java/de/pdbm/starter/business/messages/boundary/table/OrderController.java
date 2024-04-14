@@ -13,10 +13,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -43,6 +40,8 @@ private Integer staffId;
 @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 private Integer storeId;
 private List<Order> orderList;
+    @Min(value = 1,message = "bitte geben sie mindesten 1 ein")
+
 private int currentPage = 1;
 private int pageSize = 10;
 private long totalRecords;

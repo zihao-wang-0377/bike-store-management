@@ -39,6 +39,8 @@ public class OrderItemController implements Serializable {
 
     private OrderItemPk orderItemPk =new OrderItemPk();
     private List<OrderItem> orderItemList;
+    @Min(value = 1,message = "bitte geben sie mindesten 1 ein")
+
     private int currentPage = 1;
     private int pageSize = 10;
     private long totalRecords;

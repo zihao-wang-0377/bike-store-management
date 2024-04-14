@@ -36,7 +36,9 @@ private Integer brandId;
 @ForeignKeyExists(entity = Category.class,customerMessage= "das CategorieId,das Sie eingegeben haben existiert nicht")
 private Integer categoryId;
 private List<Product> productList;
+@Min(value = 1,message = "bitte geben sie mindesten 1 ein")
 private int currentPage = 1;
+
 private int pageSize = 10;
 private long totalRecords;
 @Inject

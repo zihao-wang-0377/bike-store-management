@@ -40,6 +40,8 @@ private String street;
 private String zipCode;
 
 private List<Customer> customerList;
+    @Min(value = 1,message = "bitte geben sie mindesten 1 ein")
+
 private int currentPage = 1;
 private int pageSize = 10;
 private long totalRecords;
