@@ -45,6 +45,8 @@
             <h:outputLabel value="Zur Seite"/>
             <h:inputText value="#{orderItemController.currentPage}" size="3" />
             <h:commandButton value="Gehen" action="#{orderItemController.goToPage}" />
+            <h:outputLabel value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
+
             <h:selectOneMenu value="#{orderItemController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />

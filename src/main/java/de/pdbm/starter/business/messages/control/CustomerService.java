@@ -23,8 +23,8 @@ public class CustomerService implements Serializable {
 
     public List<Customer> findPaginated(int page, int size){
         TypedQuery<Customer> query = em.createQuery("select c from Customer c", Customer.class);
-        query.setFirstResult((page-1)* size);
-        query.setMaxResults(size);
+        query.setFirstResult((page-1)* size);//start page
+        query.setMaxResults(size);//pagesize
         return query.getResultList();
     }
     public long getCustomerCount(){
