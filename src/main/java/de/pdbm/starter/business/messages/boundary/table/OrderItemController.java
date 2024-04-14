@@ -121,6 +121,7 @@ public class OrderItemController implements Serializable {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+        currentPage = 1;
         loadOrderItemList();
     }
     public void setPage(int page){

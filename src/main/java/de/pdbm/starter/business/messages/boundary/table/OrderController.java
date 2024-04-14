@@ -116,6 +116,7 @@ OrderService orderService;
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+        currentPage = 1;
         loadOrderList();
     }
 

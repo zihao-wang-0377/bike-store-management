@@ -112,6 +112,7 @@ private long totalRecords;
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+        currentPage = 1;
         loadCustomerList();
     }
 
