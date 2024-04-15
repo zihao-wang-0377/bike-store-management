@@ -1,0 +1,11 @@
+- keine ReadMe vorhanden -
+- Formatierung teils inkonsistent (Einrückung, Leerzeichen, Leerzeilen) -
+- Typo der sich durch viele Klassen zieht (”Familiensatnd”) (-)
+- Commit Messages teils ungenau/irreführend (”commit”, “Update 54 files”, “xhtml korregieren mit redirect-true” in dem noch vier weitere Controller geändert werden, etc.) -
+- Langlebige Branches, einer pro Person, sind nicht sinnvoll (-)
+
+- Keine Datasource, nicht deploybar, 0% !
+- Package von Starter-Projekt
+- Warum hat Ihnen @email nicht gefallen?
+- Code schön einfach und funktional
+Bewertung: 50% (wie gesagt: eigentlich 0%)
