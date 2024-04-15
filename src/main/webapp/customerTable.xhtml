@@ -62,9 +62,6 @@
             <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
             <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
-            <h:outputLabel value="Zur Seite"/>
-            <h:inputText value="#{customerController.currentPage}" size="3" />
-            <h:commandButton value="Gehen" action="#{customerController.goToPage}" />
             <h:commandButton styleClass="firstPage" action="#{customerController.firstPage}" disabled="#{customerController.currentPage == 1}" />
             <h:commandButton styleClass="previous"  action="#{customerController.prevPage}" disabled="#{customerController.currentPage == 1}" />
             <ui:repeat value="#{customerController.pageNumbers}" var="pageNum">
@@ -74,6 +71,9 @@
             <h:outputText styleClass="rest" value="..." rendered="#{customerController.currentPage + 3 lt customerController.totalPages}" />
             <h:commandButton styleClass="next" action="#{customerController.nextPage}" disabled="#{customerController.currentPage == customerController.totalPages}" />
             <h:commandButton styleClass="lastPage" action="#{customerController.lastPage}" disabled="#{customerController.currentPage == customerController.totalPages}" />
+            <h:outputLabel value="Zur Seite"/>
+            <h:inputText value="#{customerController.currentPage}" size="3" />
+            <h:commandButton value="Gehen" action="#{customerController.goToPage}" />
         </h:form>
 
     </h:body>
