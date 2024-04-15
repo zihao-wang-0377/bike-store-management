@@ -40,8 +40,6 @@ private Integer staffId;
 @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 private Integer storeId;
 private List<Order> orderList;
-    @Min(value = 1,message = "bitte geben sie mindesten 1 ein")
-
 private int currentPage = 1;
 private int pageSize = 10;
 private long totalRecords;
