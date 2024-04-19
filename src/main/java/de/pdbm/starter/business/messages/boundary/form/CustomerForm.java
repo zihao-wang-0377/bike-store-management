@@ -31,8 +31,7 @@ public class CustomerForm implements Serializable {
     private String phone;
 
     @NotBlank(message = "E-Mail darf nicht leer sein!")
-    //@Email(message = "Ungültige E-Mail-Adresse")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Ungültige E-Mail-Adresse!")
+    @Email(message = "Ungültige E-Mail-Adresse")
     private String email;
 
     public CustomerForm() {
