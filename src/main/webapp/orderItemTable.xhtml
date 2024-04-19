@@ -30,7 +30,10 @@
             </h:column>
             <h:column>
                 <f:facet name="header">ListenPreis</f:facet>
-                <h:outputText value="#{orderItem.price}"/>
+                <h:outputText value="#{orderItemController.price}">
+<!--                    <f:convertNumber locale="de_DE" type="number" groupingUsed="true" />-->
+                    <f:convertNumber pattern="#,##0.00" locale="de_DE" />
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Anzahl</f:facet>
