@@ -26,6 +26,7 @@ public class Staff {
 
     private Integer storeId;
 
+    // Konstruktor
     public Staff() {
     }
 
@@ -40,6 +41,7 @@ public class Staff {
         this.storeId = storeId;
     }
 
+    // Getter und Setter
     public Integer getStaffId() {
         return staffId;
     }

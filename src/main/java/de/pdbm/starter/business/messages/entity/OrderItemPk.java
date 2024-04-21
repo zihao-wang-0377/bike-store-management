@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Embeddable
 public class OrderItemPk implements Serializable {
-
     private Integer item_id;
 
-private Integer order_id;
+    private Integer order_id;
 
+    // Konstruktor
     public OrderItemPk() {
     }
 
@@ -22,6 +22,7 @@ private Integer order_id;
         this.order_id = order_id;
     }
 
+    // Getter und Setter
     public Integer getItem_id() {
         return item_id;
     }

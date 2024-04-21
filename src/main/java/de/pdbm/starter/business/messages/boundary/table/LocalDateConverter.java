@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
 
 @FacesConverter(value = "localDateConverter")
 public class LocalDateConverter implements Converter {
-
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @Override

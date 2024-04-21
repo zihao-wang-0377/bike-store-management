@@ -26,6 +26,7 @@ public class Store {
     @Column(name = "zip_code")
     private String zipcode;
 
+    // Konstruktor
     public Store() {
     }
 
@@ -40,6 +41,7 @@ public class Store {
         this.zipcode = zipcode;
     }
 
+    // Getter und Setter
     public Integer getStoreId() {
         return storeId;
     }

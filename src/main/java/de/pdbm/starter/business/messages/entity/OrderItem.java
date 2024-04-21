@@ -7,30 +7,30 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
-
 public class OrderItem {
-
     @EmbeddedId
     private OrderItemPk orderItemPk;
-
-
-
 
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     @MapsId("order_id")
     private Order order;
-@Column(name = "discount")
+
+    @Column(name = "discount")
     private BigDecimal discount;
-@Column(name = "list_price")
-private BigDecimal price;
+
+    @Column(name = "list_price")
+    private BigDecimal price;
+
     private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-
+    // Konstruktor
+    public OrderItem() {
+    }
 
     public OrderItem(OrderItemPk orderItemPk, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
         this.orderItemPk = new OrderItemPk();
@@ -43,15 +43,7 @@ private BigDecimal price;
         this.product = product;
     }
 
-
-
-    public OrderItem() {
-    }
-
-
-
-
-
+    // Getter und Setter
     public OrderItemPk getOrderItemPk() {
         return orderItemPk;
     }
@@ -60,7 +52,6 @@ private BigDecimal price;
         this.orderItemPk = orderItemPk;
     }
 
-
     public Order getOrder() {
         return order;
     }
@@ -68,7 +59,6 @@ private BigDecimal price;
     public void setOrder(Order order) {
         this.order = order;
     }
-
 
     public Integer getProductId() {
         return product.getId();
@@ -105,18 +95,20 @@ private BigDecimal price;
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    public Integer getItemId(){
-        return orderItemPk !=null?orderItemPk.getItem_id():null;
+
+    public Integer getItemId() {
+        return orderItemPk != null ? orderItemPk.getItem_id() : null;
     }
-    public Integer getOrderId(){
-        return orderItemPk !=null?orderItemPk.getOrder_id():null;
+
+    public Integer getOrderId() {
+        return orderItemPk != null ? orderItemPk.getOrder_id() : null;
     }
-    public void setItemId(Integer itemId){
+
+    public void setItemId(Integer itemId) {
         this.orderItemPk.setItem_id(itemId);
     }
-    public void setOrderId(Integer OrderId){
+
+    public void setOrderId(Integer OrderId) {
         this.orderItemPk.setOrder_id(OrderId);
     }
-
-
 }

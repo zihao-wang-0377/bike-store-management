@@ -22,31 +22,54 @@ import java.util.List;
 @Named
 @ViewScoped
 public class ProductController implements Serializable {
-private Integer productId;
-@Positive(message = "Preis muss positiv sein")
-private BigDecimal price;
-@Max(value = 2024,message = "Jahr kann nicht über 2024 sein" )
-@Min(value = 1900,message = "Jahr kann nicht früher als 1900")
-@PositiveOrZero(message = "Jahr kann nicht negativ sein")
-private Integer year;
-@Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
-private String name;
-@ForeignKeyExists(entity = Brand.class,customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
-private Integer brandId;
-@ForeignKeyExists(entity = Category.class,customerMessage= "das CategorieId,das Sie eingegeben haben existiert nicht")
-private Integer categoryId;
-private List<Product> productList;
-private int currentPage = 1;
-
-private int pageSize = 10;
-private long totalRecords;
-@Inject
+    @Inject
     ProductService productService;
-@Inject
+
+    @Inject
     BrandService brandService;
-@Inject
+
+    @Inject
     CategoryService categoryService;
 
+    private Integer productId;
+
+    @Positive(message = "Preis muss positiv sein")
+    private BigDecimal price;
+
+    @Max(value = 2024, message = "Jahr kann nicht über 2024 sein")
+    @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
+    @PositiveOrZero(message = "Jahr kann nicht negativ sein")
+    private Integer year;
+
+    @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+    private String name;
+
+    @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
+    private Integer brandId;
+
+    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
+    private Integer categoryId;
+
+    private List<Product> productList;
+
+    private int currentPage = 1;
+
+    private int pageSize = 10;
+
+    private long totalRecords;
+
+    // Konstruktor
+    public ProductController() {
+    }
+
+    // Objekt erstellen und speichern
+    public void save() {
+        Brand brand = brandService.findBrandById(brandId);
+        Category category = categoryService.findCategoryById(categoryId);
+        productService.save(new Product(price, year, name, brand, category));
+    }
+
+    // Paginierung-Methoden
     public int getCurrentPage() {
         return currentPage;
     }
@@ -61,36 +84,44 @@ private long totalRecords;
         }
         return productList;
     }
-    public void loadProduktList(){
+
+    public void loadProduktList() {
         this.productList = productService.findPaginated(currentPage, pageSize);
     }
-    public void nextPage(){
+
+    public void nextPage() {
         currentPage++;
         loadProduktList();
     }
-    public void prevPage(){
-        if(currentPage > 0){
+
+    public void prevPage() {
+        if (currentPage > 0) {
             currentPage--;
             loadProduktList();
         }
     }
-    public void firstPage(){
+
+    public void firstPage() {
         currentPage = 1;
         loadProduktList();
     }
-    public void lastPage(){
+
+    public void lastPage() {
         currentPage = getTotalPages();
         loadProduktList();
     }
+
     public int getTotalPages() {
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
-    public void setPage(int page){
-        if(page >= 1 && page <= getTotalPages()){
+
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
             currentPage = page;
             loadProduktList();
         }
     }
+
     public Integer[] getPageNumbers() {
         int startPage = Math.max(1, currentPage - 2);
         int endPage = Math.min(getTotalPages(), currentPage + 4);
@@ -117,10 +148,10 @@ private long totalRecords;
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadProduktList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadProduktList();
         } else {
@@ -128,10 +159,7 @@ private long totalRecords;
         }
     }
 
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
-    }
-
+    // Getter und Setter
     public Integer getProductId() {
         return productId;
     }
@@ -179,11 +207,9 @@ private long totalRecords;
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-    public void save(){
-        Brand brand = brandService.findBrandById(brandId);
-        Category category = categoryService.findCategoryById(categoryId);
-        productService.save(new Product( price,  year,  name,  brand,  category));
+
+    // Navigation fuer Zurueck Button
+    public String navigateToHomePage() {
+        return "homePage.xhtml?faces-redirect=true";
     }
 }
-
-

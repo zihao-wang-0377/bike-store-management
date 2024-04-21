@@ -6,8 +6,10 @@ import java.io.Serializable;
 @Embeddable
 public class StockPk implements Serializable {
     private Integer product_id;
+
     private Integer store_id;
 
+    // Konstruktor
     public StockPk() {
     }
 
@@ -16,6 +18,7 @@ public class StockPk implements Serializable {
         this.store_id = store_id;
     }
 
+    // Getter und Setter
     public Integer getProduct_id() {
         return product_id;
     }

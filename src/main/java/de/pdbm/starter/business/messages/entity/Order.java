@@ -17,12 +17,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Integer id;
+
     @Column(name = "order_date")
     private LocalDate orderDate;
+
     @Column(name = "order_status")
     private Integer oderStatus;
+
     @Column(name = "required_date")
     private LocalDate requiredDate;
+
     @Column(name = "shipped_date")
     private LocalDate shippedDate;
 
@@ -37,8 +41,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
-
-
 
     public Order(Integer id, LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.id = id;
@@ -61,19 +63,20 @@ public class Order {
         this.store = store;
     }
 
+    // Konstruktor
     public Order() {
     }
 
-//    @Override
-//    public String toString() {
-//        return "Bestellung{" +
-//                "id=" + id +
-//                ", kunde=" + customer +
-//                ", gesamtbetrag=" + total +
-//                ", bestelldatum=" + orderDate +
-//                '}';
-//    }
+    public String getLocalizedOrderDate() {
+        if (orderDate == null) {
+            return "";
+        }
+        Locale locale = Locale.GERMANY; // Deutsch (Deutschland)
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale);
+        return orderDate.format(formatter);
+    }
 
+    // Getter und Setter
     public Integer getId() {
         return id;
     }
@@ -94,33 +97,13 @@ public class Order {
         this.customer = customer;
     }
 
-//    public BigDecimal getTotal() {
-//        return total;
-//    }
-//
-//    public void setTotal(BigDecimal total) {
-//        this.total = total;
-//    }
-
     public LocalDate getOrderDate() {
         return orderDate;
     }
-    public String getLocalizedOrderDate() {
-        if (orderDate == null) {
-            return "";
-        }
-        Locale locale = Locale.GERMANY; // Deutsch (Deutschland)
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale);
-        return orderDate.format(formatter);
-    }
+
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
-
-//    public Set<OrderItem> getOrderItems() {
-//        return orderItems;
-//    }
-
 
     public Integer getOderStatus() {
         return oderStatus;

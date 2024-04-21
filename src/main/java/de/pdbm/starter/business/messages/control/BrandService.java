@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class BrandService implements Serializable {
     @PersistenceContext
     EntityManager em;
+
     public void save(Brand brand){
         em.persist(brand);
 

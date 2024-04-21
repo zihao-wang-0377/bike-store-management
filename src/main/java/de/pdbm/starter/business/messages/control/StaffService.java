@@ -11,6 +11,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 public class StaffService implements Serializable {
     @PersistenceContext(type = TRANSACTION)
     EntityManager em;
+
     public Staff findStaffById(Integer id){
         return  em.find(Staff.class,id);
     }

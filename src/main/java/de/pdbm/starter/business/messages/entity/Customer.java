@@ -13,42 +13,21 @@ public class Customer {
     private String city;
 
     private String email;
+
     @Column(name = "first_name")
     private String firstname;
 
     @Column(name = "last_name")
     private String lastname;
+
     private String phone;
-//    private String address; loesch unnoetig
-
-
-
 
     private String state;
+
     private String street;
+
     @Column(name = "zip_code")
     private String zipcode;
-
-//    public Customer(Integer id, String firstname, String lastname, String address, String phone, String email) {
-//        this.id = id;
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.address = address;
-//        this.phone = phone;
-//        this.email = email;
-//    }
-
-//    public Customer(Integer id, String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
-//        this.id = id;
-//        this.city = city;
-//        this.email = email;
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.phone = phone;
-//        this.state = state;
-//        this.street = street;
-//        this.zipcode = zipcode;
-//    }
 
     public Customer(String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
         this.city = city;
@@ -61,21 +40,11 @@ public class Customer {
         this.zipcode = zipcode;
     }
 
+    // Konstruktor
     public Customer() {
     }
 
-//    @Override
-//    public String toString() {
-//        return "Kunde{" +
-//                "id=" + id +
-//                ", vorname='" + firstname + '\'' +
-//                ", nachname='" + lastname + '\'' +
-//                ", adresse='" + address + '\'' +
-//                ", telefonnummer='" + phone + '\'' +
-//                ", email='" + email + '\'' +
-//                '}';
-//    }
-
+    // Getter und Setter
     public Integer getId() {
         return id;
     }
@@ -99,14 +68,6 @@ public class Customer {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    } adress unnoetig
 
     public String getPhone() {
         return phone;

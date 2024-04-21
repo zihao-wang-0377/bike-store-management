@@ -42,7 +42,6 @@ public class CustomerForm implements Serializable {
         Customer customer = new Customer();
         customer.setFirstname(firstname);
         customer.setLastname(lastname);
-//        customer.setAddress(address);
         customer.setPhone(phone);
         customer.setEmail(email);
 
@@ -56,7 +55,6 @@ public class CustomerForm implements Serializable {
         setPhone(null);
         setEmail(null);
     }
-
 
     public String getFirstname() {
         return firstname;

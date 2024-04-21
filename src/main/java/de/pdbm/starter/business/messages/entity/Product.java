@@ -13,39 +13,25 @@ public class Product {
     @Column(name = "product_id")
     private Integer id;
 
-
-@Column(name = "list_price")
+    @Column(name = "list_price")
     private BigDecimal price;
-@Column(name = "model_year")
-private Integer modelYear;
+
+    @Column(name = "model_year")
+    private Integer modelYear;
+
     @Column(name = "product_name")
     private String name;
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
     @ManyToOne
-@JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-//    private String description;
-
-//    public Product(Integer id, String name, BigDecimal price, String description) {
-//        this.id = id;
-//        this.name = name;
-//        this.price = price;
-//        this.description = description;
-//    }
-
+    // Konstruktor
     public Product() {
-    }
-
-    public Product(Integer id, BigDecimal price, Integer modelYear, String name, Brand brand, Category category) {
-        this.id = id;
-        this.price = price;
-        this.modelYear = modelYear;
-        this.name = name;
-        this.brand = brand;
-        this.category = category;
     }
 
     public Product(BigDecimal price, Integer modelYear, String name, Brand brand, Category category) {
@@ -55,16 +41,8 @@ private Integer modelYear;
         this.brand = brand;
         this.category = category;
     }
-//    @Override
-//    public String toString() {
-//        return "Produkt{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", preis=" + price +
-//                ", beschreibung='" + description + '\'' +
-//                '}';
-//    }
 
+    // Getter und Setter
     public Integer getId() {
         return id;
     }
@@ -88,15 +66,6 @@ private Integer modelYear;
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-
 
     public Integer getModelYear() {
         return modelYear;

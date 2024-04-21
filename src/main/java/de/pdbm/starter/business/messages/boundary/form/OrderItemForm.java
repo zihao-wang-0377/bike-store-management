@@ -44,9 +44,7 @@ public class OrderItemForm implements Serializable {
     private Integer quantity;
 
     private String errorMessage1;
-
     private String errorMessage2;
-
     private String errorMessage3;
 
     public OrderItemForm() {
@@ -74,16 +72,6 @@ public class OrderItemForm implements Serializable {
             return; // Falls Fehler vorhanden sind, wird nicht gespeichert
         }
 
-        // Neues Objekt wird erstellt und die Bestellung, den Kunden, das Produkt und die Menge gesetzt
-//        OrderItem orderItem = new OrderItem();
-//        orderItem.setOrder(orderService.findById(orderId));
-//        orderItem.setCustomer(customerService.findById(customerId));
-//        orderItem.setProduct(productService.findById(productId));
-//        orderItem.setQuantity(quantity);
-//
-//        // Speichere das OrderItem
-//        orderItemService.save(orderItem);
-
         // Setze die IDs und die Menge zurück
         setOrderId(null);
         setCustomerId(null);
@@ -91,34 +79,27 @@ public class OrderItemForm implements Serializable {
         setQuantity(null);
     }
 
-
     public String getErrorMessage1() {
-
         return errorMessage1;
     }
 
     public void setErrorMessage1(String errorMessage1) {
-
         this.errorMessage1 = errorMessage1;
     }
 
     public String getErrorMessage2() {
-
         return errorMessage2;
     }
 
     public void setErrorMessage2(String errorMessage2) {
-
         this.errorMessage2 = errorMessage2;
     }
 
     public String getErrorMessage3() {
-
         return errorMessage3;
     }
 
     public void setErrorMessage3(String errorMessage3) {
-
         this.errorMessage3 = errorMessage3;
     }
 

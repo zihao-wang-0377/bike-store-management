@@ -32,10 +32,10 @@ public class ProductService implements Serializable {
         // Suche ein Produkt in der Datenbank anhand seiner ID
         return em.find(Product.class, id);
     }
+
     public long getProductCount(){
         return em.createQuery("select count(c) from Product c", Long.class).getSingleResult();
     }
-
 
     public Product findByName(String name) {
         // Erstelle eine Abfrage, um ein Produkt anhand seines Namens zu suchen
@@ -49,7 +49,6 @@ public class ProductService implements Serializable {
         // Führe die Abfrage aus und gib das gefundene Produkt zurück
         return query.getSingleResult();
     }
-
 
     public void delete(Product product) {
         em.remove(product);

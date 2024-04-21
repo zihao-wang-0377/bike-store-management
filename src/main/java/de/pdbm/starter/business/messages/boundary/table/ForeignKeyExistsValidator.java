@@ -6,10 +6,13 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class ForeignKeyExistsValidator implements ConstraintValidator<ForeignKeyExists, Integer> {
-@PersistenceContext
-EntityManager entityManager;
+    @PersistenceContext
+    EntityManager entityManager;
+
     private String defaultMessage;
+
     private String customMessage;
+
     private Class<?> entityClass;
 
     @Override

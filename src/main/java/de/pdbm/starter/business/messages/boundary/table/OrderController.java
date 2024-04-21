@@ -23,37 +23,62 @@ import java.util.List;
 @Named
 @ViewScoped
 public class OrderController implements Serializable {
-private Integer orderId;
-@PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
-private LocalDate orderDate;//hier kann man eine heute funktion schreiben
-@Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
-private String orderStatus;//hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
-    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
-    private LocalDate requiredDate;
-private LocalDate shippedDate;
-@ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    @Inject
+    OrderService orderService;
 
-private Integer customerId;
-@ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
-
-private Integer staffId;
-@ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
-private Integer storeId;
-private List<Order> orderList;
-private int currentPage = 1;
-private int pageSize = 10;
-private long totalRecords;
-@Inject
-OrderService orderService;
     @Inject
     StaffService staffService;
+
     @Inject
     StoreService storeService;
+
     @Inject
     CustomerService customerService;
+
+    private Integer orderId;
+
+    @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
+    private LocalDate orderDate; // hier kann man eine heute funktion schreiben
+
+    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
+    private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
+
+    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
+    private LocalDate requiredDate;
+
+    private LocalDate shippedDate;
+
+    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    private Integer customerId;
+
+    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
+    private Integer staffId;
+
+    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
+    private Integer storeId;
+
+    private List<Order> orderList;
+
+    private int currentPage = 1;
+
+    private int pageSize = 10;
+
+    private long totalRecords;
+
+    // Konstruktor
     public OrderController() {
     }
 
+    // Objekt erstellen und speichern
+    public void save(){
+        Integer oderStatusInt = Integer.parseInt(orderStatus);
+        Customer customer = customerService.findById(customerId);
+        Staff staff = staffService.findStaffById(staffId);
+        Store store = storeService.findStoreById(storeId);
+        orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
+    }
+
+    // Paginierung-Methoden
     public int getCurrentPage() {
         return currentPage;
     }
@@ -68,30 +93,44 @@ OrderService orderService;
         }
         return orderList;
     }
+
     public void loadOrderList(){
         this.orderList = orderService.findPaginated(currentPage, pageSize);
     }
+
     public void nextPage(){
         currentPage++;
         loadOrderList();
     }
+
     public void prevPage(){
         if(currentPage > 0){
             currentPage--;
             loadOrderList();
         }
     }
+
     public void firstPage(){
         currentPage = 1;
         loadOrderList();
     }
+
     public void lastPage(){
         currentPage = getTotalPages();
         loadOrderList();
     }
+
     public int getTotalPages() {
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
+
+    public void setPage(int page){
+        if(page >= 1 && page <= getTotalPages()){
+            currentPage = page;
+            loadOrderList();
+        }
+    }
+
     public Integer[] getPageNumbers() {
         int startPage = Math.max(1, currentPage - 2);
         int endPage = Math.min(getTotalPages(), currentPage + 4);
@@ -100,12 +139,6 @@ OrderService orderService;
             pageNumbers.add(i);
         }
         return pageNumbers.toArray(new Integer[0]);
-    }
-    public void setPage(int page){
-        if(page >= 1 && page <= getTotalPages()){
-            currentPage = page;
-            loadOrderList();
-        }
     }
 
     public int getPageSize() {
@@ -118,13 +151,24 @@ OrderService orderService;
         loadOrderList();
     }
 
+    public void goToPage() {
+        if(currentPage < 1) {
+            currentPage = 1;
+            loadOrderList();
+        } else if(currentPage > getTotalPages()) {
+            currentPage = getTotalPages();
+            loadOrderList();
+        } else {
+            loadOrderList();
+        }
+    }
+
     public long getTotalRecords() {
         this.totalRecords = orderService.getOrderCount();
         return totalRecords;
     }
 
-
-
+    // Getter und Setter
     public Integer getOrderId() {
         return orderId;
     }
@@ -189,27 +233,8 @@ OrderService orderService;
         this.storeId = storeId;
     }
 
-    public void goToPage() {
-        if(currentPage < 1) {
-            currentPage = 1;
-            loadOrderList();
-        } else if(currentPage > getTotalPages()) {
-            currentPage = getTotalPages();
-            loadOrderList();
-        } else {
-            loadOrderList();
-        }
-    }
-
+    // Navigation fuer Zurueck Button
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
-public void save(){
-  Integer oderStatusInt = Integer.parseInt(orderStatus);
-//  requiredDate=null;
-  Customer customer = customerService.findById(customerId);
-  Staff staff = staffService.findStaffById(staffId);
-  Store store = storeService.findStoreById(storeId);
-        orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
-}
 }

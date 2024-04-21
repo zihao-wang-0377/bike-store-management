@@ -14,13 +14,17 @@ public class Stock {
     @MapsId("store_id")
     @JoinColumn(name = "store_id")
     private Store store;
+
     @EmbeddedId
     private StockPk stockPk;
+
     private Integer quantity;
 
+    // Konstruktor
     public Stock() {
     }
 
+    // Getter und Setter
     public Product getProduct() {
         return product;
     }

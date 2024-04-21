@@ -35,7 +35,6 @@ public class ProductForm implements Serializable {
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
-//        product.setDescription(description);
 
         // Speichere das Produkt
         productService.save(product);

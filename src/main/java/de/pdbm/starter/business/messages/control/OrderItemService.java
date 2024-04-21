@@ -26,13 +26,13 @@ public class OrderItemService implements Serializable {
         }
     }
 
-
     public List<OrderItem> findPaginated(int page, int size){
         TypedQuery<OrderItem> query = em.createQuery("select c from OrderItem c", OrderItem.class);
         query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
+
     public long getOrderItemCount(){
         return em.createQuery("select count(c) from OrderItem c", Long.class).getSingleResult();
     }
@@ -48,7 +48,6 @@ public class OrderItemService implements Serializable {
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
-
 
     public void delete(OrderItem orderItem) {
         em.remove(orderItem);

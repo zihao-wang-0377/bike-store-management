@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class CategoryService implements Serializable {
     @PersistenceContext
     EntityManager em ;
+
     public Category findCategoryById(Integer id){
         return em.find(Category.class,id);
     }

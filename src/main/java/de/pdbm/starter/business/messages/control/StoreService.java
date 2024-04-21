@@ -12,6 +12,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 public class StoreService implements Serializable {
     @PersistenceContext(type = TRANSACTION)
     EntityManager em;
+
     public Store findStoreById(Integer id){
         return  em.find(Store.class,id);
     }

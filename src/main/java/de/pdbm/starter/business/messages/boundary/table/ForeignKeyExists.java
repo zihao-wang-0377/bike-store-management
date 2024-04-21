@@ -15,6 +15,4 @@ public @interface ForeignKeyExists {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<?> entity();
-
-
 }

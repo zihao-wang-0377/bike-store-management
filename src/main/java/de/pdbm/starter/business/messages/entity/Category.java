@@ -13,6 +13,7 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
+    // Konstruktor
     public Category() {
     }
 
@@ -21,6 +22,7 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    // Getter und Setter
     public Integer getCategoryId() {
         return categoryId;
     }

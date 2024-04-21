@@ -13,6 +13,7 @@ public class Brand {
     @Column(name = "brand_name")
     private String brandName;
 
+    // Konstruktor
     public Brand() {
     }
 
@@ -21,6 +22,7 @@ public class Brand {
         this.brandName = brandName;
     }
 
+    // Getter und Setter
     public Integer getBrandId() {
         return brandId;
     }

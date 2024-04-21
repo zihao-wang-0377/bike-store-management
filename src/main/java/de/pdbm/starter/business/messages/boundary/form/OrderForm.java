@@ -47,7 +47,6 @@ public class OrderForm implements Serializable {
 
         Order order = new Order();
         order.setCustomer(customerService.findById(customerId));
-//        order.setTotal(total);
         order.setOrderDate(orderDate);
 
         orderService.save(order);
@@ -57,12 +56,10 @@ public class OrderForm implements Serializable {
     }
 
     public String getErrorMessage() {
-        // 返回 errorMessage 属性的值
         return errorMessage;
     }
 
     public void setErrorMessage(String errorMessage) {
-        // 设置 errorMessage 属性的值
         this.errorMessage = errorMessage;
     }
 
