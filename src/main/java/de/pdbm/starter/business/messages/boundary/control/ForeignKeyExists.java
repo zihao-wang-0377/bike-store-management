@@ -1,4 +1,4 @@
-package de.pdbm.starter.business.messages.boundary.table;
+package de.pdbm.starter.business.messages.boundary.control;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

@@ -1,4 +1,4 @@
-package de.pdbm.starter.business.messages.control;
+package de.pdbm.starter.business.messages.service;
 
 import de.pdbm.starter.business.messages.entity.Brand;
 import jakarta.persistence.EntityManager;

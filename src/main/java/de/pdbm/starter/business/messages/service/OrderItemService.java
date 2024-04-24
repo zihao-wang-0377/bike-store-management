@@ -1,7 +1,5 @@
-package de.pdbm.starter.business.messages.control;
+package de.pdbm.starter.business.messages.service;
 
-import de.pdbm.starter.business.messages.entity.Customer;
-import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;

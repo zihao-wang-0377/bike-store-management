@@ -1,6 +1,5 @@
-package de.pdbm.starter.business.messages.control;
+package de.pdbm.starter.business.messages.service;
 
-import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

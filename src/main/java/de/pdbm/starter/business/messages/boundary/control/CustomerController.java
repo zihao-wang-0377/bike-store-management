@@ -1,6 +1,6 @@
-package de.pdbm.starter.business.messages.boundary.table;
+package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.control.CustomerService;
+import de.pdbm.starter.business.messages.service.CustomerService;
 import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;

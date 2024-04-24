@@ -1,15 +1,13 @@
-package de.pdbm.starter.business.messages.boundary.table;
+package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.control.CustomerService;
-import de.pdbm.starter.business.messages.control.OrderService;
-import de.pdbm.starter.business.messages.control.StaffService;
-import de.pdbm.starter.business.messages.control.StoreService;
+import de.pdbm.starter.business.messages.service.CustomerService;
+import de.pdbm.starter.business.messages.service.OrderService;
+import de.pdbm.starter.business.messages.service.StaffService;
+import de.pdbm.starter.business.messages.service.StoreService;
 import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

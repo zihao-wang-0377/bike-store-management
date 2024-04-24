@@ -1,18 +1,15 @@
-package de.pdbm.starter.business.messages.boundary.table;
+package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.control.OrderItemService;
-import de.pdbm.starter.business.messages.control.OrderService;
-import de.pdbm.starter.business.messages.control.ProductService;
+import de.pdbm.starter.business.messages.service.OrderItemService;
+import de.pdbm.starter.business.messages.service.OrderService;
+import de.pdbm.starter.business.messages.service.ProductService;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import de.pdbm.starter.business.messages.entity.OrderItemPk;
 import de.pdbm.starter.business.messages.entity.Product;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
