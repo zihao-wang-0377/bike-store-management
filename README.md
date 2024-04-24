@@ -37,6 +37,7 @@ Das Eingabefeld für das Bestelldatum enthält auf der rechten Seite eine Schalt
 
 ### Iteration 2 - Vertriebsunterstützung Bike-Stores
 
+Von „bikes-db.sql“ Daten in die Datenbank „bikes“ importieren und den Inhalt der Datenbank im Web-Frontend anzeigen. Die Tabellen werden paginiert dargestellt, sodass Benutzer die Gesamtzahl der Zeilen sehen, die Anzahl der Zeilen pro Seite auswählen und zu einer bestimmten Seite springen können.
 
 ## Autoren
 * Zihao Wang
