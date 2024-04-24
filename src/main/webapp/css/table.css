@@ -23,102 +23,95 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+
 .back-button {
     background-image: url('../svg/left.svg');
     background-position: left center;
     background-repeat: no-repeat;
     padding-left: 25px;
     background-color: #f9f9f9;
-    border-radius: 5px;
     height: 40px;
     font-size: 14px;
-    text-align: center;
+}
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+.label{
+    margin-right: 150px;
 }
 
-
+.select{
+    border: #ccc;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 14px;
+    margin-right: 150px;
+}
 .firstPage{
+    width: 50px;
+    height: 30px;
     background-color: #f5f5f5; /* Button background color */
     background-image: url("../svg/leftmost.svg");
     background-repeat: no-repeat;
-    background-position: left center;
-    border: 1px solid #ddd; /* Button border */
-    padding: 5px 10px; /* Button padding */
-    text-decoration: none; /* Remove underline from links */
+    background-position: center;
     color: #333; /* Button text color */
-    cursor: pointer; /* Cursor to pointer */
+    border:  #ccc;
 }
 .lastPage{
+    width: 50px;
+    height: 30px;
     background-color: #f5f5f5; /* Button background color */
     background-image: url("../svg/rightmost.svg");
     background-repeat: no-repeat;
-    background-position: left center;
-    border: 1px solid #ddd; /* Button border */
-    padding: 5px 10px; /* Button padding */
+    background-position: center;
     color: #333; /* Button text color */
+    border:  #ccc;
+    margin-right: 150px;
 }
 .next{
+    width: 50px;
+    height: 30px;
     background-color: #f5f5f5; /* Button background color */
     background-image: url("../svg/next.svg");
     background-repeat: no-repeat;
-    background-position: left center;
-    border: 1px solid #ddd; /* Button border */
-    padding: 5px 10px; /* Button padding */
+    background-position: center;
     color: #333; /* Button text color */
+    border: #ccc;
 }
 .previous{
+    width: 50px;
+    height: 30px;
     background-color: #f5f5f5; /* Button background color */
     background-image: url("../svg/previous.svg");
     background-repeat: no-repeat;
-    background-position: left center;
-    border: 1px solid #ddd; /* Button border */
-    padding: 5px 10px; /* Button padding */
+    background-position: center;
+    border:  #ccc;
 }
 .rest{
     background-color: #f5f5f5; /* Button background color */
-    background-position: left center;
-    border: 1px solid #ddd; /* Button border */
     padding: 5px 10px; /* Button padding */
 }
 
-.current-page {
-    font-weight: bold; /* Make current page number bold */
-    color: #000; /* Current page number color */
-}
-
-.select {
-    padding: 5px;
-    margin-right: 5px;
-}
-
-.form option {
-    padding: 5px;
-}
-
-.form .firstPage:disabled,
-.form .prevPage:disabled,
-.form .nextPage:disabled,
-.form .lastPage:disabled {
-    color: #ccc; /* Disabled button text color */
-    cursor: default; /* Default cursor for disabled buttons */
-    background-color: #e9e9e9; /* Disabled button background color */
-    border: 1px solid #ccc; /* Disabled button border */
-}
-
-/* Style the command links like buttons */
-.form .commandLink {
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
+.repeat {
     padding: 5px 10px;
-    text-decoration: none;
     color: #333;
-    cursor: pointer;
-    margin-right: 5px;
+    background-color: #f5f5f5;
+    border:  #ccc;
+    text-decoration: none;
+}
+.current{
+    padding: 5px 10px;
+    border:  #ccc;
+    color: #333;
+    background-color: #DCDCDC;
+    text-decoration: none;
 }
 
-/* Add a hover effect for buttons */
-.form .commandLink:hover, .form .firstPage:hover, .form .prevPage:hover, .form .nextPage:hover, .form .lastPage:hover {
-    background-color: #e9e9e9;
-}
+
+
+
 
 
 
