@@ -50,18 +50,22 @@
                 <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
-            <h:commandButton styleClass="firstPage" action="#{productController.firstPage}" disabled="#{productController.currentPage == 1}" />
-            <h:commandButton styleClass="previous" action="#{productController.prevPage}" disabled="#{productController.currentPage == 1}" />
-            <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
+            <div>
+                <h:commandButton styleClass="firstPage" action="#{productController.firstPage}" disabled="#{productController.currentPage == 1}" />
+                <h:commandButton styleClass="previous" action="#{productController.prevPage}" disabled="#{productController.currentPage == 1}" />
+                <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
                 <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{productController.setPage(pageNum)}" rendered="#{pageNum != productController.currentPage}" />
                 <h:outputText styleClass="current" value="#{pageNum} " rendered="#{pageNum == productController.currentPage}"/>
             </ui:repeat>
-            <h:outputText styleClass="rest" value="..." rendered="#{productController.currentPage + 3 lt productController.totalPages}" />
-            <h:commandButton styleClass="next" action="#{productController.nextPage}" disabled="#{productController.currentPage == productController.totalPages}" />
-            <h:commandButton styleClass="lastPage" action="#{productController.lastPage}" disabled="#{productController.currentPage == productController.totalPages}" />
-            <h:outputLabel value="Zur Seite"/>
-            <h:inputText styleClass="text" value="#{productController.currentPage}" size="3" />
-            <h:commandButton value="Gehen" action="#{productController.goToPage}" />
+                <h:outputText styleClass="rest" value="..." rendered="#{productController.currentPage + 3 lt productController.totalPages}" />
+                <h:commandButton styleClass="next" action="#{productController.nextPage}" disabled="#{productController.currentPage == productController.totalPages}" />
+                <h:commandButton styleClass="lastPage" action="#{productController.lastPage}" disabled="#{productController.currentPage == productController.totalPages}" />
+            </div>
+            <div class="div2">
+                <h:outputLabel styleClass="label2" value="Zur Seite"/>
+                <h:inputText styleClass="text" value="#{productController.currentPage}" size="3" />
+                <h:commandButton value="Gehen" action="#{productController.goToPage}" />
+            </div>
         </h:form>
     </h:body>
 </f:view>

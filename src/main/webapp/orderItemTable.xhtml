@@ -50,18 +50,22 @@
                 <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
-            <h:commandButton styleClass="firstPage" action="#{orderItemController.firstPage}" disabled="#{orderItemController.currentPage == 1}" />
-            <h:commandButton  styleClass="previous" action="#{orderItemController.prevPage}" disabled="#{orderItemController.currentPage == 1}" />
-            <ui:repeat value="#{orderItemController.pageNumbers}" var="pageNum">
-                <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{orderItemController.setPage(pageNum)}" rendered="#{pageNum != orderItemController.currentPage}" />
-                <h:outputText styleClass="current" value="#{pageNum} " rendered="#{pageNum == orderItemController.currentPage}"/>
-            </ui:repeat>
-            <h:outputText styleClass="rest" value="..." rendered="#{orderItemController.currentPage + 3 lt customerController.totalPages}" />
-            <h:commandButton styleClass="next" action="#{orderItemController.nextPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
-            <h:commandButton styleClass="lastPage" action="#{orderItemController.lastPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
-            <h:outputLabel value="Zur Seite"/>
-            <h:inputText styleClass="text" value="#{orderItemController.currentPage}" size="3" />
-            <h:commandButton value="Gehen" action="#{orderItemController.goToPage}" />
+            <div>
+                <h:commandButton styleClass="firstPage" action="#{orderItemController.firstPage}" disabled="#{orderItemController.currentPage == 1}" />
+                <h:commandButton  styleClass="previous" action="#{orderItemController.prevPage}" disabled="#{orderItemController.currentPage == 1}" />
+                <ui:repeat value="#{orderItemController.pageNumbers}" var="pageNum">
+                    <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{orderItemController.setPage(pageNum)}" rendered="#{pageNum != orderItemController.currentPage}" />
+                    <h:outputText styleClass="current" value="#{pageNum} " rendered="#{pageNum == orderItemController.currentPage}"/>
+                </ui:repeat>
+                <h:outputText styleClass="rest" value="..." rendered="#{orderItemController.currentPage + 3 lt customerController.totalPages}" />
+                <h:commandButton styleClass="next" action="#{orderItemController.nextPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
+                <h:commandButton styleClass="lastPage" action="#{orderItemController.lastPage}" disabled="#{orderItemController.currentPage == orderItemController.totalPages}" />
+            </div>
+            <div class="div2">
+                <h:outputLabel value="Zur Seite"/>
+                <h:inputText styleClass="text" value="#{orderItemController.currentPage}" size="3" />
+                <h:commandButton value="Gehen" action="#{orderItemController.goToPage}" />
+            </div>
         </h:form>
     </h:body>
 </f:view>
