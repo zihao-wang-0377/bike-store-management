@@ -55,9 +55,9 @@
                 #{order.store.storeId}
             </h:column>
         </h:dataTable>
-        <h:form>
-            <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
-            <h:selectOneMenu value="#{orderController.pageSize}">
+        <h:form styleClass="button-container">
+            <h:outputLabel styleClass="label" value="Insgesamt #{orderController.totalRecords} Einträge"/>
+            <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
                 <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite" />
@@ -65,22 +65,18 @@
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
             <h:commandButton styleClass="firstPage" action="#{orderController.firstPage}" disabled="#{orderController.currentPage == 1}" />
-            <h:commandButton  value="P" action="#{orderController.prevPage}" disabled="#{orderController.currentPage == 1}" />
+            <h:commandButton styleClass="previous" action="#{orderController.prevPage}" disabled="#{orderController.currentPage == 1}" />
             <ui:repeat value="#{orderController.pageNumbers}" var="pageNum">
-                <h:commandLink value="#{pageNum}" action="#{orderController.setPage(pageNum)}" rendered="#{pageNum != orderController.currentPage}" />
-                <h:outputText value="#{pageNum} " rendered="#{pageNum == orderController.currentPage}" styleClass="current-page"/>
+                <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{orderController.setPage(pageNum)}" rendered="#{pageNum != orderController.currentPage}" />
+                <h:outputText styleClass="current" value="#{pageNum} " rendered="#{pageNum == orderController.currentPage}"/>
             </ui:repeat>
-            <h:outputText value="..." rendered="#{orderController.currentPage + 3 lt orderController.totalPages}" />
-            <h:commandButton value="N" action="#{orderController.nextPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
-            <h:commandButton value="L" action="#{orderController.lastPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
+            <h:outputText styleClass="rest" value="..." rendered="#{orderController.currentPage + 3 lt orderController.totalPages}" />
+            <h:commandButton styleClass="next" action="#{orderController.nextPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
+            <h:commandButton styleClass="lastPage" action="#{orderController.lastPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
             <h:outputLabel value="Zur Seite"/>
-            <h:inputText value="#{orderController.currentPage}" size="3" />
+            <h:inputText styleClass="text" value="#{orderController.currentPage}" size="3" />
             <h:commandButton value="Gehen" action="#{orderController.goToPage}" />
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - SEP SS2024</div>
-        </div>
     </body>
 </f:view>
 </html>
