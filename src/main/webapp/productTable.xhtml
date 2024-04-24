@@ -54,7 +54,7 @@
                 <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
                 <f:ajax event="change"  execute="@this" render="@all" />
             </h:selectOneMenu>
-            <div>
+            <div class="div">
                 <h:commandButton styleClass="firstPage" action="#{productController.firstPage}" disabled="#{productController.currentPage == 1}" />
                 <h:commandButton styleClass="previous" action="#{productController.prevPage}" disabled="#{productController.currentPage == 1}" />
                 <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
