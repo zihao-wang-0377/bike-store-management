@@ -60,7 +60,7 @@
             <h:commandButton styleClass="next" action="#{productController.nextPage}" disabled="#{productController.currentPage == productController.totalPages}" />
             <h:commandButton styleClass="lastPage" action="#{productController.lastPage}" disabled="#{productController.currentPage == productController.totalPages}" />
             <h:outputLabel value="Zur Seite"/>
-            <h:inputText value="#{productController.currentPage}" size="3" />
+            <h:inputText styleClass="text" value="#{productController.currentPage}" size="3" />
             <h:commandButton value="Gehen" action="#{productController.goToPage}" />
         </h:form>
     </h:body>
