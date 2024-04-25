@@ -3,6 +3,7 @@ package de.pdbm.starter.business.messages.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
@@ -12,33 +13,36 @@ public class Product {
     @Column(name = "product_id")
     private Integer id;
 
+    @Column(name = "list_price")
+    private BigDecimal price;
+
+    @Column(name = "model_year")
+    private Integer modelYear;
+
     @Column(name = "product_name")
     private String name;
 
-    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Product(Integer id, String name, BigDecimal price, String description) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-    }
-
+    // Konstruktor
     public Product() {
     }
 
-    @Override
-    public String toString() {
-        return "Produkt{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", preis=" + price +
-                ", beschreibung='" + description + '\'' +
-                '}';
+    public Product(BigDecimal price, Integer modelYear, String name, Brand brand, Category category) {
+        this.price = price;
+        this.modelYear = modelYear;
+        this.name = name;
+        this.brand = brand;
+        this.category = category;
     }
 
+    // Getter und Setter
     public Integer getId() {
         return id;
     }
@@ -63,11 +67,27 @@ public class Product {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getModelYear() {
+        return modelYear;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setModelYear(Integer modelYear) {
+        this.modelYear = modelYear;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

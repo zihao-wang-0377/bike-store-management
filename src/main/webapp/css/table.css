@@ -23,14 +23,103 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+
 .back-button {
     background-image: url('../svg/left.svg');
     background-position: left center;
     background-repeat: no-repeat;
     padding-left: 25px;
     background-color: #f9f9f9;
-    border-radius: 5px;
     height: 40px;
     font-size: 14px;
-    text-align: center;
 }
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+.label{
+    margin-right: 150px;
+}
+
+.select{
+    border-color:#f0f0f0 ;
+    font-size: 14px;
+    margin-right: 300px;
+}
+.firstPage{
+    background-color: #f5f5f5; /* Button background color */
+    background-image: url("../svg/leftmost.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333; /* Button text color */
+    border:  #ccc;
+    padding: 5px 15px;
+}
+.lastPage{
+    background-color: #f5f5f5; /* Button background color */
+    background-image: url("../svg/rightmost.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333; /* Button text color */
+    border:  #ccc;
+    padding: 5px 15px;
+}
+.next{
+    background-color: #f5f5f5; /* Button background color */
+    background-image: url("../svg/next.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333; /* Button text color */
+    border: #ccc;
+    padding: 5px 15px;
+}
+.previous{
+    background-color: #f5f5f5; /* Button background color */
+    background-image: url("../svg/previous.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border:  #ccc;
+    padding: 5px 15px;
+}
+.rest{
+    background-color: #f5f5f5; /* Button background color */
+    padding: 5px 15px; /* Button padding */
+}
+
+.repeat {
+    padding: 5px 15px;
+    color: #333;
+    background-color: #f5f5f5;
+    border:  #ccc;
+    text-decoration: none;
+}
+.current{
+    padding: 5px 15px;
+    border:  #ccc;
+    color: #333;
+    background-color: #DCDCDC;
+    text-decoration: none;
+}
+.text{
+    text-align: center;
+    border: 1px solid;
+    border-color: #f0f0f0;
+    margin-right:5px;
+}
+.div2{
+    position: absolute;
+    right: 0;
+}
+.div{
+    display: flex;
+    width: 30px;
+    height: 28px;
+}
+
+
+
+
+
+
+

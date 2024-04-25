@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.ostfalia.sep</groupId>
-    <artifactId>team-10</artifactId>
+    <artifactId>bikes10</artifactId>
     <version>0.9</version>
     <name>team-10</name>
     <packaging>war</packaging>

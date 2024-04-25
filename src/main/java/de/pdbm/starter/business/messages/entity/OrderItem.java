@@ -1,61 +1,55 @@
 package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
 public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_item_id")
-    private Integer id;
+    @EmbeddedId
+    private OrderItemPk orderItemPk;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    @MapsId("order_id")
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "discount")
+    private BigDecimal discount;
+
+    @Column(name = "list_price")
+    private BigDecimal price;
+
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private Integer quantity;
-
-    public OrderItem(Integer id, Order order, Customer customer, Product product, Integer quantity) {
-        this.id = id;
-        this.order = order;
-        this.customer = customer;
-        this.product = product;
-        this.quantity = quantity;
-    }
-
+    // Konstruktor
     public OrderItem() {
     }
 
-    @Override
-    public String toString() {
-        return "Bestellposition{" +
-                "id=" + id +
-                ", bestellung=" + order +
-                ", kunde=" + customer +
-                ", produkt=" + product +
-                ", anzahl=" + quantity +
-                '}';
+    public OrderItem(OrderItemPk orderItemPk, Order order, BigDecimal discount, BigDecimal price, Integer quantity, Product product) {
+        this.orderItemPk = new OrderItemPk();
+        this.orderItemPk.setOrder_id(order.getId());
+        this.orderItemPk.setItem_id(orderItemPk.getItem_id());
+        this.order = order;
+        this.discount = discount;
+        this.price = price;
+        this.quantity = quantity;
+        this.product = product;
     }
 
-    public Integer getId() {
-        return id;
+    // Getter und Setter
+    public OrderItemPk getOrderItemPk() {
+        return orderItemPk;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return order.getId();
+    public void setOrderItemPk(OrderItemPk orderItemPk) {
+        this.orderItemPk = orderItemPk;
     }
 
     public Order getOrder() {
@@ -64,18 +58,6 @@ public class OrderItem {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public Integer getCustomerId() {
-        return customer.getId();
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public Integer getProductId() {
@@ -96,5 +78,37 @@ public class OrderItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getItemId() {
+        return orderItemPk != null ? orderItemPk.getItem_id() : null;
+    }
+
+    public Integer getOrderId() {
+        return orderItemPk != null ? orderItemPk.getOrder_id() : null;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.orderItemPk.setItem_id(itemId);
+    }
+
+    public void setOrderId(Integer OrderId) {
+        this.orderItemPk.setOrder_id(OrderId);
     }
 }
