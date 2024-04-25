@@ -8,79 +8,86 @@
 <f:view>
     <h:head>
         <title>Bestellungstabelle</title>
-       <link rel="stylesheet" type="text/css" href="css/table.css" />
+        <link rel="stylesheet" type="text/css" href="css/table.css"/>
     </h:head>
     <body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderController.navigateToHomePage()}" styleClass="back-button" />
-        </h:form>
-        <h1>Bestellungen</h1>
-        <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
-            <h:column>
-                <f:facet name="header">Bestellnummer</f:facet>
-                #{order.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Bestlldatum</f:facet>
-                <h:outputText value="#{order.orderDate}">
-                    <f:converter converterId="localDateConverter" />
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">BestellungZustand</f:facet>
-                #{order.oderStatus}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Erwartetes Lieferdatum</f:facet>
-                <h:outputText value="#{order.requiredDate}">
-                    <f:converter converterId="localDateConverter" />
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Versanddatum</f:facet>
-                <h:outputText value="#{order.shippedDate}">
-                    <f:converter converterId="localDateConverter" />
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Kunden-ID </f:facet>
-                #{order.customer.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header"> Mitarbeiter-ID</f:facet>
-             #{order.staff.staffId}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Geschäfts-ID</f:facet>
-                #{order.store.storeId}
-            </h:column>
-        </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel styleClass="label" value="Insgesamt #{orderController.totalRecords} Einträge"/>
-            <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
-                <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite" />
-                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite" />
-                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite" />
-                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite" />
-                <f:ajax event="change"  execute="@this" render="@all" />
-            </h:selectOneMenu>
-            <div class="div">
-                <h:commandButton styleClass="firstPage" action="#{orderController.firstPage}" disabled="#{orderController.currentPage == 1}" />
-                <h:commandButton styleClass="previous" action="#{orderController.prevPage}" disabled="#{orderController.currentPage == 1}" />
-                <ui:repeat value="#{orderController.pageNumbers}" var="pageNum">
-                    <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{orderController.setPage(pageNum)}" rendered="#{pageNum != orderController.currentPage}" />
-                    <h:outputText styleClass="current" value="#{pageNum} " rendered="#{pageNum == orderController.currentPage}"/>
-                </ui:repeat>
-                <h:outputText styleClass="rest" value="..." rendered="#{orderController.currentPage + 3 lt orderController.totalPages}" />
-                <h:commandButton styleClass="next" action="#{orderController.nextPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
-                <h:commandButton styleClass="lastPage" action="#{orderController.lastPage}" disabled="#{orderController.currentPage == orderController.totalPages}" />
-            </div>
-            <div class="div2">
-                <h:outputLabel value="Zur Seite"/>
-                <h:inputText styleClass="text" value="#{orderController.currentPage}" size="3" />
-                <h:commandButton value="Gehen" action="#{orderController.goToPage}" />
-            </div>
-        </h:form>
+    <h:form immediate="true">
+        <h:commandButton value="Zurück" action="#{orderController.navigateToHomePage()}" styleClass="back-button"/>
+    </h:form>
+    <h1>Bestellungen</h1>
+    <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
+        <h:column>
+            <f:facet name="header">Bestellnummer</f:facet>
+            #{order.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Bestlldatum</f:facet>
+            <h:outputText value="#{order.orderDate}">
+                <f:converter converterId="localDateConverter"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">BestellungZustand</f:facet>
+            #{order.oderStatus}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Erwartetes Lieferdatum</f:facet>
+            <h:outputText value="#{order.requiredDate}">
+                <f:converter converterId="localDateConverter"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Versanddatum</f:facet>
+            <h:outputText value="#{order.shippedDate}">
+                <f:converter converterId="localDateConverter"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Kunden-ID </f:facet>
+            #{order.customer.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header"> Mitarbeiter-ID</f:facet>
+            #{order.staff.staffId}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Geschäfts-ID</f:facet>
+            #{order.store.storeId}
+        </h:column>
+    </h:dataTable>
+    <h:form styleClass="button-container">
+        <h:outputLabel styleClass="label" value="Insgesamt #{orderController.totalRecords} Einträge"/>
+        <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
+            <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
+            <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
+            <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite"/>
+            <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite"/>
+            <f:ajax event="change" execute="@this" render="@all"/>
+        </h:selectOneMenu>
+        <div class="div">
+            <h:commandButton styleClass="firstPage" action="#{orderController.firstPage}"
+                             disabled="#{orderController.currentPage == 1}"/>
+            <h:commandButton styleClass="previous" action="#{orderController.prevPage}"
+                             disabled="#{orderController.currentPage == 1}"/>
+            <ui:repeat value="#{orderController.pageNumbers}" var="pageNum">
+                <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{orderController.setPage(pageNum)}"
+                               rendered="#{pageNum != orderController.currentPage}"/>
+                <h:outputText styleClass="current" value="#{pageNum} "
+                              rendered="#{pageNum == orderController.currentPage}"/>
+            </ui:repeat>
+            <h:outputText styleClass="rest" value="..."
+                          rendered="#{orderController.currentPage + 3 lt orderController.totalPages}"/>
+            <h:commandButton styleClass="next" action="#{orderController.nextPage}"
+                             disabled="#{orderController.currentPage == orderController.totalPages}"/>
+            <h:commandButton styleClass="lastPage" action="#{orderController.lastPage}"
+                             disabled="#{orderController.currentPage == orderController.totalPages}"/>
+        </div>
+        <div class="div2">
+            <h:outputLabel value="Zur Seite"/>
+            <h:inputText styleClass="text" value="#{orderController.currentPage}" size="3"/>
+            <h:commandButton value="Gehen" action="#{orderController.goToPage}"/>
+        </div>
+    </h:form>
     </body>
 </f:view>
 </html>
