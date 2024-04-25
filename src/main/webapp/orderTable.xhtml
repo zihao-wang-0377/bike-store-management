@@ -56,7 +56,7 @@
         </h:column>
     </h:dataTable>
     <h:form styleClass="button-container">
-        <h:outputLabel styleClass="label" value="Insgesamt #{orderController.totalRecords} Einträge"/>
+        <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
         <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
             <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
             <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
@@ -64,7 +64,7 @@
             <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite"/>
             <f:ajax event="change" execute="@this" render="@all"/>
         </h:selectOneMenu>
-        <div class="div">
+        <div class="pagination">
             <h:commandButton styleClass="firstPage" action="#{orderController.firstPage}"
                              disabled="#{orderController.currentPage == 1}"/>
             <h:commandButton styleClass="previous" action="#{orderController.prevPage}"
@@ -82,7 +82,7 @@
             <h:commandButton styleClass="lastPage" action="#{orderController.lastPage}"
                              disabled="#{orderController.currentPage == orderController.totalPages}"/>
         </div>
-        <div class="div2">
+        <div class="goto">
             <h:outputLabel value="Zur Seite"/>
             <h:inputText styleClass="text" value="#{orderController.currentPage}" size="3"/>
             <h:commandButton value="Gehen" action="#{orderController.goToPage}"/>
