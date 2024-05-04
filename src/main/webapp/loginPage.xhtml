@@ -17,13 +17,14 @@
         <h:form class="container">
             <h2>Bei Ihrem Konto anmelden</h2>
             <h:outputLabel for="username">Benutzername:</h:outputLabel>
-            <h:inputText id="username"/>
+            <h:inputText id="username" value="#{login.email}"/>
             <br></br>
             <h:outputLabel for="password">Passwort:</h:outputLabel>
-            <h:inputText id="password"/>
+            <h:inputText id="password" value="#{login.password}"/>
             <br></br>
-            <h:commandButton value="Anmelden" styleClass="back-button"/>
+            <h:commandButton value="Anmelden" styleClass="back-button" action="#{login.submit()}"/>
         </h:form>
+        <h:messages styleClass="errorMessage"/>
         <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
             <div style="margin: 15px;">&copy; Bike Store</div>
             <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
