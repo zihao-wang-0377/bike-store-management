@@ -39,6 +39,12 @@
                 <f:facet name="header">Anzahl</f:facet>
                 <h:outputText value="#{orderItem.quantity}"/>
             </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton value="Bearbeiten" styleClass="viewButton"/>
+                    <h:commandButton value="Löschen"/>
+                </h:form>
+            </h:column>
         </h:dataTable>
         <h:form styleClass="button-container">
             <h:outputLabel value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
