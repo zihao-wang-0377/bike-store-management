@@ -31,6 +31,12 @@
                 <f:facet name="header">Modelljahr</f:facet>
                 #{product.modelYear}
             </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton value="Bearbeiten" styleClass="viewButton"/>
+                    <h:commandButton value="Löschen"/>
+                </h:form>
+            </h:column>
         </h:dataTable>
         <h:form styleClass="button-container">
             <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
