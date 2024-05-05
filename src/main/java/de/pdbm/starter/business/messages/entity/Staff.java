@@ -21,25 +21,36 @@ public class Staff {
     private String lastName;
 
     private String phone;
-
+@Column(name = "manager_id")
     private Integer managerId;
-
-    private Integer storeId;
+@ManyToOne
+@JoinColumn (name = "store_id")
+    private Store store;
 
     // Konstruktor
     public Staff() {
     }
 
-    public Staff(Integer staffId, Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Integer storeId) {
-        this.staffId = staffId;
+//    public Staff(Integer staffId, Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Integer storeId) {
+//        this.staffId = staffId;
+//        this.active = active;
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phone = phone;
+
+    public Staff(Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Store store) {
         this.active = active;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.managerId = managerId;
-        this.storeId = storeId;
+        this.store = store;
     }
+//        this.managerId = managerId;
+//        this.storeId = storeId;
+//    }
 
     // Getter und Setter
     public Integer getStaffId() {
@@ -98,11 +109,19 @@ public class Staff {
         this.managerId = managerId;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+//    public Integer getStoreId() {
+//        return storeId;
+//    }
+//
+//    public void setStoreId(Integer storeId) {
+//        this.storeId = storeId;
+//    }
+
+    public Store getStore() {
+        return store;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }
