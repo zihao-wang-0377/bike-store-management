@@ -18,32 +18,18 @@
         <h1>Produkten</h1>
         <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
             <h:column>
-                <f:facet name="header">ProduktID</f:facet>
-                #{product.id}
+                <f:facet name="header">Name</f:facet>
+                #{product.name}
             </h:column>
             <h:column>
                 <f:facet name="header">Listenpreis</f:facet>
-                <!--                #{product.price}-->
                 <h:outputText value="#{product.price}">
-                    <!--                    <f:convertNumber locale="de_DE" type="number" groupingUsed="true" />-->
                     <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
                 </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Modelljahr</f:facet>
                 #{product.modelYear}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{product.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">MarkeNummer</f:facet>
-                #{product.brand.brandId}
-            </h:column>
-            <h:column>
-                <f:facet name="header">CategorieNummer</f:facet>
-                #{product.category.categoryId}
             </h:column>
         </h:dataTable>
         <h:form styleClass="button-container">

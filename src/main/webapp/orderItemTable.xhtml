@@ -18,30 +18,26 @@
         <h1>Bestellpositionen</h1>
         <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
             <h:column>
-                <f:facet name="header">BestellpositionID</f:facet>
-                <h:outputText value="#{orderItem.itemId}"/>
-            </h:column>
-            <h:column>
                 <f:facet name="header">Bestellnummer</f:facet>
                 <h:outputText value="#{orderItem.orderId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">ProduktID</f:facet>
+                <h:outputText value="#{orderItem.productId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Listenpreis</f:facet>
+                <h:outputText value="#{orderItem.price}">
+                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Rabatte</f:facet>
                 <h:outputText value="#{orderItem.discount}"/>
             </h:column>
             <h:column>
-                <f:facet name="header">ListenPreis</f:facet>
-                <h:outputText value="#{orderItem.price}">
-                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
                 <f:facet name="header">Anzahl</f:facet>
                 <h:outputText value="#{orderItem.quantity}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">ProduktID</f:facet>
-                <h:outputText value="#{orderItem.productId}"/>
             </h:column>
         </h:dataTable>
         <h:form styleClass="button-container">
