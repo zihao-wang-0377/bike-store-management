@@ -53,6 +53,8 @@ public class CustomerController implements Serializable {
 
     private long totalRecords;
 
+    private boolean showOptions;
+
     // Konstruktor
     public CustomerController() {
     }
@@ -71,6 +73,9 @@ public class CustomerController implements Serializable {
     // Objekt erstellen und speichern
     public void save(){
         customerService.save(new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode));
+    }
+    public void displayButtons(){
+        showOptions = true;
     }
 
     // Paginierung-Methoden
@@ -234,6 +239,14 @@ public class CustomerController implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public boolean isShowOptions() {
+        return showOptions;
+    }
+
+    public void setShowOptions(boolean showOptions) {
+        this.showOptions = showOptions;
     }
 
     // Navigation fuer Zurueck Button

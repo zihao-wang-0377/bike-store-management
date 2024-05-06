@@ -38,6 +38,7 @@ tr:nth-child(even) {
     align-items: center;
     justify-content: space-between;
     margin-top: 40px;
+    flex-direction: row;
 }
 
 .select {
@@ -47,6 +48,22 @@ tr:nth-child(even) {
 
 .viewButton {
     margin-right: 10px;
+    background-image: url("../svg/view.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333;
+    border: #ccc;
+    padding: 5px 15px;
+    background-color: transparent;
+}
+.deleteButton{
+    background-image: url("../svg/delete.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333;
+    border: #ccc;
+    padding: 5px 15px;
+    background-color: transparent;
 }
 
 .firstPage {
@@ -58,6 +75,9 @@ tr:nth-child(even) {
     border: #ccc;
     padding: 5px 15px;
 }
+.firstPage:hover{
+    background-color: #DCDCDC;
+}
 
 .lastPage {
     background-color: #f5f5f5; /* Button background color */
@@ -67,6 +87,9 @@ tr:nth-child(even) {
     color: #333; /* Button text color */
     border: #ccc;
     padding: 5px 15px;
+}
+.lastPage:hover{
+    background-color: #DCDCDC;
 }
 
 .next {
@@ -78,6 +101,9 @@ tr:nth-child(even) {
     border: #ccc;
     padding: 5px 15px;
 }
+.next:hover{
+    background-color: #DCDCDC;
+}
 
 .previous {
     background-color: #f5f5f5; /* Button background color */
@@ -87,29 +113,32 @@ tr:nth-child(even) {
     border: #ccc;
     padding: 5px 15px;
 }
+.previous:hover{
+    background-color: #DCDCDC;
+}
 
 .rest {
-    display: flex;
-    justify-content: center;
     align-items: center;
     background-color: #f5f5f5; /* Button background color */
     padding: 5px 15px; /* Button padding */
 }
+.rest:hover{
+    background-color: #DCDCDC;
+}
 
 .repeat {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     padding: 5px 15px;
     color: #333;
     background-color: #f5f5f5;
     border: #ccc;
     text-decoration: none;
 }
+.repeat:hover{
+    background-color: #DCDCDC;
+}
 
 .current {
-    display: flex;
-    justify-content: center;
     align-items: center;
     padding: 5px 15px;
     border: #ccc;
@@ -127,6 +156,67 @@ tr:nth-child(even) {
 
 .pagination {
     display: flex;
+    justify-content: center;
+    height: 30px;
+}
+.homePage{
+    background-color: #f2f2f2; /* Button background color */
+    background-image: url("../svg/home.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333; /* Button text color */
+    border: #ccc;
+    padding: 5px 15px;
+}
+.homePage:hover{
+    background-color: #DCDCDC;
+}
+.user{
+    background-color: #f2f2f2; /* Button background color */
+    background-image: url("../svg/user.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333; /* Button text color */
+    border: #ccc;
+    padding: 5px 15px;
+}
+.user:hover{
+    background-color: #DCDCDC;
+}
+.header{
+    display: flex;
+    background-color: #f2f2f2;
+    flex-direction: row;
+    justify-content: space-around;
     height: 40px;
-    margin-right: 100px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+.button{
+    text-align: center;
+    padding: 5px 15px;
+    color: #333;
+    border: #ccc;
+    background-color: #f2f2f2;
+}
+.button:hover{
+    background-color: #DCDCDC;
+}
+.panelGroup{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top:50px;
+    left: -150px;
+    text-align: center;
+    height: 30px;
+    width: 150px;
+    padding: 5px 15px;
+    color: #333;
+    border: #ccc;
+    background-color: #f2f2f2;
+}
+.panelGroup:hover{
+    background-color: #DCDCDC;
 }
