@@ -56,9 +56,6 @@ tr:nth-child(even) {
     padding: 5px 15px;
     background-color: transparent;
 }
-.viewButton:hover{
-    background-color: #DCDCDC;
-}
 .deleteButton{
     background-image: url("../svg/delete.svg");
     background-repeat: no-repeat;
@@ -67,9 +64,6 @@ tr:nth-child(even) {
     border: #ccc;
     padding: 5px 15px;
     background-color: transparent;
-}
-.deleteButton:hover{
-    background-color: #DCDCDC;
 }
 
 .firstPage {
