@@ -8,24 +8,55 @@
 <f:view>
     <h:head>
         <title>Startseite</title>
-        <link rel="stylesheet" type="text/css" href="css/homepage.css"/>
+        <link rel="stylesheet" type="text/css" href="css/table.css"/>
     </h:head>
     <h:body>
         <h:form>
-            <h1>Anzeigen</h1>
-            <h:commandButton value="Produkttabelle" action="productTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Kundentabelle" action="customerTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Bestellungstabelle" action="orderTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Bestellpositionstabelle" action="orderItemTable?faces-redirect=true"
-                             styleClass="button"/>
-<!--            <br></br>-->
-<!--            <h1>Anlegen</h1>-->
-<!--            <h:commandButton value="Produktformular" action="productForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Kundenformular" action="customerForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Bestellformular" action="orderForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Bestellpositionsformular" action="orderItemForm?faces-redirect=true"-->
-<!--                             styleClass="button"/>-->
+            <div class="header">
+                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
+                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.displayButtons}">
+                    <f:ajax execute="@this" render="customersPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="customersPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.showOptions}"
+                                     action="customerTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.showOptions}"
+                                     action="customerForm?faces-redirect=true" />
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.displayButtons}">
+                    <f:ajax execute="@this" render="productesPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="productesPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.showOptions}"
+                                     action="productTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.showOptions}"
+                                     action="productForm?faces-redirect=true" />
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.displayButtons}">
+                    <f:ajax execute="@this" render="ordersPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="ordersPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.showOptions}"
+                                     action="orderTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.showOptions}"
+                                     action="orderForm?faces-redirect=true" />
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.displayButtons}">
+                    <f:ajax execute="@this" render="orderItemsPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="orderItemsPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.showOptions}"
+                                     action="orderItemTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.showOptions}"
+                                     action="orderItemForm?faces-redirect=true" />
+                </h:panelGroup>
+                <h:commandButton action="loginPage?faces-redirect=true" styleClass="user"/>
+            </div>
         </h:form>
+        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
+            <div style="margin: 15px;">&copy; Bike Store</div>
+            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
+        </div>
     </h:body>
 </f:view>
 </html>

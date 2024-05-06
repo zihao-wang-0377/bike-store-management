@@ -3,6 +3,8 @@ package de.pdbm.starter.business.messages.entity;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
+
 @Embeddable
 public class StockPk implements Serializable {
     private Integer product_id;
@@ -33,5 +35,18 @@ public class StockPk implements Serializable {
 
     public void setStore_id(Integer store_id) {
         this.store_id = store_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StockPk stockPk = (StockPk) o;
+        return Objects.equals(product_id, stockPk.product_id) && Objects.equals(store_id, stockPk.store_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product_id, store_id);
     }
 }
