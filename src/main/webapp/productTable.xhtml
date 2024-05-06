@@ -12,56 +12,20 @@
     </h:head>
     <h:body>
         <h:form immediate="true">
-            <div class="header">
-                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
-                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.displayButtons}">
-                    <f:ajax execute="@this" render="customersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="customersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.showOptions}"
-                                     action="customerTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.showOptions}"
-                                     action="customerForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.displayButtons}">
-                    <f:ajax execute="@this" render="productesPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="productesPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.showOptions}"
-                                     action="productTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.showOptions}"
-                                     action="productForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.displayButtons}">
-                    <f:ajax execute="@this" render="ordersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="ordersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.showOptions}"
-                                     action="orderTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.showOptions}"
-                                     action="orderForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.displayButtons}">
-                    <f:ajax execute="@this" render="orderItemsPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="orderItemsPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.showOptions}"
-                                     action="orderItemTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.showOptions}"
-                                     action="orderItemForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton action="loginPage?faces-redirect=true" styleClass="user"/>
-            </div>
+            <h:commandButton value="Zurück" action="#{productController.navigateToHomePage()}"
+                             styleClass="back-button"/>
         </h:form>
         <h1>Produkten</h1>
         <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
             <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{product.name}
+                <f:facet name="header">ProduktID</f:facet>
+                #{product.id}
             </h:column>
             <h:column>
                 <f:facet name="header">Listenpreis</f:facet>
+                <!--                #{product.price}-->
                 <h:outputText value="#{product.price}">
+                    <!--                    <f:convertNumber locale="de_DE" type="number" groupingUsed="true" />-->
                     <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
                 </h:outputText>
             </h:column>
@@ -70,10 +34,16 @@
                 #{product.modelYear}
             </h:column>
             <h:column>
-                <h:form>
-                    <h:commandButton styleClass="viewButton"/>
-                    <h:commandButton styleClass="deleteButton"/>
-                </h:form>
+                <f:facet name="header">Name</f:facet>
+                #{product.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">MarkeNummer</f:facet>
+                #{product.brand.brandId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">CategorieNummer</f:facet>
+                #{product.category.categoryId}
             </h:column>
         </h:dataTable>
         <h:form styleClass="button-container">
@@ -109,10 +79,6 @@
                 <h:commandButton value="Gehen" action="#{productController.goToPage}"/>
             </div>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
-        </div>
     </h:body>
 </f:view>
 </html>

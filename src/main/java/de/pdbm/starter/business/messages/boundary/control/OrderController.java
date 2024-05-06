@@ -63,8 +63,6 @@ public class OrderController implements Serializable {
 
     private long totalRecords;
 
-    private boolean showOptions;
-
     // Konstruktor
     public OrderController() {
     }
@@ -76,10 +74,6 @@ public class OrderController implements Serializable {
         Staff staff = staffService.findStaffById(staffId);
         Store store = storeService.findStoreById(storeId);
         orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
-    }
-
-    public void displayButtons(){
-        showOptions = true;
     }
 
     // Paginierung-Methoden
@@ -235,14 +229,6 @@ public class OrderController implements Serializable {
 
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
-    }
-
-    public boolean isShowOptions() {
-        return showOptions;
-    }
-
-    public void setShowOptions(boolean showOptions) {
-        this.showOptions = showOptions;
     }
 
     // Navigation fuer Zurueck Button

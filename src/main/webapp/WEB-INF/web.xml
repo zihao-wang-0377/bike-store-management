@@ -6,7 +6,7 @@
     	<display-name>team-10</display-name>
 
 	<welcome-file-list>
-		<welcome-file>loginPage.xhtml</welcome-file>
+		<welcome-file>homePage.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<context-param>
@@ -24,44 +24,4 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- SECURITY ROLE -->
-	<security-role>
-		<role-name>ADMIN</role-name>
-	</security-role>
-	<security-role>
-		<role-name>USER1</role-name>
-	</security-role>
-	<security-role>
-		<role-name>USER2</role-name>
-	</security-role>
-
-	<!-- SECURITY CONSTRAINT -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>user2</web-resource-name>
-			<url-pattern>/customerTable.xhtml</url-pattern>
-			<url-pattern>/orderTable.xhtml</url-pattern>
-			<url-pattern>/orderItemTable.xhtml</url-pattern>
-			<url-pattern>/productTable.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>ADMIN</role-name>
-			<role-name>USER1</role-name>
-			<role-name>USER2</role-name>
-		</auth-constraint>
-	</security-constraint>
-
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>user1</web-resource-name>
-			<url-pattern>/customerForm.xhtml</url-pattern>
-			<url-pattern>/orderForm.xhtml</url-pattern>
-			<url-pattern>/orderItemForm.xhtml</url-pattern>
-			<url-pattern>/productForm.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>ADMIN</role-name>
-			<role-name>USER1</role-name>
-		</auth-constraint>
-	</security-constraint>
 </web-app>
