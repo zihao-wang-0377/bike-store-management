@@ -55,7 +55,8 @@ public class ProductController implements Serializable {
 
     private long totalRecords;
 
-    private boolean showOptions;
+    private int clicks;
+
 
     // Konstruktor
     public ProductController() {
@@ -67,9 +68,12 @@ public class ProductController implements Serializable {
         Category category = categoryService.findCategoryById(categoryId);
         productService.save(new Product(price, year, name, brand, category));
     }
+    public boolean isButtonDisplayed(){
+        return clicks % 2 == 1;
+    }
 
-    public void displayButtons(){
-        showOptions = true;
+    public void incrementClicks(){
+        clicks++;
     }
 
     // Paginierung-Methoden
@@ -209,14 +213,6 @@ public class ProductController implements Serializable {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public boolean isShowOptions() {
-        return showOptions;
-    }
-
-    public void setShowOptions(boolean showOptions) {
-        this.showOptions = showOptions;
     }
 
     // Navigation fuer Zurueck Button

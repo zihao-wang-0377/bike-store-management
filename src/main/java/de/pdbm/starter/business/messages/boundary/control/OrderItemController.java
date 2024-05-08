@@ -58,7 +58,7 @@ public class OrderItemController implements Serializable {
 
     private long totalRecords;
 
-    private boolean showOptions;
+    private int clicks;
 
     // Konstruktor
     public OrderItemController() {
@@ -83,8 +83,12 @@ public class OrderItemController implements Serializable {
         orderItemService.save(new OrderItem( orderItemPk,order,  discount,  price,  quantity,  product));
     }
 
-    public void displayButtons(){
-        showOptions = true;
+    public boolean isButtonDisplayed(){
+        return clicks % 2 == 1;
+    }
+
+    public void incrementClicks(){
+        clicks++;
     }
 
     // Paginierung-Methoden
@@ -224,14 +228,6 @@ public class OrderItemController implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
-    }
-
-    public boolean isShowOptions() {
-        return showOptions;
-    }
-
-    public void setShowOptions(boolean showOptions) {
-        this.showOptions = showOptions;
     }
 
     // Navigation fuer Zurueck Button
