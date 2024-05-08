@@ -226,3 +226,9 @@ tr:nth-child(even) {
 .panelGroup:hover{
     background-color: #DCDCDC;
 }
+.homePage-image-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    height: 700px;
+}
