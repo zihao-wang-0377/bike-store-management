@@ -50,7 +50,7 @@
                     <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
                                      action="orderItemForm?faces-redirect=true" />
                 </h:panelGroup>
-                <h:commandButton action="loginPage?faces-redirect=true" styleClass="user"/>
+                <h:commandButton action="#{logout.logout}" styleClass="user"/>
             </div>
             <div class="homePage-image-container">
                 <img src="svg/bike.jpg"  alt="bike"/>

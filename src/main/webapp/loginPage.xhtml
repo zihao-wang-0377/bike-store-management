@@ -22,7 +22,7 @@
             <h:outputLabel for="password">Passwort:</h:outputLabel>
             <h:inputText id="password" value="#{login.password}"/>
             <br></br>
-            <h:commandButton value="Anmelden" styleClass="back-button" action="#{login.submit()}"/>
+            <h:commandButton value="Anmelden" styleClass="back-button" action="#{login.login()}"/>
         </h:form>
         <h:messages styleClass="errorMessage"/>
         <div style="margin-top: 20px; color: gray; text-align: center;">

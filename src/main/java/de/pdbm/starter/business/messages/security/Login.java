@@ -14,8 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotBlank;
 
-import java.io.IOException;
-
 @Named
 @RequestScoped
 public class Login {
@@ -34,7 +32,7 @@ public class Login {
     @Inject
     private FacesContext facesContext;
 
-    public String submit() {
+    public String login() {
         switch (continueAuthentication()) {
             case SEND_CONTINUE:
                 facesContext.responseComplete();
