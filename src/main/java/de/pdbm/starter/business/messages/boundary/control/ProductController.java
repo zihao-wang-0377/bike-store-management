@@ -1,11 +1,13 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.service.BrandService;
 import de.pdbm.starter.business.messages.service.CategoryService;
 import de.pdbm.starter.business.messages.service.ProductService;
 import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Product;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class ProductController implements Serializable {
     @Inject
     ProductService productService;
@@ -56,6 +58,8 @@ public class ProductController implements Serializable {
     private long totalRecords;
 
     private int clicks;
+
+    private Product selectedProduct;
 
 
     // Konstruktor
@@ -213,6 +217,15 @@ public class ProductController implements Serializable {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public String showDetails(Product selectedProduct){
+        this.selectedProduct = selectedProduct;
+        return "productDetail.xhtml?faces-redirect=true";
     }
 
     // Navigation fuer Zurueck Button

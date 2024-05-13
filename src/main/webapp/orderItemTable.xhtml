@@ -79,7 +79,9 @@
             </h:column>
             <h:column>
                 <h:form>
-                    <h:commandButton styleClass="viewButton"/>
+                    <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+                        <f:ajax execute="@form" render="@all" />
+                    </h:commandButton>
                     <h:commandButton styleClass="deleteButton"/>
                 </h:form>
             </h:column>

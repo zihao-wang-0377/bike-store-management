@@ -7,8 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <h:head>
-        <title>Produkttabelle</title>
+        <title>CustomerDetail</title>
         <link rel="stylesheet" type="text/css" href="css/table.css"/>
+        <link rel="stylesheet" type="text/css" href="css/detail.css"/>
     </h:head>
     <h:body>
         <h:form immediate="true">
@@ -50,66 +51,30 @@
                     <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
                                      action="orderItemForm?faces-redirect=true" />
                 </h:panelGroup>
-                <h:commandButton action="#{logout.logout}" styleClass="user"/>
+                <h:commandButton styleClass="user" action="#{logout.logout}"/>
             </div>
         </h:form>
-        <h1>Produkten</h1>
-        <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{product.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Listenpreis</f:facet>
-                <h:outputText value="#{product.price}">
-                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Modelljahr</f:facet>
-                #{product.modelYear}
-            </h:column>
-            <h:column>
-                <h:form>
-                    <h:commandButton styleClass="viewButton" action="#{productController.showDetails(product)}">
-                        <f:ajax execute="@form" render="@all" />
-                    </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"/>
-                </h:form>
-            </h:column>
-        </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
-            <h:selectOneMenu styleClass="select" value="#{productController.pageSize}">
-                <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
-                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
-                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite"/>
-                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite"/>
-                <f:ajax event="change" execute="@this" render="@all"/>
-            </h:selectOneMenu>
-            <div class="pagination">
-                <h:commandButton styleClass="firstPage" action="#{productController.firstPage}"
-                                 disabled="#{productController.currentPage == 1}"/>
-                <h:commandButton styleClass="previous" action="#{productController.prevPage}"
-                                 disabled="#{productController.currentPage == 1}"/>
-                <ui:repeat value="#{productController.pageNumbers}" var="pageNum">
-                    <h:commandLink styleClass="repeat" value="#{pageNum}" action="#{productController.setPage(pageNum)}"
-                                   rendered="#{pageNum != productController.currentPage}"/>
-                    <h:outputText styleClass="current" value="#{pageNum} "
-                                  rendered="#{pageNum == productController.currentPage}"/>
-                </ui:repeat>
-                <h:outputText styleClass="rest" value="..."
-                              rendered="#{productController.currentPage + 3 lt productController.totalPages}"/>
-                <h:commandButton styleClass="next" action="#{productController.nextPage}"
-                                 disabled="#{productController.currentPage == productController.totalPages}"/>
-                <h:commandButton styleClass="lastPage" action="#{productController.lastPage}"
-                                 disabled="#{productController.currentPage == productController.totalPages}"/>
-            </div>
-            <div class="goto">
-                <h:outputLabel styleClass="label2" value="Zur Seite"/>
-                <h:inputText styleClass="text" value="#{productController.currentPage}" size="3"/>
-                <h:commandButton value="Gehen" action="#{productController.goToPage}"/>
-            </div>
+        <h1 style="text-align: center">Customer Detail</h1>
+        <h:form styleClass="container">
+            <h:outputLabel value="CustomerID :"/>
+            <h:inputText value="#{customerController.selectedCustomer.id}"/><br/>
+            <h:outputLabel value="First Name: "/>
+            <h:inputText value="#{customerController.selectedCustomer.firstname}" /><br/>
+            <h:outputLabel value="Last Name: "/>
+            <h:inputText value="#{customerController.selectedCustomer.lastname}" /><br/>
+            <h:outputLabel value="Email: "/>
+            <h:inputText value="#{customerController.selectedCustomer.email}" /><br/>
+            <h:outputLabel value="Phone: "/>
+            <h:inputText value="#{customerController.selectedCustomer.phone}" /><br/>
+            <h:outputLabel value="Street: "/>
+            <h:inputText value="#{customerController.selectedCustomer.street}" /><br/>
+            <h:outputLabel value="City: "/>
+            <h:inputText value="#{customerController.selectedCustomer.city}" /><br/>
+            <h:outputLabel value="Zip Code: "/>
+            <h:inputText value="#{customerController.selectedCustomer.zipcode}" /><br/>
+            <h:outputLabel value="State: "/>
+            <h:inputText value="#{customerController.selectedCustomer.state}" /><br/>
+            <h:commandButton value="Speichern" action="#{customerController.save()}" styleClass="button"/>
         </h:form>
         <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
             <div style="margin: 15px;">&copy; Bike Store</div>

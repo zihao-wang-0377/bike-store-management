@@ -1,12 +1,10 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
+import de.pdbm.starter.business.messages.entity.*;
 import de.pdbm.starter.business.messages.service.OrderItemService;
 import de.pdbm.starter.business.messages.service.OrderService;
 import de.pdbm.starter.business.messages.service.ProductService;
-import de.pdbm.starter.business.messages.entity.Order;
-import de.pdbm.starter.business.messages.entity.OrderItem;
-import de.pdbm.starter.business.messages.entity.OrderItemPk;
-import de.pdbm.starter.business.messages.entity.Product;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class OrderItemController implements Serializable {
     @Inject
     OrderItemService orderItemService;
@@ -59,6 +57,8 @@ public class OrderItemController implements Serializable {
     private long totalRecords;
 
     private int clicks;
+
+    private OrderItem selectedOrderItem;
 
     // Konstruktor
     public OrderItemController() {
@@ -228,6 +228,15 @@ public class OrderItemController implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public OrderItem getSelectedOrderItem() {
+        return selectedOrderItem;
+    }
+
+    public String showDetails(OrderItem selectedOrderItem){
+        this.selectedOrderItem = selectedOrderItem;
+        return "orderItemDetail.xhtml?faces-redirect=true";
     }
 
     // Navigation fuer Zurueck Button
