@@ -45,12 +45,7 @@ public class CustomerService implements Serializable {
         }
         List<Long> referencedOrderIds = this.getReferencedOrderId(customer);
         if (referencedOrderIds != null && !referencedOrderIds.isEmpty()){
-            // 将 ID 列表转换为逗号分隔的字符串
-//            String ids = referencedOrderIds.stream()
-//                    .map(Object::toString)
-//                    .collect(Collectors.joining(", "));
 
-            // 添加包含具体 Order ID 的消息
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderIds + "auf null bevor Sie es löschen: " ));
         } else {

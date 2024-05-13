@@ -241,7 +241,9 @@ public class OrderController implements Serializable {
         this.storeId = storeId;
     }
 
-
+public void deleteOrderRecord(Order order){
+        orderService.delete(order);
+}
 
     // Navigation fuer Zurueck Button
     public String navigateToHomePage() {

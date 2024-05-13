@@ -1,13 +1,17 @@
 package de.pdbm.starter.business.messages.service;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import jakarta.ejb.Stateless;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
@@ -42,7 +46,27 @@ public class OrderService implements Serializable {
     }
 
     public void delete(Order order) {
-        em.remove(order);
+        if (!em.contains(order)) {
+            order = em.merge(order);
+        }
+        List<Long> referencedOrderItemIds = this.getReferencedOrderItemId(order);
+        if (referencedOrderItemIds != null && !referencedOrderItemIds.isEmpty()){
+
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderItemIds + "auf null bevor Sie es löschen: " ));
+        } else {
+            em.remove(order);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Erfolg", "Kunde erfolgreich gelöscht."));
+        }
+    }
+    public List<Long> getReferencedOrderItemId(Order order){
+        TypedQuery<Long> query = em.createQuery(
+                "select o.orderItemPk FROM OrderItem o where o.orderItemPk.order_id = :order",Long.class
+        );
+        query.setParameter("order", order.getId());
+        return query.getResultList();
     }
 
     public void update(Order order) {

@@ -82,10 +82,12 @@
             <h:column>
                 <h:form>
                     <h:commandButton styleClass="viewButton"/>
-                    <h:commandButton styleClass="deleteButton"/>
+                    <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}"/>
                 </h:form>
             </h:column>
         </h:dataTable>
+        <h:messages globalOnly="true" showDetail="true" showSummary="true" />
+
         <h:form styleClass="button-container">
             <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
