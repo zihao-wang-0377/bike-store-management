@@ -251,4 +251,8 @@ public class CustomerController implements Serializable {
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
+
+    public void deleteCustomerRecord(Customer customer){
+        customerService.delete(customer);
+    }
 }

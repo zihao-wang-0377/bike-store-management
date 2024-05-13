@@ -2,12 +2,15 @@ package de.pdbm.starter.business.messages.service;
 
 import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.ejb.Stateless;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
@@ -37,9 +40,33 @@ public class CustomerService implements Serializable {
     }
 
     public void delete(Customer customer) {
-        em.remove(customer);
+        if (!em.contains(customer)) {
+            customer = em.merge(customer);
+        }
+        List<Long> referencedOrderIds = this.getReferencedOrderId(customer);
+        if (referencedOrderIds != null && !referencedOrderIds.isEmpty()){
+            // 将 ID 列表转换为逗号分隔的字符串
+//            String ids = referencedOrderIds.stream()
+//                    .map(Object::toString)
+//                    .collect(Collectors.joining(", "));
+
+            // 添加包含具体 Order ID 的消息
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderIds + "auf null bevor Sie es löschen: " ));
+        } else {
+            em.remove(customer);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Erfolg", "Kunde erfolgreich gelöscht."));
+        }
     }
 
+    public List<Long> getReferencedOrderId(Customer customer){
+       TypedQuery<Long> query = em.createQuery(
+               "select o.id FROM Order o where o.customer = :customer",Long.class
+       );
+        query.setParameter("customer", customer);
+        return query.getResultList();
+    }
     public void update(Customer customer) {
         em.merge(customer);
     }
