@@ -22,7 +22,7 @@ public class Order {
     private LocalDate orderDate;
 
     @Column(name = "order_status")
-    private Integer oderStatus;
+    private Integer orderStatus;
 
     @Column(name = "required_date")
     private LocalDate requiredDate;
@@ -45,7 +45,7 @@ public class Order {
     public Order(Integer id, LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.id = id;
         this.orderDate = orderDate;
-        this.oderStatus = oderStatus;
+        this.orderStatus = oderStatus;
         this.requiredDate = requiredDate;
         this.shippedDate = shippedDate;
         this.customer = customer;
@@ -53,9 +53,9 @@ public class Order {
         this.store = store;
     }
 
-    public Order(LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
+    public Order(LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.orderDate = orderDate;
-        this.oderStatus = oderStatus;
+        this.orderStatus = orderStatus;
         this.requiredDate = requiredDate;
         this.shippedDate = shippedDate;
         this.customer = customer;
@@ -105,12 +105,12 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Integer getOderStatus() {
-        return oderStatus;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOderStatus(Integer oderStatus) {
-        this.oderStatus = oderStatus;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public LocalDate getRequiredDate() {

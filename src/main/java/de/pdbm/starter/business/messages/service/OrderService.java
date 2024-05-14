@@ -8,6 +8,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -68,8 +69,30 @@ public class OrderService implements Serializable {
         query.setParameter("order", order.getId());
         return query.getResultList();
     }
-
+    public List<Order> getOrderByCustomerId(Integer id){
+        TypedQuery<Order> query = em.createQuery("select o from Order o where o.customer = :customer", Order.class);
+        query.setParameter("customer",id);
+        List<Order> result = query.getResultList();
+        return result ;
+    }
+@Transactional
     public void update(Order order) {
-        em.merge(order);
+        Order existingOrder = em.find(Order.class, order.getId());
+        if (existingOrder != null) {
+            existingOrder.setOrderStatus(order.getOrderStatus());
+            existingOrder.setOrderDate(order.getOrderDate());
+            existingOrder.setShippedDate(order.getShippedDate());
+            existingOrder.setRequiredDate(order.getRequiredDate());
+            existingOrder.setCustomer(order.getCustomer());
+            existingOrder.setStaff(order.getStaff());
+            existingOrder.setStore(order.getStore());
+            em.merge(existingOrder);
+
+            em.flush();
+        } else {
+
+            throw new IllegalArgumentException("Order not found");
+        }
+
     }
 }

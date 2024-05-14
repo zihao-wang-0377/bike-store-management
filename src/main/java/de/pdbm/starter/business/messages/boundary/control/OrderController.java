@@ -8,6 +8,8 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -64,7 +66,21 @@ public class OrderController implements Serializable {
     private long totalRecords;
 
     private int clicks;
+    private Order selectedOrder;
 
+    public Order getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void setSelectedOrder(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+    public void selectOrder(Order order) {
+        this.selectedOrder = order;
+        System.out.println("Order selected: " + order.getId());
+
+
+    }
     // Konstruktor
     public OrderController() {
     }
@@ -245,6 +261,13 @@ public void deleteOrderRecord(Order order){
         orderService.delete(order);
 }
 
+public void saveOrder(){
+
+
+        orderService.update(selectedOrder);
+    System.out.println("Order saved: " + selectedOrder.getId());
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellung bearbeitet", "Bestellung " + selectedOrder.getId() + " erfolgreich gespeichert."));
+}
     // Navigation fuer Zurueck Button
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
