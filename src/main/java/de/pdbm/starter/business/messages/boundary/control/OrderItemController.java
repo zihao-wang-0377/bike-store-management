@@ -231,6 +231,11 @@ public class OrderItemController implements Serializable {
     }
 
     // Navigation fuer Zurueck Button
+    public void deleteOrderItemRecord(OrderItem orderItem){
+        orderItemService.delete(orderItem);
+        loadOrderItemList();
+        getTotalRecords();
+    }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }
