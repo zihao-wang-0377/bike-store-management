@@ -30,21 +30,16 @@ public class ProductController implements Serializable {
 
     private Integer productId;
 
-    @Positive(message = "Preis muss positiv sein")
+
     private BigDecimal price;
 
-    @Max(value = 2024, message = "Jahr kann nicht über 2024 sein")
-    @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
-    @PositiveOrZero(message = "Jahr kann nicht negativ sein")
+
     private Integer year;
 
-    @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
     private String name;
 
-    @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
     private Integer brandId;
 
-    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
     private Integer categoryId;
 
     private List<Product> productList;

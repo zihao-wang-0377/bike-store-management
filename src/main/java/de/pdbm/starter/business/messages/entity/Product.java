@@ -1,6 +1,8 @@
 package de.pdbm.starter.business.messages.entity;
 
+import de.pdbm.starter.business.messages.boundary.control.ForeignKeyExists;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,20 +16,30 @@ public class Product {
     private Integer id;
 
     @Column(name = "list_price")
+    @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
 
     @Column(name = "model_year")
+    @Max(value = 2024, message = "Jahr kann nicht über 2024 sein")
+    @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
+    @PositiveOrZero(message = "Jahr kann nicht negativ sein")
     private Integer modelYear;
 
     @Column(name = "product_name")
+    @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
+    @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
+
     private Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
+
     private Category category;
 
     // Konstruktor

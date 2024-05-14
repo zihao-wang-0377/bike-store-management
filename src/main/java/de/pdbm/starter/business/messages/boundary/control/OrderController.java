@@ -14,11 +14,14 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.*;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @ViewScoped
@@ -35,26 +38,23 @@ public class OrderController implements Serializable {
     @Inject
     CustomerService customerService;
 
+    @Inject
+    private Validator validator;
+
     private Integer orderId;
 
-    @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
 
-    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
     private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
 
-    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
     private LocalDate requiredDate;
 
     private LocalDate shippedDate;
 
-    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
     private Integer customerId;
 
-    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
     private Integer staffId;
 
-    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
     private Integer storeId;
 
     private List<Order> orderList;
@@ -262,6 +262,15 @@ public void deleteOrderRecord(Order order){
 }
 
 public void saveOrder(){
+
+    Set<ConstraintViolation<Order>> violations = validator.validate(selectedOrder);
+
+    if (!violations.isEmpty()) {
+        for (ConstraintViolation<Order> violation : violations) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+        }
+        return; // 如果有验证错误，则不继续执行保存操作
+    }
 
 
         orderService.update(selectedOrder);

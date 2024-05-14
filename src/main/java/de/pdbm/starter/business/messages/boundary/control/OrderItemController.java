@@ -35,17 +35,15 @@ public class OrderItemController implements Serializable {
     @ForeignKeyExists(entity = Order.class,customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
 
-    @Min(value = 0, message = "Der Rabatt muss mindestens 0 sein")
-    @Max(value = 1, message = "Der Rabatt muss innerhalb 1 sein")
+
     private BigDecimal discount;
 
-    @Positive(message = "Preis muss positiv sein")
+
     private BigDecimal price;
 
-    @PositiveOrZero(message = "Anzahl muss größer als 0")
+
     private Integer quantity;
 
-    @ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Integer productId;
 
     private OrderItemPk orderItemPk = new OrderItemPk();
