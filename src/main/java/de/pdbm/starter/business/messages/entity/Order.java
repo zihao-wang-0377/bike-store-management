@@ -24,17 +24,14 @@ public class Order {
     private Integer id;
 
     @Column(name = "order_date")
-    @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
 
     private LocalDate orderDate;
 
     @Column(name = "order_status")
-    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
 
     private Integer orderStatus;
 
     @Column(name = "required_date")
-    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
 
     private LocalDate requiredDate;
 
@@ -43,19 +40,16 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    //@ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
 
     private Customer customer;
 
     @ManyToOne
     @JoinColumn (name = "staff_id")
-    //@ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
 
     private Staff staff;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    //@ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 
     private Store store;
 

@@ -43,18 +43,24 @@ public class OrderController implements Serializable {
     private Validator validator;
 
     private Integer orderId;
+    @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
 
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
+    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
 
     private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
+    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
 
     private LocalDate requiredDate;
 
     private LocalDate shippedDate;
-
+    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    @NotNull(message = "customerId kann nicht null sein")
     private Integer customerId;
+    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
 
     private Integer staffId;
+    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 
     private Integer storeId;
 
@@ -92,7 +98,16 @@ public class OrderController implements Serializable {
         Customer customer = customerService.findById(customerId);
         Staff staff = staffService.findStaffById(staffId);
         Store store = storeService.findStoreById(storeId);
-        orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
+    Order order=  new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store);
+        Set<ConstraintViolation<Order>> violations = validator.validate(order);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Order> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return; // 如果有验证错误，则不继续执行保存操作
+        }
+        orderService.save(order);
     }
 
     public boolean isButtonDisplayed(){
