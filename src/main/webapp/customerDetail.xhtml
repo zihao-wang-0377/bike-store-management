@@ -57,7 +57,7 @@
         <h1 style="text-align: center">Customer Detail</h1>
         <h:form styleClass="container">
             <h:outputLabel value="CustomerID :"/>
-            <h:inputText value="#{customerController.selectedCustomer.id}"/><br/>
+            <h:inputText value="#{customerController.selectedCustomer.id}" readonly="true"/><br/>
             <h:outputLabel value="First Name: "/>
             <h:inputText value="#{customerController.selectedCustomer.firstname}" /><br/>
             <h:outputLabel value="Last Name: "/>
@@ -74,7 +74,7 @@
             <h:inputText value="#{customerController.selectedCustomer.zipcode}" /><br/>
             <h:outputLabel value="State: "/>
             <h:inputText value="#{customerController.selectedCustomer.state}" /><br/>
-            <h:commandButton value="Speichern" action="#{customerController.save()}" styleClass="button"/>
+            <h:commandButton value="Speichern" action="#{customerController.updateCustomerRecord()}" styleClass="button" />
         </h:form>
         <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
             <div style="margin: 15px;">&copy; Bike Store</div>

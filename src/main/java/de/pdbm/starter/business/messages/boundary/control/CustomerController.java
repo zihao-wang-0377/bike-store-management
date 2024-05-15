@@ -280,4 +280,9 @@ Validator validator;
         loadCustomerList();
         getTotalRecords();
     }
+
+    public String updateCustomerRecord(){
+        customerService.update(selectedCustomer);
+        return "customerTable.xhtml?faces-redirect=true";
+    }
 }
