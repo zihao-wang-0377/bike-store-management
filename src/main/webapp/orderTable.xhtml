@@ -4,13 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <h:head>
         <title>Bestellungstabelle</title>
         <link rel="stylesheet" type="text/css" href="css/table.css"/>
-        <h:outputStylesheet library="primefaces" name="primeicons/primeicons.css"/>
+
     </h:head>
     <h:body>
         <h:form immediate="true">
@@ -56,150 +56,43 @@
             </div>
         </h:form>
         <h1>Bestellungen</h1>
-<!--        <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">Bestellstatus</f:facet>-->
-<!--                #{order.oderStatus}-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">Bestlldatum</f:facet>-->
-<!--                <h:outputText value="#{order.orderDate}">-->
-<!--                    <f:converter converterId="localDateConverter"/>-->
-<!--                </h:outputText>-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">Versanddatum</f:facet>-->
-<!--                <h:outputText value="#{order.shippedDate}">-->
-<!--                    <f:converter converterId="localDateConverter"/>-->
-<!--                </h:outputText>-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">Kunden-ID</f:facet>-->
-<!--                #{order.customer.id}-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <f:facet name="header">Geschäfts-ID</f:facet>-->
-<!--                #{order.store.storeId}-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--                <h:form>-->
-<!--                    <h:commandButton styleClass="viewButton"/>-->
-<!--                    <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}"/>-->
-<!--                </h:form>-->
-<!--            </h:column>-->
-<!--        </h:dataTable>-->
-
-
-        <h:form id="orderForm">
-            <p:dataTable value="#{orderController.orders}" var="order" styleClass="order-table" widgetVar="orderTable" id="orderTable" >
-                <p:column headerText="Bestellstatus" >
-                    #{order.orderStatus}
-                </p:column>
-                <p:column headerText="Bestelldatum">
-                    <h:outputText value="#{order.orderDate}">
-                        <f:converter converterId="localDateConverter"/>
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="Versanddatum">
-                    <h:outputText value="#{order.shippedDate}">
-                        <f:converter converterId="localDateConverter"/>
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="Kunden-ID" filterBy="#{order.customer.id}" filterMatchMode="contains">
-                    #{order.customer.id}
-                </p:column>
-                <p:column headerText="Geschäfts-ID">
-                    #{order.store.storeId}
-                </p:column>
-                <p:column headerText="Aktionen">
-
-                        <p:commandButton  icon="pi pi-search" action="#{orderController.selectOrder(order)}" oncomplete="PF('orderDialog').show()" process="@this" update=":orderForm:orderDetails"/>
-                    <p:commandButton  icon="pi pi-pencil"
-                                     action="#{orderController.selectOrder(order)}"
-                                     oncomplete="PF('editOrderDialog').show()"
-                                     process="@this"
-                                     update=":orderForm:editOrderDetails"/>
-                    <p:commandButton  icon="pi pi-trash" action="#{orderController.deleteOrderRecord(order)}" update=":orderForm:orderTable, :messageForm"/>
-
-                </p:column>
-            </p:dataTable>
-
-            <p:dialog header="Order Details" widgetVar="orderDialog" modal="true" resizable="false" width="400" dynamic="true" id="orderDetails" >
-                <h:form >
-                <h:panelGrid columns="2" cellpadding="4" >
-                    <h:outputLabel value="Bestellung-ID :" />
-                    <h:outputText value="#{orderController.selectedOrder.id}" />
-
-                    <h:outputLabel value="Bestellung Status:" />
-                    <h:outputText value="#{orderController.selectedOrder.orderStatus}" />
-
-                    <h:outputLabel value="BestellungsDatum:" />
-                    <h:outputText value="#{orderController.selectedOrder.orderDate}">
-                        <f:converter converterId="localDateConverter"/>
-                    </h:outputText>
-
-                    <h:outputLabel value="Versanddatum:" />
-                    <h:outputText value="#{orderController.selectedOrder.shippedDate}">
-                        <f:converter converterId="localDateConverter"/>
-                    </h:outputText>
-
-                    <h:outputLabel value="Erwartetes datum:" />
-                    <h:outputText value="#{orderController.selectedOrder.requiredDate}">
-                        <f:converter converterId="localDateConverter"/>
-                    </h:outputText>
-
-                    <h:outputLabel value="Kunden-ID:" />
-                    <h:outputText value="#{orderController.selectedOrder.customer.id}" />
-
-                    <h:outputLabel value="Mitarbeiter-ID:" />
-                    <h:outputText value="#{orderController.selectedOrder.staff.staffId}" />
-
-                    <h:outputLabel value="Geschäft-ID:" />
-                    <h:outputText value="#{orderController.selectedOrder.store.storeId}" />
-                </h:panelGrid>
+        <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
+            <h:column>
+                <f:facet name="header">Bestellstatus</f:facet>
+                #{order.orderStatus}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bestlldatum</f:facet>
+                <h:outputText value="#{order.orderDate}">
+                    <f:converter converterId="localDateConverter"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Versanddatum</f:facet>
+                <h:outputText value="#{order.shippedDate}">
+                    <f:converter converterId="localDateConverter"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Kunden-ID</f:facet>
+                #{order.customer.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Geschäfts-ID</f:facet>
+                #{order.store.storeId}
+            </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton styleClass="viewButton"/>
+                    <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}"/>
                 </h:form>
-            </p:dialog>
+            </h:column>
+        </h:dataTable>
 
-            <p:dialog header="Edit Order" widgetVar="editOrderDialog" modal="true" resizable="false" width="400" dynamic="true" id="editOrderDetails">
-                <h:form  prependId="false">
-                    <h:panelGrid columns="2" cellpadding="4" >
-                        <h:outputLabel value="Bestellung-ID :" />
-                        <h:outputText value="#{orderController.selectedOrder.id}" />
-
-                        <h:outputLabel value="Bestellung Status:" />
-                        <p:inputText value="#{orderController.selectedOrder.orderStatus}" />
-
-                        <h:outputLabel value="BestellungsDatum:" />
-                        <p:calendar value="#{orderController.selectedOrder.orderDate}" pattern="dd.MM.yyyy" locale="de"/>
-
-                        <h:outputLabel value="Versanddatum:" />
-                        <p:calendar value="#{orderController.selectedOrder.shippedDate}" pattern="dd.MM.yyyy" locale="de"/>
-
-                        <h:outputLabel value="Erwartetes datum:" />
-                        <p:calendar value="#{orderController.selectedOrder.requiredDate}" pattern="dd.MM.yyyy" locale="de"/>
-
-                        <h:outputLabel value="Kunden-ID:" />
-                        <h:outputText value="#{orderController.selectedOrder.customer.id}" />
-
-                        <h:outputLabel value="Mitarbeiter-ID:" />
-                        <h:outputText value="#{orderController.selectedOrder.staff.staffId}" />
-
-                        <h:outputLabel value="Geschäft-ID:" />
-                        <h:outputText value="#{orderController.selectedOrder.store.storeId}" />
-
-
-                    </h:panelGrid>
-                    <p:commandButton value="Save" process="@this" action="#{orderController.saveOrder()}" update=":orderForm:orderTable, :messageForm, :orderForm:editOrderDetails" oncomplete="PF('editOrderDialog').hide()"/>
-
-                </h:form>
-
-            </p:dialog>
-
-        </h:form>
         <h:form id="messageForm">
-            <p:messages globalOnly="true" showDetail="true" showSummary="true" autoUpdate="true" />
-
+            <h:messages id="globalMessages" globalOnly="true" showDetail="true" showSummary="true" />
         </h:form>
+
         <h:form styleClass="button-container">
             <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
