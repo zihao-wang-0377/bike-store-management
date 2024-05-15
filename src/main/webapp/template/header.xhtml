@@ -44,6 +44,47 @@
             <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
                              action="orderItemForm?faces-redirect=true" />
         </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Brand" actionListener="#{brandController.incrementClicks}">
+            <f:ajax execute="@this" render="BrandPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="BrandPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{brandController.buttonDisplayed}"
+                             action="brandTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{brandController.buttonDisplayed}"
+                             action="brandForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Category" actionListener="#{categoryController.incrementClicks}">
+            <f:ajax execute="@this" render="CategoryPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="CategoryPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{categoryController.buttonDisplayed}"
+                             action="categoryTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{categoryController.buttonDisplayed}"
+                             action="categoryForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Mitarbeiter" actionListener="#{staffController.incrementClicks}">
+            <f:ajax execute="@this" render="StaffPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="StaffPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{staffController.buttonDisplayed}"
+                             action="staffTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{staffController.buttonDisplayed}"
+                             action="staffForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Niederlassung" actionListener="#{stockController.incrementClicks}">
+            <f:ajax execute="@this" render="StockPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="StockPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{stockController.buttonDisplayed}"
+                             action="stockTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{stockController.buttonDisplayed}"
+                             action="stockForm?faces-redirect=true" />
+        </h:panelGroup>
+
         <h:commandButton styleClass="user" action="#{logout.logout}"/>
     </div>
 </h:form>
