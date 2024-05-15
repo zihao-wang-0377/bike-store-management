@@ -259,6 +259,8 @@ public class OrderController implements Serializable {
 
 public void deleteOrderRecord(Order order){
         orderService.delete(order);
+        loadOrderList();
+        getTotalRecords();
 }
 
 public void saveOrder(){

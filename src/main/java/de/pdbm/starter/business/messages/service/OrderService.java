@@ -51,16 +51,15 @@ public class OrderService implements Serializable {
             order = em.merge(order);
         }
         List<Long> referencedOrderItemIds = this.getReferencedOrderItemId(order);
-        if (referencedOrderItemIds != null && !referencedOrderItemIds.isEmpty()){
 
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderItemIds + "auf null bevor Sie es löschen: " ));
-        } else {
+
             em.remove(order);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Erfolg", "Kunde erfolgreich gelöscht."));
-        }
+                    "Erfolg", "order erfolgreich gelöscht."));
+
     }
     public List<Long> getReferencedOrderItemId(Order order){
         TypedQuery<Long> query = em.createQuery(
