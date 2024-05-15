@@ -2,6 +2,8 @@ package de.pdbm.starter.business.messages.boundary.control;
 
 import de.pdbm.starter.business.messages.service.CustomerService;
 import de.pdbm.starter.business.messages.entity.Customer;
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class CustomerController implements Serializable {
     @Inject
     CustomerService customerService;
@@ -54,6 +56,8 @@ public class CustomerController implements Serializable {
     private long totalRecords;
 
     private int clicks;
+
+    private Customer selectedCustomer;
 
     // Konstruktor
     public CustomerController() {
@@ -245,7 +249,15 @@ public class CustomerController implements Serializable {
         this.zipCode = zipCode;
     }
 
+    public Customer getSelectedCustomer() {
+        return selectedCustomer;
+    }
 
+
+    public String showDetails(Customer selectedCustomer){
+        this.selectedCustomer = selectedCustomer;
+        return "customerDetail.xhtml?faces-redirect=true";
+    }
 
     // Navigation fuer Zurueck Button
     public String navigateToHomePage() {

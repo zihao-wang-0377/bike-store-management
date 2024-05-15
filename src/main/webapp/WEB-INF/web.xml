@@ -58,6 +58,10 @@
 			<url-pattern>/orderForm.xhtml</url-pattern>
 			<url-pattern>/orderItemForm.xhtml</url-pattern>
 			<url-pattern>/productForm.xhtml</url-pattern>
+			<url-pattern>/customerDetail.xhtml</url-pattern>
+			<url-pattern>/orderDetail.xhtml</url-pattern>
+			<url-pattern>/orderItemDetail.xhtml</url-pattern>
+			<url-pattern>/productDetail.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMIN</role-name>

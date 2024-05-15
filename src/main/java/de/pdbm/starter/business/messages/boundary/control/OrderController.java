@@ -8,6 +8,7 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class OrderController implements Serializable {
     @Inject
     OrderService orderService;
@@ -64,6 +65,8 @@ public class OrderController implements Serializable {
     private long totalRecords;
 
     private int clicks;
+
+    private Order selectedOrder;
 
     // Konstruktor
     public OrderController() {
@@ -241,7 +244,14 @@ public class OrderController implements Serializable {
         this.storeId = storeId;
     }
 
+    public Order getSelectedOrder() {
+        return selectedOrder;
+    }
 
+    public String showDetails(Order selectedOrder){
+        this.selectedOrder = selectedOrder;
+        return "orderDetail.xhtml?faces-redirect=true";
+    }
 
     // Navigation fuer Zurueck Button
     public String navigateToHomePage() {
