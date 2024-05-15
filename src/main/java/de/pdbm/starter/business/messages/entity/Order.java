@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -42,21 +43,28 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    //@ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
 
     private Customer customer;
 
     @ManyToOne
     @JoinColumn (name = "staff_id")
-    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
+    //@ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
 
     private Staff staff;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
+    //@ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 
     private Store store;
+
+    @OneToMany(
+            cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
+            mappedBy = "order"
+    )
+    private Set<OrderItem> orderItems = new HashSet<>();
+
 
     public Order(Integer id, LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.id = id;
@@ -159,5 +167,13 @@ public class Order {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
