@@ -75,11 +75,11 @@
 
 
 
-                <h:form>
+
                     <h:commandButton styleClass="viewButton" action="#{productController.showDetails(product)}">
                         <f:ajax execute="@form" render="@all" />
                     </h:commandButton>
-            </h:form>
+
                 <h:commandButton  styleClass="deleteButton" action="#{productController.deleteProductRecord(product)}" >
                     <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords" />
                 </h:commandButton>
