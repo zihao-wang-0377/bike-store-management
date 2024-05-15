@@ -44,15 +44,15 @@ public class CustomerService implements Serializable {
             customer = em.merge(customer);
         }
         List<Long> referencedOrderIds = this.getReferencedOrderId(customer);
-        if (referencedOrderIds != null && !referencedOrderIds.isEmpty()){
+
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderIds + "auf null bevor Sie es löschen: " ));
-        } else {
+                    "Hinweis", ": das Customer ist referenced by diese Orders, " + referencedOrderIds   ));
+
             em.remove(customer);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Erfolg", "Kunde erfolgreich gelöscht."));
-        }
+
     }
 
     public List<Long> getReferencedOrderId(Customer customer){

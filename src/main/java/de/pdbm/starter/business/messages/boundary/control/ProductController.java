@@ -213,6 +213,8 @@ public class ProductController implements Serializable {
     // Navigation fuer Zurueck Button
  public void deleteProductRecord(Product product){
         productService.delete(product);
+        loadProduktList();
+        getTotalRecords();
  }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";

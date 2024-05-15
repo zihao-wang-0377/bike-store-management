@@ -53,9 +53,9 @@
                 <h:commandButton action="#{logout.logout}" styleClass="user"/>
             </div>
         </h:form>
-
+        <h:form>
         <h1>Kunden</h1>
-        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
+        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table" >
             <h:column>
                 <f:facet name="header">Vorname</f:facet>
                 #{customer.firstname}
@@ -85,15 +85,19 @@
                 #{customer.zipcode}
             </h:column>
             <h:column>
-                <h:form>
+
                     <h:commandButton styleClass="viewButton"/>
-                    <h:commandButton styleClass="deleteButton" action="#{customerController.deleteCustomerRecord(customer)}" update="messages"/>
-                </h:form>
+                    <h:commandButton styleClass="deleteButton" action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+
             </h:column>
         </h:dataTable>
+    </h:form>
         <h:messages globalOnly="true" showDetail="true" showSummary="true" />
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{customerController.totalRecords} Einträge"/>
+
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge" />
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>

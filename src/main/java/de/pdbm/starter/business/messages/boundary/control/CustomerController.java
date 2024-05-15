@@ -261,5 +261,7 @@ Validator validator;
 
     public void deleteCustomerRecord(Customer customer){
         customerService.delete(customer);
+        loadCustomerList();
+        getTotalRecords();
     }
 }
