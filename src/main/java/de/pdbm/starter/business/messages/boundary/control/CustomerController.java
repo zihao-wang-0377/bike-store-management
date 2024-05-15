@@ -4,47 +4,45 @@ import de.pdbm.starter.business.messages.service.CustomerService;
 import de.pdbm.starter.business.messages.entity.Customer;
 import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.*;
-
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
 public class CustomerController implements Serializable {
     @Inject
     CustomerService customerService;
-
+@Inject
+Validator validator;
     private Integer customerId;
 
-    @NotBlank(message = "Stadt darf nicht null sein")
     private String city;
 
-    @Email(message = "email entspricht syntax nicht")
     private String email;
 
-    @NotBlank(message = "Vorname darf nicht null sein")
     private String firstName;
 
-    @NotBlank(message = "Nachname darf nicht null sein")
 
     private String lastName;
 
-    @Size(min = 0, message = "Telephone Nummer kann leer sein")
-    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein")
+
     private String phone;
 
-    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung")
     private String state;
 
-    @Pattern(regexp = "^\\d+\\s.*$" ,message = "bitte geben sie Zahl zuerst ein")
     private String street;
 
-    @Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl")
     private String zipCode;
 
     private List<Customer> customerList;
@@ -76,7 +74,16 @@ public class CustomerController implements Serializable {
 
     // Objekt erstellen und speichern
     public void save(){
-        customerService.save(new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode));
+        Customer customer = new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode);
+        Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Customer> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return; // 如果有验证错误，则不继续执行保存操作
+        }
+        customerService.save(customer);
     }
     public boolean isButtonDisplayed(){
         return clicks % 2 == 1;
@@ -262,5 +269,11 @@ public class CustomerController implements Serializable {
     // Navigation fuer Zurueck Button
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
+    }
+
+    public void deleteCustomerRecord(Customer customer){
+        customerService.delete(customer);
+        loadCustomerList();
+        getTotalRecords();
     }
 }

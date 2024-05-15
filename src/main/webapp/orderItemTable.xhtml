@@ -53,6 +53,7 @@
                 <h:commandButton action="#{logout.logout}" styleClass="user"/>
             </div>
         </h:form>
+        <h:form>
         <h1>Bestellpositionen</h1>
         <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
             <h:column>
@@ -78,16 +79,22 @@
                 <h:outputText value="#{orderItem.quantity}"/>
             </h:column>
             <h:column>
-                <h:form>
-                    <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
-                        <f:ajax execute="@form" render="@all" />
+
+                <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+                    <f:ajax execute="@form" render="@all" />
+                </h:commandButton>
+
+                <h:commandButton styleClass="deleteButton" action="#{orderItemController.deleteOrderItemRecord(orderItem)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"/>
-                </h:form>
+
+
+
             </h:column>
         </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
+        </h:form>
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderItemController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>

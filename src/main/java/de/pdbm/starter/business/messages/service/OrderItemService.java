@@ -1,7 +1,10 @@
 package de.pdbm.starter.business.messages.service;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.OrderItem;
 import jakarta.ejb.Stateless;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -48,8 +51,13 @@ public class OrderItemService implements Serializable {
     }
 
     public void delete(OrderItem orderItem) {
-        em.remove(orderItem);
+        if (!em.contains(orderItem)) {
+            orderItem = em.merge(orderItem);
+        }
+            em.remove(orderItem);
+
     }
+
 
     public void update(OrderItem orderItem) {
         em.merge(orderItem);

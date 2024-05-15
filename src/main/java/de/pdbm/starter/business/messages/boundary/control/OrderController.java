@@ -9,15 +9,20 @@ import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.*;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
@@ -34,26 +39,23 @@ public class OrderController implements Serializable {
     @Inject
     CustomerService customerService;
 
+    @Inject
+    private Validator validator;
+
     private Integer orderId;
 
-    @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
 
-    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
     private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
 
-    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
     private LocalDate requiredDate;
 
     private LocalDate shippedDate;
 
-    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
     private Integer customerId;
 
-    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
     private Integer staffId;
 
-    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
     private Integer storeId;
 
     private List<Order> orderList;
@@ -65,9 +67,21 @@ public class OrderController implements Serializable {
     private long totalRecords;
 
     private int clicks;
-
     private Order selectedOrder;
 
+    public Order getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void setSelectedOrder(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+    public void selectOrder(Order order) {
+        this.selectedOrder = order;
+        System.out.println("Order selected: " + order.getId());
+
+
+    }
     // Konstruktor
     public OrderController() {
     }
@@ -244,13 +258,32 @@ public class OrderController implements Serializable {
         this.storeId = storeId;
     }
 
-    public Order getSelectedOrder() {
-        return selectedOrder;
-    }
+public void deleteOrderRecord(Order order){
+        orderService.delete(order);
+        loadOrderList();
+        getTotalRecords();
+}
 
     public String showDetails(Order selectedOrder){
         this.selectedOrder = selectedOrder;
         return "orderDetail.xhtml?faces-redirect=true";
+    }
+
+    public void saveOrder(){
+
+        Set<ConstraintViolation<Order>> violations = validator.validate(selectedOrder);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Order> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return; // 如果有验证错误，则不继续执行保存操作
+        }
+
+
+        orderService.update(selectedOrder);
+        System.out.println("Order saved: " + selectedOrder.getId());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellung bearbeitet", "Bestellung " + selectedOrder.getId() + " erfolgreich gespeichert."));
     }
 
     // Navigation fuer Zurueck Button

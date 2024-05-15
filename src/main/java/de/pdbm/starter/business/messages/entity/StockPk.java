@@ -49,4 +49,11 @@ public class StockPk implements Serializable {
     public int hashCode() {
         return Objects.hash(product_id, store_id);
     }
+    @Override
+    public String toString(){
+        return "StockPk{" +
+                "ProduktId=" + product_id +
+                ", StoreId=" + store_id +
+                '}';
+    }
 }

@@ -53,11 +53,13 @@
                 <h:commandButton action="#{logout.logout}" styleClass="user"/>
             </div>
         </h:form>
+
+        <h:form>
         <h1>Bestellungen</h1>
         <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
             <h:column>
                 <f:facet name="header">Bestellstatus</f:facet>
-                #{order.oderStatus}
+                #{order.orderStatus}
             </h:column>
             <h:column>
                 <f:facet name="header">Bestlldatum</f:facet>
@@ -80,16 +82,28 @@
                 #{order.store.storeId}
             </h:column>
             <h:column>
-                <h:form>
-                    <h:commandButton styleClass="viewButton" action="#{orderController.showDetails(order)}">
-                        <f:ajax execute="@form" render="@all" />
-                    </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"/>
-                </h:form>
+
+                <h:commandButton styleClass="viewButton" action="#{orderController.showDetails(order)}">
+                    <f:ajax execute="@form" render="@all" />
+                </h:commandButton>
+                <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}">
+                    <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                </h:commandButton>
+
+
+
+
+
             </h:column>
         </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{orderController.totalRecords} Einträge"/>
+    </h:form>
+
+        <h:form id="messageForm">
+            <h:messages id="Messages" globalOnly="true" showDetail="true" showSummary="true" />
+        </h:form>
+
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{orderController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
