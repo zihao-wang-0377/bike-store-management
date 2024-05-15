@@ -250,6 +250,11 @@ public class ProductController implements Serializable {
         loadProduktList();
         getTotalRecords();
  }
+
+ public String updateProductRecord(){
+        productService.update(selectedProduct);
+        return "productTable.xhtml?faces-redirect=true";
+ }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";
     }

@@ -57,18 +57,24 @@
         <h1 style="text-align: center">Product Detail</h1>
         <h:form styleClass="container">
             <h:outputLabel value="Product ID: "/>
-            <h:inputText value="#{productController.selectedProduct.id}"/><br/>
+            <h:inputText value="#{productController.selectedProduct.id}" readonly="true"/><br/>
             <h:outputLabel value="ListenPreis: "/>
             <h:inputText value="#{productController.selectedProduct.price}" /><br/>
             <h:outputLabel value="ModellJahr: "/>
             <h:inputText value="#{productController.selectedProduct.modelYear}" /><br/>
             <h:outputLabel value="Produkt Name: "/>
             <h:inputText value="#{productController.selectedProduct.name}" /><br/>
-            <h:outputLabel value="Marke Nummer: "/>
-            <h:inputText value="#{productController.selectedProduct.brand.brandId}" /><br/>
-            <h:outputLabel value="Kategorie Nummer: "/>
-            <h:inputText value="#{productController.selectedProduct.category.categoryId}" /><br/>
-            <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="button"/>
+            <h:outputLabel value="Marke Name: "/>
+<!--            <h:inputText value="#{productController.selectedProduct.brand.brandName}" /><br/>-->
+            <h:selectOneMenu id="brandName" value="#{productController.selectedProduct.brand.brandName}">
+                <f:selectItems value="#{brandController.brandList}"/>
+            </h:selectOneMenu><br/>
+            <h:outputLabel value="Kategorie Name: "/>
+<!--            <h:inputText value="#{productController.selectedProduct.category.categoryName}" /><br/>-->
+            <h:selectOneMenu id="categoryName" value="#{productController.selectedProduct.category.categoryName}">
+                <f:selectItems value="#{categoryController.categoryList}"/>
+            </h:selectOneMenu><br/>
+            <h:commandButton value="Speichern" action="#{productController.updateProductRecord()}" styleClass="button"/>
         </h:form>
         <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
             <div style="margin: 15px;">&copy; Bike Store</div>
