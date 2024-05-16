@@ -19,7 +19,11 @@ public class BrandService implements Serializable {
     public void save(Brand brand){
         em.persist(brand);
     }
-
+    public Brand findByBrandName(String brandName) {
+        TypedQuery<Brand> query = em.createQuery("select b from Brand b where b.brandName = :brandName", Brand.class);
+        query.setParameter("brandName", brandName);
+        return query.getSingleResult();
+    }
     public List<Brand> findPaginated(int page, int size){
         TypedQuery<Brand> query = em.createQuery("select b from Brand b", Brand.class);
         query.setFirstResult((page-1)* size);
