@@ -2,6 +2,9 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "staffs")
 public class Staff {
@@ -26,6 +29,9 @@ public class Staff {
 @ManyToOne
 @JoinColumn (name = "store_id")
     private Store store;
+
+    @OneToMany(mappedBy = "staff", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Order> orders = new HashSet<>();
 
     // Konstruktor
     public Staff() {
