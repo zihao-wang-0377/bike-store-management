@@ -85,7 +85,7 @@ Validator validator;
             for (ConstraintViolation<Customer> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
-            return; // 如果有验证错误，则不继续执行保存操作
+            return;
         }
         customerService.save(customer);
     }

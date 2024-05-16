@@ -45,7 +45,7 @@
                              action="orderItemForm?faces-redirect=true" />
         </h:panelGroup>
 
-        <h:commandButton styleClass="button" value="Brand" actionListener="#{brandController.incrementClicks}">
+        <h:commandButton styleClass="button" value="Marken" actionListener="#{brandController.incrementClicks}">
             <f:ajax execute="@this" render="BrandPanel"/>
         </h:commandButton>
         <h:panelGroup id="BrandPanel">
@@ -55,7 +55,7 @@
                              action="brandForm?faces-redirect=true" />
         </h:panelGroup>
 
-        <h:commandButton styleClass="button" value="Category" actionListener="#{categoryController.incrementClicks}">
+        <h:commandButton styleClass="button" value="Kategorien" actionListener="#{categoryController.incrementClicks}">
             <f:ajax execute="@this" render="CategoryPanel"/>
         </h:commandButton>
         <h:panelGroup id="CategoryPanel">
@@ -73,16 +73,6 @@
                              action="staffTable?faces-redirect=true" />
             <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{staffController.buttonDisplayed}"
                              action="staffForm?faces-redirect=true" />
-        </h:panelGroup>
-
-        <h:commandButton styleClass="button" value="Niederlassung" actionListener="#{stockController.incrementClicks}">
-            <f:ajax execute="@this" render="StockPanel"/>
-        </h:commandButton>
-        <h:panelGroup id="StockPanel">
-            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{stockController.buttonDisplayed}"
-                             action="stockTable?faces-redirect=true" />
-            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{stockController.buttonDisplayed}"
-                             action="stockForm?faces-redirect=true" />
         </h:panelGroup>
 
         <h:commandButton styleClass="user" action="#{logout.logout}"/>

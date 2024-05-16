@@ -43,6 +43,8 @@
 			<url-pattern>/orderTable.xhtml</url-pattern>
 			<url-pattern>/orderItemTable.xhtml</url-pattern>
 			<url-pattern>/productTable.xhtml</url-pattern>
+			<url-pattern>/brandTable.xhtml</url-pattern>
+			<url-pattern>/categoryTable.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMIN</role-name>
@@ -62,6 +64,10 @@
 			<url-pattern>/orderDetail.xhtml</url-pattern>
 			<url-pattern>/orderItemDetail.xhtml</url-pattern>
 			<url-pattern>/productDetail.xhtml</url-pattern>
+			<url-pattern>/brandForm.xhtml</url-pattern>
+			<url-pattern>/brandDetail.xhtml</url-pattern>
+			<url-pattern>/categoryForm.xhtml</url-pattern>
+			<url-pattern>/categoryDetail.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMIN</role-name>
