@@ -6,32 +6,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/template/detailTemplate.xhtml">
-   <ui:define name="title">
-      Bestellungsdetail
-   </ui:define>
-   <ui:define name="content">
-      <h1 style="text-align: center">Order Detail</h1>
-      <h:form styleClass="container">
-         <h:outputLabel value="Bestellung ID :"/>
-         <h:inputText value="#{orderController.selectedOrder.id}" readonly="true"/><br/>
-         <h:outputLabel value="Bestellung Datum: "/>
-         <h:inputText value="#{orderController.selectedOrder.orderDate}" converter="localDateConverter" /><br/>
-         <h:outputLabel value="Bestellung Status: "/>
-         <h:inputText value="#{orderController.selectedOrder.orderStatus}" /><br/>
-         <h:outputLabel value="Verstanddatum: "/>
-         <h:inputText value="#{orderController.selectedOrder.shippedDate}" converter="localDateConverter"/><br/>
-         <h:outputLabel value="Gewünschtes Datum: "/>
-         <h:inputText value="#{orderController.selectedOrder.requiredDate}" converter="localDateConverter"/><br/>
-         <h:outputLabel value="Kunde ID: "/>
-         <h:inputText value="#{orderController.selectedOrder.customerId}" readonly="true"/><br/>
-         <h:outputLabel value="Staff ID: "/>
-         <h:inputText value="#{orderController.selectedOrder.staff.staffId}" readonly="true"/><br/>
-         <h:outputLabel value="Store ID: "/>
-         <h:inputText value="#{orderController.selectedOrder.store.storeId}" readonly="true"/><br/>
-         <h:commandButton value="Speichern" action="#{orderController.saveOrder()}" styleClass="button"/>
-      </h:form>
+    <ui:define name="title">
+        Bestellungsdetail
+    </ui:define>
+    <ui:define name="content">
+        <h1 style="text-align: center">Order Detail</h1>
+        <h:form styleClass="container">
+            <h:outputLabel value="Bestellung ID :"/>
+            <h:inputText value="#{orderController.selectedOrder.id}" readonly="true"/><br/>
+            <h:outputLabel value="Bestellung Datum: "/>
+            <h:inputText value="#{orderController.selectedOrder.orderDate}" converter="localDateConverter"/><br/>
+            <h:outputLabel value="Bestellung Status: "/>
+            <h:inputText value="#{orderController.selectedOrder.orderStatus}"/><br/>
+            <h:outputLabel value="Verstanddatum: "/>
+            <h:inputText value="#{orderController.selectedOrder.shippedDate}" converter="localDateConverter"/><br/>
+            <h:outputLabel value="Gewünschtes Datum: "/>
+            <h:inputText value="#{orderController.selectedOrder.requiredDate}" converter="localDateConverter"/><br/>
+            <h:outputLabel value="Kunde ID: "/>
+            <h:inputText value="#{orderController.selectedOrder.customerId}" readonly="true"/><br/>
+            <h:outputLabel value="Staff ID: "/>
+            <h:inputText value="#{orderController.selectedOrder.staff.staffId}" readonly="true"/><br/>
+            <h:outputLabel value="Store ID: "/>
+            <h:inputText value="#{orderController.selectedOrder.store.storeId}" readonly="true"/><br/>
+            <h:commandButton value="Speichern" action="#{orderController.saveOrder()}" styleClass="button"/>
+        </h:form>
 
 
-   </ui:define>
+    </ui:define>
 </ui:composition>
 </html>

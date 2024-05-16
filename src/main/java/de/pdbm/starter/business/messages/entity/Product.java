@@ -15,29 +15,23 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-
     private Integer id;
 
     @Column(name = "list_price")
-
     private BigDecimal price;
 
     @Column(name = "model_year")
-
     private Integer modelYear;
 
     @Column(name = "product_name")
-
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-
     private Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

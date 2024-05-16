@@ -46,9 +46,9 @@
             </h:selectOneMenu>
             <div class="pagination">
                 <h:commandButton styleClass="firstPage" action="#{categoryController.firstPage}"
-                                    disabled="#{categoryController.currentPage == 1}"/>
+                                 disabled="#{categoryController.currentPage == 1}"/>
                 <h:commandButton styleClass="previous" action="#{categoryController.prevPage}"
-                                    disabled="#{categoryController.currentPage == 1}"/>
+                                 disabled="#{categoryController.currentPage == 1}"/>
                 <ui:repeat value="#{categoryController.pageNumbers}" var="pageNum">
                     <h:commandLink styleClass="repeat" value="#{pageNum}"
                                    action="#{categoryController.setPage(pageNum)}"
@@ -59,9 +59,9 @@
                 <h:outputText styleClass="rest" value="..."
                               rendered="#{categoryController.currentPage + 3 lt categoryController.totalPages}"/>
                 <h:commandButton styleClass="next" action="#{categoryController.nextPage}"
-                                    disabled="#{categoryController.currentPage == categoryController.totalPages}"/>
+                                 disabled="#{categoryController.currentPage == categoryController.totalPages}"/>
                 <h:commandButton styleClass="lastPage" action="#{categoryController.lastPage}"
-                                    disabled="#{categoryController.currentPage == categoryController.totalPages}"/>
+                                 disabled="#{categoryController.currentPage == categoryController.totalPages}"/>
             </div>
             <div class="goto">
                 <h:outputLabel value="Zur Seite"/>

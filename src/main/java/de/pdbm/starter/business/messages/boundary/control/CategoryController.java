@@ -141,10 +141,10 @@ public class CategoryController implements Serializable {
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadCategoryList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadCategoryList();
         } else {

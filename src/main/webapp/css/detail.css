@@ -1,4 +1,4 @@
-.container{
+.container {
     text-align: center;
 }
 
@@ -8,6 +8,7 @@ label {
     text-align: right;
     margin: 20px;
 }
+
 input[type="text"] {
     padding: 8px;
     width: 180px;

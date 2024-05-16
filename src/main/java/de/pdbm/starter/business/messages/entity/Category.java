@@ -43,8 +43,9 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-@Override
-    public String toString(){
+
+    @Override
+    public String toString() {
         return categoryName;
-}
+    }
 }

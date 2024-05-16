@@ -14,24 +14,26 @@ import java.io.Serializable;
 import java.util.List;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
+
 @Stateless
 public class StaffService implements Serializable {
     @PersistenceContext(type = TRANSACTION)
     EntityManager em;
 
-    public Staff findStaffById(Integer id){
-        return  em.find(Staff.class,id);
+    public Staff findStaffById(Integer id) {
+        return em.find(Staff.class, id);
     }
 
-    public List<Staff> getAllStaff(){
+    public List<Staff> getAllStaff() {
         TypedQuery<Staff> query = em.createQuery(
                 "select s from Staff s", Staff.class
         );
         return query.getResultList();
     }
-    public List<Staff> findPaginated(int page, int size){
+
+    public List<Staff> findPaginated(int page, int size) {
         TypedQuery<Staff> query = em.createQuery("select s from Staff s", Staff.class);
-        query.setFirstResult((page-1)* size);//start page
+        query.setFirstResult((page - 1) * size);//start page
         query.setMaxResults(size);//pagesize
         return query.getResultList();
     }
@@ -42,10 +44,11 @@ public class StaffService implements Serializable {
         return query.getResultList();
     }
 
-    public long getStaffCount(){
+    public long getStaffCount() {
         return em.createQuery("select count(s) from Staff s", Long.class).getSingleResult();
     }
-    public void save(Staff staff){
+
+    public void save(Staff staff) {
         em.persist(staff);
     }
 

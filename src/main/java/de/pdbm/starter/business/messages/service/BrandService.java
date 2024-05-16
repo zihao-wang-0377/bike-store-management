@@ -14,7 +14,7 @@ public class BrandService implements Serializable {
     @PersistenceContext
     EntityManager em;
 
-    public void save(Brand brand){
+    public void save(Brand brand) {
         em.persist(brand);
     }
 
@@ -23,19 +23,20 @@ public class BrandService implements Serializable {
         query.setParameter("brandName", brandName);
         return query.getSingleResult();
     }
-    public List<Brand> findPaginated(int page, int size){
+
+    public List<Brand> findPaginated(int page, int size) {
         TypedQuery<Brand> query = em.createQuery("select b from Brand b", Brand.class);
-        query.setFirstResult((page-1)* size);
+        query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
 
-    public long getBrandCount(){
+    public long getBrandCount() {
         return em.createQuery("select count(b) from Brand b", Long.class).getSingleResult();
     }
 
-    public Brand findBrandById(Integer brandId){
-        return em.find(Brand.class,brandId);
+    public Brand findBrandById(Integer brandId) {
+        return em.find(Brand.class, brandId);
     }
 
     public List<Brand> findByBrandName(String brandName) {

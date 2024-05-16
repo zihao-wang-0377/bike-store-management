@@ -15,22 +15,23 @@
             <h:outputLabel value="CustomerID :"/>
             <h:inputText value="#{customerController.selectedCustomer.id}" readonly="true"/><br/>
             <h:outputLabel value="First Name: "/>
-            <h:inputText value="#{customerController.selectedCustomer.firstname}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.firstname}"/><br/>
             <h:outputLabel value="Last Name: "/>
-            <h:inputText value="#{customerController.selectedCustomer.lastname}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.lastname}"/><br/>
             <h:outputLabel value="Email: "/>
-            <h:inputText value="#{customerController.selectedCustomer.email}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.email}"/><br/>
             <h:outputLabel value="Phone: "/>
-            <h:inputText value="#{customerController.selectedCustomer.phone}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.phone}"/><br/>
             <h:outputLabel value="Street: "/>
-            <h:inputText value="#{customerController.selectedCustomer.street}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.street}"/><br/>
             <h:outputLabel value="City: "/>
-            <h:inputText value="#{customerController.selectedCustomer.city}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.city}"/><br/>
             <h:outputLabel value="Zip Code: "/>
-            <h:inputText value="#{customerController.selectedCustomer.zipcode}" /><br/>
+            <h:inputText value="#{customerController.selectedCustomer.zipcode}"/><br/>
             <h:outputLabel value="State: "/>
-            <h:inputText value="#{customerController.selectedCustomer.state}" /><br/>
-            <h:commandButton value="Speichern" action="#{customerController.updateCustomerRecord()}" styleClass="button" />
+            <h:inputText value="#{customerController.selectedCustomer.state}"/><br/>
+            <h:commandButton value="Speichern" action="#{customerController.updateCustomerRecord()}"
+                             styleClass="button"/>
         </h:form>
     </ui:define>
 </ui:composition>

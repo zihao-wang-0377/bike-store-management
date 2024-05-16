@@ -25,13 +25,13 @@ public class OrderItem {
     @Column(name = "list_price")
     @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
+
     @PositiveOrZero(message = "Anzahl muss größer als 0")
     private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
-
+    @ForeignKeyExists(entity = Product.class, customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Product product;
 
     // Konstruktor

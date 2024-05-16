@@ -35,11 +35,16 @@ public class ProductController implements Serializable {
 
     @Inject
     CategoryService categoryService;
+
     @Inject
     Validator validator;
+
     private Integer productId;
-private String brandName;
-private String categoryName;
+
+    private String brandName;
+
+    private String categoryName;
+
     @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
 
@@ -47,24 +52,23 @@ private String categoryName;
     @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
     @PositiveOrZero(message = "Jahr kann nicht negativ sein")
     private Integer year;
-    // @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+
     @NotBlank(message = "name kann nicht blank sein")
     private String name;
+
     @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
-
     private Integer brandId;
-    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
 
+    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
     private Integer categoryId;
 
     private List<Product> productList;
+
     @PostConstruct
     public void init() {
-        // 初始化 selectedProduct 和相关对象
         selectedProduct = new Product();
-//        selectedProduct.setBrand(new Brand());
-//        selectedProduct.setCategory(new Category());
     }
+
     private int currentPage = 1;
 
     private int pageSize = 10;
@@ -75,15 +79,12 @@ private String categoryName;
 
     private Product selectedProduct;
 
-
     // Konstruktor
     public ProductController() {
     }
 
     // Objekt erstellen und speichern
     public void save() {
-//        Brand brand = brandService.findBrandById(brandId);
-//        Category category = categoryService.findCategoryById(categoryId);
         Product product = new Product();
         product.setBrand(brandService.findByName(brandName));
         product.setPrice(price);

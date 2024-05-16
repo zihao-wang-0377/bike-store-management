@@ -18,14 +18,26 @@ import java.util.Set;
 @Named
 @SessionScoped
 public class StaffController implements Serializable {
+    @Inject
+    StaffService staffService;
+
+    @Inject
+    Validator validator;
+
     private Integer staffId;
+
     private Integer active;
+
     private String email;
+
     private String firstName;
+
     private String lastName;
+
     private String phone;
 
     private String managerId;
+
     private Integer storeId;
 
     private List<Staff> staffList;
@@ -35,13 +47,10 @@ public class StaffController implements Serializable {
     private int pageSize = 10;
 
     private long totalRecords;
+
     private int clicks;
 
     private Staff selectedStaff;
-    @Inject
-    StaffService staffService;
-    @Inject
-    Validator validator;
 
     public List<Staff> getStaffs() {
         if (staffList == null || staffList.isEmpty()) {

@@ -52,8 +52,8 @@ public class BrandController implements Serializable {
         Brand brand = new Brand(brandName);
         Set<ConstraintViolation<Brand>> violations = validator.validate(brand);
 
-        if(!violations.isEmpty()) {
-            for(ConstraintViolation<Brand> violation : violations) {
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Brand> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
             return;
@@ -142,10 +142,10 @@ public class BrandController implements Serializable {
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadBrandList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadBrandList();
         } else {
