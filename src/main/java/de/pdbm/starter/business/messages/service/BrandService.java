@@ -2,8 +2,6 @@ package de.pdbm.starter.business.messages.service;
 
 import de.pdbm.starter.business.messages.entity.Brand;
 import jakarta.ejb.Stateless;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -19,7 +17,8 @@ public class BrandService implements Serializable {
     public void save(Brand brand){
         em.persist(brand);
     }
-    public Brand findByBrandName(String brandName) {
+
+    public Brand findByName(String brandName) {
         TypedQuery<Brand> query = em.createQuery("select b from Brand b where b.brandName = :brandName", Brand.class);
         query.setParameter("brandName", brandName);
         return query.getSingleResult();

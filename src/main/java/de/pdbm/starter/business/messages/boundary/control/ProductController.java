@@ -85,7 +85,7 @@ private String categoryName;
 //        Brand brand = brandService.findBrandById(brandId);
 //        Category category = categoryService.findCategoryById(categoryId);
         Product product = new Product();
-        product.setBrand(brandService.findByBrandName(brandName));
+        product.setBrand(brandService.findByName(brandName));
         product.setPrice(price);
         product.setName(name);
         product.setCategory(categoryService.findByCategoryName(categoryName));
