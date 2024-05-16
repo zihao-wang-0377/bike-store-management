@@ -59,28 +59,28 @@
             <f:ajax event="change" execute="@this" render="@all"/>
          </h:selectOneMenu>
          <div class="pagination">
-            <h:commandButton styleClass="firstPage" action="#{orderItemController.firstPage}"
-                             disabled="#{orderItemController.currentPage == 1}"/>
-            <h:commandButton styleClass="previous" action="#{orderItemController.prevPage}"
-                             disabled="#{orderItemController.currentPage == 1}"/>
-            <ui:repeat value="#{orderItemController.pageNumbers}" var="pageNum">
+            <h:commandButton styleClass="firstPage" action="#{staffController.firstPage}"
+                             disabled="#{staffController.currentPage == 1}"/>
+            <h:commandButton styleClass="previous" action="#{staffController.prevPage}"
+                             disabled="#{staffController.currentPage == 1}"/>
+            <ui:repeat value="#{staffController.pageNumbers}" var="pageNum">
                <h:commandLink styleClass="repeat" value="#{pageNum}"
-                              action="#{orderItemController.setPage(pageNum)}"
-                              rendered="#{pageNum != orderItemController.currentPage}"/>
+                              action="#{staffController.setPage(pageNum)}"
+                              rendered="#{pageNum != staffController.currentPage}"/>
                <h:outputText styleClass="current" value="#{pageNum} "
-                             rendered="#{pageNum == orderItemController.currentPage}"/>
+                             rendered="#{pageNum == staffController.currentPage}"/>
             </ui:repeat>
             <h:outputText styleClass="rest" value="..."
-                          rendered="#{orderItemController.currentPage + 3 lt customerController.totalPages}"/>
-            <h:commandButton styleClass="next" action="#{orderItemController.nextPage}"
-                             disabled="#{orderItemController.currentPage == orderItemController.totalPages}"/>
-            <h:commandButton styleClass="lastPage" action="#{orderItemController.lastPage}"
-                             disabled="#{orderItemController.currentPage == orderItemController.totalPages}"/>
+                          rendered="#{staffController.currentPage + 3 lt staffControllerController.totalPages}"/>
+            <h:commandButton styleClass="next" action="#{staffController.nextPage}"
+                             disabled="#{staffController.currentPage == staffController.totalPages}"/>
+            <h:commandButton styleClass="lastPage" action="#{staffController.lastPage}"
+                             disabled="#{staffController.currentPage == staffController.totalPages}"/>
          </div>
          <div class="goto">
             <h:outputLabel value="Zur Seite"/>
-            <h:inputText styleClass="text" value="#{orderItemController.currentPage}" size="3"/>
-            <h:commandButton value="Gehen" action="#{orderItemController.goToPage}"/>
+            <h:inputText styleClass="text" value="#{staffController.currentPage}" size="3"/>
+            <h:commandButton value="Gehen" action="#{staffController.goToPage}"/>
          </div>
       </h:form>
    </ui:define>

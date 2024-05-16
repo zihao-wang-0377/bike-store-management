@@ -1,14 +1,23 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
+import de.pdbm.starter.business.messages.entity.Brand;
+import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Product;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.service.StaffService;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
@@ -35,6 +44,8 @@ public class StaffController implements Serializable {
     private Staff selectedStaff;
     @Inject
     StaffService staffService;
+    @Inject
+    Validator validator;
 
     public List<Staff> getStaffs() {
         if (staffList == null || staffList.isEmpty()) {
@@ -62,7 +73,29 @@ public class StaffController implements Serializable {
         this.selectedStaff = selectedStaff;
         return "staffDetail.xhtml?faces-redirect=true";
     }
+    public void save() {
 
+        //Staff staff = new Staff(firstName,nachName,active,phone,email);
+//        Category category = categoryService.findCategoryById(categoryId);
+//        Product product = new Product(price, year, name, brand, category);
+//        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+//
+        Staff staff = new Staff();
+        staff.setActive(active);
+        staff.setEmail(email);
+        staff.setFirstName(firstName);
+        staff.setLastName(nachName);
+        Set<ConstraintViolation<Staff>> violations = validator.validate(staff);
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Staff> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return; // 如果有验证错误，则不继续执行保存操作
+        }
+        staffService.save(staff);
+        loadStaffList();
+
+    }
 
     public String updateStaffRecord(){
         staffService.update(selectedStaff);
@@ -166,5 +199,45 @@ public class StaffController implements Serializable {
 
     public void setSelectedStaff(Staff selectedStaff) {
         this.selectedStaff = selectedStaff;
+    }
+
+    public Integer[] getPageNumbers() {
+        int startPage = Math.max(1, currentPage - 2);
+        int endPage = Math.min(getTotalPages(), currentPage + 4);
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = startPage; i <= endPage; i++) {
+            pageNumbers.add(i);
+        }
+        return pageNumbers.toArray(new Integer[0]);
+    }
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalRecords / pageSize);
+    }
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
+            currentPage = page;
+            loadStaffList();
+        }
+    }
+    public void nextPage() {
+        currentPage++;
+        loadStaffList();
+    }
+
+    public void prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            loadStaffList();
+        }
+    }
+
+    public void firstPage() {
+        currentPage = 1;
+        loadStaffList();
+    }
+
+    public void lastPage() {
+        currentPage = getTotalPages();
+        loadStaffList();
     }
 }
