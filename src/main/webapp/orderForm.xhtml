@@ -78,10 +78,10 @@
             <br></br>
             <h:outputLabel value="Bestellzustand: "/>
             <h:selectOneMenu value="#{orderController.orderStatus}">
-                <f:selectItem itemValue="1" itemLabel="bestellt"></f:selectItem>
-                <f:selectItem itemValue="2" itemLabel="versendet"></f:selectItem>
-                <f:selectItem itemValue="3" itemLabel="zustellt"></f:selectItem>
-                <f:selectItem itemValue="4" itemLabel="zugestellt"></f:selectItem>
+                <f:selectItem itemValue="1" itemLabel="1"></f:selectItem>
+                <f:selectItem itemValue="2" itemLabel="2"></f:selectItem>
+                <f:selectItem itemValue="3" itemLabel="3"></f:selectItem>
+                <f:selectItem itemValue="4" itemLabel="4"></f:selectItem>
             </h:selectOneMenu>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderController.save()}" styleClass="save-button"/>

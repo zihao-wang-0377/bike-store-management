@@ -57,7 +57,7 @@
       <h1 style="text-align: center">Order Detail</h1>
       <h:form styleClass="container">
          <h:outputLabel value="Bestellung ID :"/>
-         <h:inputText value="#{orderController.selectedOrder.id}"/><br/>
+         <h:inputText value="#{orderController.selectedOrder.id}" readonly="true"/><br/>
          <h:outputLabel value="Bestellung Datum: "/>
          <h:inputText value="#{orderController.selectedOrder.orderDate}" /><br/>
          <h:outputLabel value="Bestellung Status: "/>
