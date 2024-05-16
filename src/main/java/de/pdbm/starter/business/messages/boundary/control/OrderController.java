@@ -1,13 +1,8 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.service.CustomerService;
-import de.pdbm.starter.business.messages.service.OrderService;
-import de.pdbm.starter.business.messages.service.StaffService;
-import de.pdbm.starter.business.messages.service.StoreService;
-import de.pdbm.starter.business.messages.entity.Customer;
-import de.pdbm.starter.business.messages.entity.Order;
-import de.pdbm.starter.business.messages.entity.Staff;
-import de.pdbm.starter.business.messages.entity.Store;
+import de.pdbm.starter.business.messages.entity.*;
+import de.pdbm.starter.business.messages.service.*;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -38,17 +33,30 @@ public class OrderController implements Serializable {
 
     @Inject
     CustomerService customerService;
-
+@Inject
+    OrderItemService orderItemService;
     @Inject
     private Validator validator;
 
     private Integer orderId;
+    private List<OrderItem> orderItems;
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+private Order order;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems =  orderItemService.findOrderItemsByCustomerId(customerId);
+    }
+//@PostConstruct
+//public void  init() {
+//}
     @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
 
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
-    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
+    //@Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
 
-    private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
+    private Integer orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
     @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
 
     private LocalDate requiredDate;
@@ -94,11 +102,17 @@ public class OrderController implements Serializable {
 
     // Objekt erstellen und speichern
     public void save(){
-        Integer oderStatusInt = Integer.parseInt(orderStatus);
+        //Integer oderStatusInt = Integer.parseInt(orderStatus);
         Customer customer = customerService.findById(customerId);
         Staff staff = staffService.findStaffById(staffId);
         Store store = storeService.findStoreById(storeId);
-    Order order=  new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store);
+    Order order=  new Order();
+    order.setOrderStatus(orderStatus);
+    order.setOrderDate(orderDate);
+    order.setRequiredDate(requiredDate);
+    order.setCustomer(customer);
+    order.setStaff(staff);
+    order.setStore(store);
         Set<ConstraintViolation<Order>> violations = validator.validate(order);
 
         if (!violations.isEmpty()) {
@@ -116,6 +130,14 @@ public class OrderController implements Serializable {
 
     public void incrementClicks(){
         clicks++;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     // Paginierung-Methoden
@@ -225,11 +247,11 @@ public class OrderController implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public String getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 
