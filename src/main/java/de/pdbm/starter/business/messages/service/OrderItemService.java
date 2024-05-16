@@ -57,7 +57,12 @@ public class OrderItemService implements Serializable {
             em.remove(orderItem);
 
     }
-
+    public List<OrderItem> findOrderItemsByCustomerId(Integer customerId) {
+        return em.createQuery(
+                        "SELECT oi FROM OrderItem oi JOIN oi.order o WHERE o.customer.id = :customerId", OrderItem.class)
+                .setParameter("customerId", customerId)
+                .getResultList();
+    }
 
     public void update(OrderItem orderItem) {
         em.merge(orderItem);
