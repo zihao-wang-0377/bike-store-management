@@ -2,12 +2,9 @@ package de.pdbm.starter.business.messages.boundary.control;
 
 import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.service.BrandService;
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.annotation.View;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintViolation;
