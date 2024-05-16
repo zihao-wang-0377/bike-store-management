@@ -22,9 +22,6 @@
                     #{brand.brandName}
                 </h:column>
                 <h:column>
-                    <h:commandButton styleClass="viewButton" action="#{brandController.showDetails(brand)}">
-                        <f:ajax execute="@form" render="@all"/>
-                    </h:commandButton>
                     <h:commandButton styleClass="deleteButton"
                                      action="#{brandController.deleteBrand(brand)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
