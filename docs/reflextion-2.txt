@@ -1,0 +1,14 @@
+Was lief gut?
+-genuae Aufgabe verteilt.
+-Schnelle Kommunikationen und Anpassungen
+-jeder zeit bereit zu beantworten
+-commit message ausführlicher  verständlicher schreiben
+-Format und Einrückung beachten
+
+was ist nicht gut gelaufen?
+-Merge Konflikt passiert immer, es verbraucht uns viel Zeit
+-Aufgabe Zuweisuung kann genauer erklärt werden
+
+Verbesserung:
+-Feste Termine zur Besprechung(wöchentlich)
+-code sauber machen mit auto Formatierung
