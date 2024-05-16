@@ -41,7 +41,7 @@ public class CustomerService implements Serializable {
 
     public List<Customer> findByLastName(String lastname) {
         TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.lastname LIKE :lastname", Customer.class);
-        query.setParameter("lastname", lastname + "%");
+        query.setParameter("lastname", "%" + lastname.toLowerCase() + "%");
         return query.getResultList();
     }
 
