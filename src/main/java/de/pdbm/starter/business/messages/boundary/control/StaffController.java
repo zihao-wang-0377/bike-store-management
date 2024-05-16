@@ -1,11 +1,23 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
+import de.pdbm.starter.business.messages.entity.Brand;
+import de.pdbm.starter.business.messages.entity.Category;
+import de.pdbm.starter.business.messages.entity.Product;
 import de.pdbm.starter.business.messages.entity.Staff;
+import de.pdbm.starter.business.messages.service.StaffService;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
@@ -21,12 +33,211 @@ public class StaffController implements Serializable {
     private Integer storeId;
 
     private List<Staff> staffList;
+
+    private int currentPage = 1;
+
+    private int pageSize = 10;
+
+    private long totalRecords;
     private int clicks;
+
+    private Staff selectedStaff;
+    @Inject
+    StaffService staffService;
+    @Inject
+    Validator validator;
+
+    public List<Staff> getStaffs() {
+        if (staffList == null || staffList.isEmpty()) {
+            loadStaffList();
+        }
+        return staffList;
+    }
+
+    public void loadStaffList() {
+        this.staffList = staffService.findPaginated(currentPage, pageSize);
+    }
+    public long getTotalRecords() {
+        this.totalRecords = staffService.getStaffCount();
+        return totalRecords;
+    }
+
+    public void deleteStaffRecord(Staff staff){
+        staffService.delete(staff);
+        loadStaffList();
+        getTotalRecords();
+
+    }
+
+    public String showDetails(Staff selectedStaff){
+        this.selectedStaff = selectedStaff;
+        return "staffDetail.xhtml?faces-redirect=true";
+    }
+    public void save() {
+
+        //Staff staff = new Staff(firstName,nachName,active,phone,email);
+//        Category category = categoryService.findCategoryById(categoryId);
+//        Product product = new Product(price, year, name, brand, category);
+//        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+//
+        Staff staff = new Staff();
+        staff.setActive(active);
+        staff.setEmail(email);
+        staff.setFirstName(firstName);
+        staff.setLastName(nachName);
+        Set<ConstraintViolation<Staff>> violations = validator.validate(staff);
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Staff> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return; // 如果有验证错误，则不继续执行保存操作
+        }
+        staffService.save(staff);
+        loadStaffList();
+
+    }
+
+    public String updateStaffRecord(){
+        staffService.update(selectedStaff);
+        return "staffTable.xhtml?faces-redirect=true";
+    }
     public boolean isButtonDisplayed(){
         return clicks % 2 == 1;
     }
 
     public void incrementClicks(){
         clicks++;
+    }
+
+    public Integer getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getNachName() {
+        return nachName;
+    }
+
+    public void setNachName(String nachName) {
+        this.nachName = nachName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public void setTotalRecords(long totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
+    public Staff getSelectedStaff() {
+        return selectedStaff;
+    }
+
+    public void setSelectedStaff(Staff selectedStaff) {
+        this.selectedStaff = selectedStaff;
+    }
+
+    public Integer[] getPageNumbers() {
+        int startPage = Math.max(1, currentPage - 2);
+        int endPage = Math.min(getTotalPages(), currentPage + 4);
+        List<Integer> pageNumbers = new ArrayList<>();
+        for (int i = startPage; i <= endPage; i++) {
+            pageNumbers.add(i);
+        }
+        return pageNumbers.toArray(new Integer[0]);
+    }
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalRecords / pageSize);
+    }
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
+            currentPage = page;
+            loadStaffList();
+        }
+    }
+    public void nextPage() {
+        currentPage++;
+        loadStaffList();
+    }
+
+    public void prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            loadStaffList();
+        }
+    }
+
+    public void firstPage() {
+        currentPage = 1;
+        loadStaffList();
+    }
+
+    public void lastPage() {
+        currentPage = getTotalPages();
+        loadStaffList();
     }
 }

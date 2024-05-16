@@ -9,45 +9,49 @@
    <ui:define name="title">
       Mitarbeiter
    </ui:define>
+   <ui:define name="tablecss">
+      <link rel="stylesheet" type="text/css" href="css/table.css"/>
+
+   </ui:define>
    <ui:define name="content">
       <h:form>
          <h1>Mitarbeiter</h1>
-         <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
+         <h:dataTable value="#{staffController.staffs}" var="staff" styleClass="order-table">
             <h:column>
-               <f:facet name="header">Bestellnummer</f:facet>
-               <h:outputText value="#{orderItem.orderId}"/>
+               <f:facet name="header">Vorname</f:facet>
+               <h:outputText value="#{staff.firstName}"/>
             </h:column>
             <h:column>
-               <f:facet name="header">Produkt-ID</f:facet>
-               <h:outputText value="#{orderItem.productId}"/>
+               <f:facet name="header">Nachname</f:facet>
+               <h:outputText value="#{staff.lastName}"/>
             </h:column>
+<!--            <h:column>-->
+<!--               <f:facet name="header">Listenpreis</f:facet>-->
+<!--               <h:outputText value="#{orderItem.price}">-->
+<!--                  <f:convertNumber pattern="#,##0.00" locale="de_DE"/>-->
+<!--               </h:outputText>-->
+<!--            </h:column>-->
+<!--            <h:column>-->
+<!--               <f:facet name="header">Rabatte</f:facet>-->
+<!--               <h:outputText value="#{orderItem.discount}"/>-->
+<!--            </h:column>-->
+<!--            <h:column>-->
+<!--               <f:facet name="header">Anzahl</f:facet>-->
+<!--               <h:outputText value="#{orderItem.quantity}"/>-->
+<!--            </h:column>-->
             <h:column>
-               <f:facet name="header">Listenpreis</f:facet>
-               <h:outputText value="#{orderItem.price}">
-                  <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-               </h:outputText>
-            </h:column>
-            <h:column>
-               <f:facet name="header">Rabatte</f:facet>
-               <h:outputText value="#{orderItem.discount}"/>
-            </h:column>
-            <h:column>
-               <f:facet name="header">Anzahl</f:facet>
-               <h:outputText value="#{orderItem.quantity}"/>
-            </h:column>
-            <h:column>
-               <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+               <h:commandButton styleClass="viewButton" action="#{staffController.showDetails(staff)}">
                   <f:ajax execute="@form" render="@all"/>
                </h:commandButton>
-               <h:commandButton styleClass="deleteButton" action="#{orderItemController.deleteOrderItemRecord(orderItem)}">
+               <h:commandButton styleClass="deleteButton" action="#{staffController.deleteStaffRecord(staff)}">
                   <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                </h:commandButton>
             </h:column>
          </h:dataTable>
       </h:form>
       <h:form styleClass="button-container" id="totalRecordsForm">
-         <h:outputLabel id="totalRecords" value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
-         <h:selectOneMenu styleClass="select" value="#{orderItemController.pageSize}">
+         <h:outputLabel id="totalRecords" value="Insgesamt #{staffController.totalRecords} Einträge"/>
+         <h:selectOneMenu styleClass="select" value="#{staffController.pageSize}">
             <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
             <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
             <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite"/>
@@ -55,28 +59,28 @@
             <f:ajax event="change" execute="@this" render="@all"/>
          </h:selectOneMenu>
          <div class="pagination">
-            <h:commandButton styleClass="firstPage" action="#{orderItemController.firstPage}"
-                             disabled="#{orderItemController.currentPage == 1}"/>
-            <h:commandButton styleClass="previous" action="#{orderItemController.prevPage}"
-                             disabled="#{orderItemController.currentPage == 1}"/>
-            <ui:repeat value="#{orderItemController.pageNumbers}" var="pageNum">
+            <h:commandButton styleClass="firstPage" action="#{staffController.firstPage}"
+                             disabled="#{staffController.currentPage == 1}"/>
+            <h:commandButton styleClass="previous" action="#{staffController.prevPage}"
+                             disabled="#{staffController.currentPage == 1}"/>
+            <ui:repeat value="#{staffController.pageNumbers}" var="pageNum">
                <h:commandLink styleClass="repeat" value="#{pageNum}"
-                              action="#{orderItemController.setPage(pageNum)}"
-                              rendered="#{pageNum != orderItemController.currentPage}"/>
+                              action="#{staffController.setPage(pageNum)}"
+                              rendered="#{pageNum != staffController.currentPage}"/>
                <h:outputText styleClass="current" value="#{pageNum} "
-                             rendered="#{pageNum == orderItemController.currentPage}"/>
+                             rendered="#{pageNum == staffController.currentPage}"/>
             </ui:repeat>
             <h:outputText styleClass="rest" value="..."
-                          rendered="#{orderItemController.currentPage + 3 lt customerController.totalPages}"/>
-            <h:commandButton styleClass="next" action="#{orderItemController.nextPage}"
-                             disabled="#{orderItemController.currentPage == orderItemController.totalPages}"/>
-            <h:commandButton styleClass="lastPage" action="#{orderItemController.lastPage}"
-                             disabled="#{orderItemController.currentPage == orderItemController.totalPages}"/>
+                          rendered="#{staffController.currentPage + 3 lt staffControllerController.totalPages}"/>
+            <h:commandButton styleClass="next" action="#{staffController.nextPage}"
+                             disabled="#{staffController.currentPage == staffController.totalPages}"/>
+            <h:commandButton styleClass="lastPage" action="#{staffController.lastPage}"
+                             disabled="#{staffController.currentPage == staffController.totalPages}"/>
          </div>
          <div class="goto">
             <h:outputLabel value="Zur Seite"/>
-            <h:inputText styleClass="text" value="#{orderItemController.currentPage}" size="3"/>
-            <h:commandButton value="Gehen" action="#{orderItemController.goToPage}"/>
+            <h:inputText styleClass="text" value="#{staffController.currentPage}" size="3"/>
+            <h:commandButton value="Gehen" action="#{staffController.goToPage}"/>
          </div>
       </h:form>
    </ui:define>
