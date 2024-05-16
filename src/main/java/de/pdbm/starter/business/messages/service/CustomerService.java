@@ -39,6 +39,12 @@ public class CustomerService implements Serializable {
         return em.find(Customer.class, id);
     }
 
+    public List<Customer> findByLastName(String lastname) {
+        TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.lastname LIKE :lastname", Customer.class);
+        query.setParameter("lastname", lastname + "%");
+        return query.getResultList();
+    }
+
     public void delete(Customer customer) {
         if (!em.contains(customer)) {
             customer = em.merge(customer);

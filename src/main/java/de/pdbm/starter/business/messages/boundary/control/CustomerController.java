@@ -56,6 +56,7 @@ Validator validator;
     private int clicks;
 
     private Customer selectedCustomer;
+    private String lastnameString;
 
     // Konstruktor
     public CustomerController() {
@@ -107,6 +108,9 @@ Validator validator;
             loadCustomerList();
         }
         return customerList;
+    }
+    public void searchByLastName() {
+        this.customerList = customerService.findByLastName(lastnameString);
     }
 
     public void loadCustomerList(){
@@ -260,6 +264,13 @@ Validator validator;
         return selectedCustomer;
     }
 
+    public String getLastnameString() {
+        return lastnameString;
+    }
+
+    public void setLastnameString(String lastnameString) {
+        this.lastnameString = lastnameString;
+    }
 
     public String showDetails(Customer selectedCustomer){
         this.selectedCustomer = selectedCustomer;
@@ -267,9 +278,6 @@ Validator validator;
     }
 
     // Navigation fuer Zurueck Button
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
-    }
 
     public void deleteCustomerRecord(Customer customer){
         customerService.delete(customer);
