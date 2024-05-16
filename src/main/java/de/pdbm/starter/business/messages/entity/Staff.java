@@ -2,6 +2,9 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "staffs")
 public class Staff {
@@ -21,11 +24,18 @@ public class Staff {
     private String lastName;
 
     private String phone;
-@Column(name = "manager_id")
-    private Integer managerId;
+@ManyToOne
+    @JoinColumn (name = "manager_id")
+    private Staff manager;
 @ManyToOne
 @JoinColumn (name = "store_id")
     private Store store;
+    @OneToMany(mappedBy = "manager", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Column(name = "manager_id")
+    private Set<Staff> staffs;
+
+    @OneToMany(mappedBy = "staff", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Order> orders = new HashSet<>();
 
     // Konstruktor
     public Staff() {
@@ -39,18 +49,29 @@ public class Staff {
 //        this.lastName = lastName;
 //        this.phone = phone;
 
-    public Staff(Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Store store) {
+//    public Staff(Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Store store) {
+//        this.active = active;
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phone = phone;
+//        this.managerId = managerId;
+//        this.store = store;
+//    }
+//        this.managerId = managerId;
+//        this.storeId = storeId;
+//    }
+
+
+    public Staff(Integer active, String email, String firstName, String lastName, String phone, Staff manager, Store store) {
         this.active = active;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-        this.managerId = managerId;
+        this.manager = manager;
         this.store = store;
     }
-//        this.managerId = managerId;
-//        this.storeId = storeId;
-//    }
 
     // Getter und Setter
     public Integer getStaffId() {
@@ -101,21 +122,14 @@ public class Staff {
         this.phone = phone;
     }
 
-    public Integer getManagerId() {
-        return managerId;
+
+    public Staff getManager() {
+        return manager;
     }
 
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
+    public void setManager(Staff manager) {
+        this.manager = manager;
     }
-
-//    public Integer getStoreId() {
-//        return storeId;
-//    }
-//
-//    public void setStoreId(Integer storeId) {
-//        this.storeId = storeId;
-//    }
 
     public Store getStore() {
         return store;

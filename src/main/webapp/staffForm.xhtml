@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/template/formTemplate.xhtml">
+   <ui:define name="title">
+      Mitarbeiter
+   </ui:define>
+   <ui:define name="tablecss">
+      <link rel="stylesheet" type="text/css" href="css/table.css"/>
+
+   </ui:define>
+
+   <ui:define name="formcss">
+      <link rel="stylesheet" type="text/css" href="css/form.css"/>
+   </ui:define>
+   <ui:define name="content">
+      <h1>Neuen Mitarbeiter anlegen</h1>
+      <h:form>
+         <h:outputLabel for="vorname">Vorname:</h:outputLabel>
+         <h:inputText id="vorname" value="#{staffController.firstName}"/>
+         <br></br>
+         <h:outputLabel for="nachname">Nachname:</h:outputLabel>
+         <h:inputText id="nachname" value="#{staffController.nachName}"/>
+         <br></br>
+         <h:outputLabel for="email">Email:</h:outputLabel>
+         <h:inputText id="email" value="#{staffController.email}"/>
+         <br></br>
+         <h:outputLabel for="activ">Aktiv:</h:outputLabel>
+         <h:inputText id="activ" value="#{staffController.active}"/>
+         <br></br>
+         <h:outputLabel for="phone">phone:</h:outputLabel>
+         <h:inputText id="phone" value="#{staffController.phone}"/>
+
+         <br></br>
+         <h:commandButton value="Speichern" action="#{staffController.save()}" styleClass="save-button"/>
+      </h:form>
+   </ui:define>
+</ui:composition>
+</html>

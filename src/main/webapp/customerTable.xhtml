@@ -53,14 +53,9 @@
                 <h:commandButton action="#{logout.logout}" styleClass="user"/>
             </div>
         </h:form>
-        <h:form >
-            <div>
-                <h:outputLabel value="Last Name:" for="lastname" />
-                <h:inputText id="lastname" value="#{customerController.lastnameString}" />
-                <f:ajax event="keyup" render="customerTable" listener="#{customerController.searchByLastName}"/>
-            </div>
+        <h:form>
         <h1>Kunden</h1>
-        <h:dataTable id="customerTable" value="#{customerController.customers}" var="customer" styleClass="order-table">
+        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
             <h:column>
                 <f:facet name="header">Vorname</f:facet>
                 #{customer.firstname}
@@ -90,12 +85,16 @@
                 #{customer.zipcode}
             </h:column>
             <h:column>
+
+
                 <h:commandButton styleClass="viewButton" action="#{customerController.showDetails(customer)}">
                     <f:ajax execute="@form" render="@all" />
                 </h:commandButton>
                     <h:commandButton styleClass="deleteButton" action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
+
+
             </h:column>
         </h:dataTable>
     </h:form>

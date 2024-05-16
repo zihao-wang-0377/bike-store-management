@@ -26,22 +26,26 @@ public class CustomerController implements Serializable {
 @Inject
 Validator validator;
     private Integer customerId;
-
+    @NotBlank(message = "Stadt darf nicht null sein")
     private String city;
-
+    @Email(message = "email entspricht syntax nicht")
     private String email;
-
+    @NotBlank(message = "Vorname darf nicht null sein")
     private String firstName;
 
-
+    @NotBlank(message = "Nachname darf nicht null sein")
     private String lastName;
 
-
+    @Size(min = 0, message = "Telephone Nummer kann leer sein")
+    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein")
     private String phone;
+    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung")
 
     private String state;
+    @Pattern(regexp = "^\\d+\\s.*$" ,message = "bitte geben sie Zahl zuerst ein")
 
     private String street;
+    @Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl")
 
     private String zipCode;
 
@@ -82,7 +86,7 @@ Validator validator;
             for (ConstraintViolation<Customer> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
-            return; // 如果有验证错误，则不继续执行保存操作
+            return;
         }
         customerService.save(customer);
     }
@@ -283,5 +287,10 @@ Validator validator;
         customerService.delete(customer);
         loadCustomerList();
         getTotalRecords();
+    }
+
+    public String updateCustomerRecord(){
+        customerService.update(selectedCustomer);
+        return "customerTable.xhtml?faces-redirect=true";
     }
 }

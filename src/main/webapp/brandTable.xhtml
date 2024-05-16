@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Markentabelle
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h1>Marken</h1>
+            <h:dataTable value="#{brandController.brandList}" var="brand">
+                <h:column>
+                    <f:facet name="header">Marke-ID</f:facet>
+                    #{brand.brandId}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Markenname</f:facet>
+                    #{brand.brandName}
+                </h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{brandController.deleteBrand(brand)}" update="messages">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{brandController.totalRecords} Einträge"/>
+            <h:selectOneMenu styleClass="select" value="#{brandController.pageSize}">
+                <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
+                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
+                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite"/>
+                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite"/>
+                <f:ajax event="change" execute="@this" render="@all"/>
+            </h:selectOneMenu>
+            <div class="pagination">
+                <h:commandButton styleClass="firstPage" action="#{brandController.firstPage}"
+                                 disabled="#{brandController.currentPage == 1}"/>
+                <h:commandButton styleClass="previous" action="#{brandController.prevPage}"
+                                 disabled="#{brandController.currentPage == 1}"/>
+                <ui:repeat value="#{brandController.pageNumbers}" var="pageNum">
+                    <h:commandLink styleClass="repeat" value="#{pageNum}"
+                                   action="#{brandController.setPage(pageNum)}"
+                                   rendered="#{pageNum != brandController.currentPage}"/>
+                    <h:outputText styleClass="current" value="#{pageNum} "
+                                  rendered="#{pageNum == brandController.currentPage}"/>
+                </ui:repeat>
+                <h:outputText styleClass="rest" value="..."
+                              rendered="#{brandController.currentPage + 3 lt brandController.totalPages}"/>
+                <h:commandButton styleClass="next" action="#{brandController.nextPage}"
+                                 disabled="#{brandController.currentPage == brandController.totalPages}"/>
+                <h:commandButton styleClass="lastPage" action="#{brandController.lastPage}"
+                                 disabled="#{brandController.currentPage == brandController.totalPages}"/>
+            </div>
+            <div class="goto">
+                <h:outputLabel value="Zur Seite"/>
+                <h:inputText styleClass="text" value="#{brandController.currentPage}" size="3"/>
+                <h:commandButton value="Gehen" action="#{brandController.goToPage}"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

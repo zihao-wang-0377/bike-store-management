@@ -8,15 +8,20 @@ import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
@@ -29,18 +34,24 @@ public class ProductController implements Serializable {
 
     @Inject
     CategoryService categoryService;
-
+@Inject
+    Validator validator;
     private Integer productId;
 
-
+    @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
 
-
+    @Max(value = 2024, message = "Jahr kann nicht über 2024 sein")
+    @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
+    @PositiveOrZero(message = "Jahr kann nicht negativ sein")
     private Integer year;
-
+   // @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+@NotBlank(message = "name kann nicht blank sein")
     private String name;
+    @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
 
     private Integer brandId;
+    @ForeignKeyExists(entity = Category.class, customerMessage = "das CategorieId,das Sie eingegeben haben existiert nicht")
 
     private Integer categoryId;
 
@@ -65,7 +76,17 @@ public class ProductController implements Serializable {
     public void save() {
         Brand brand = brandService.findBrandById(brandId);
         Category category = categoryService.findCategoryById(categoryId);
-        productService.save(new Product(price, year, name, brand, category));
+        Product product = new Product(price, year, name, brand, category);
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Product> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+        productService.save(product);
+
     }
     public boolean isButtonDisplayed(){
         return clicks % 2 == 1;
@@ -228,6 +249,11 @@ public class ProductController implements Serializable {
         productService.delete(product);
         loadProduktList();
         getTotalRecords();
+ }
+
+ public String updateProductRecord(){
+        productService.update(selectedProduct);
+        return "productTable.xhtml?faces-redirect=true";
  }
     public String navigateToHomePage() {
         return "homePage.xhtml?faces-redirect=true";

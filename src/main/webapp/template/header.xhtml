@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:form immediate="true">
+    <div class="header">
+        <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
+        <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
+            <f:ajax execute="@this" render="customersPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="customersPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.buttonDisplayed}"
+                             action="customerTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="customerForm?faces-redirect=true" />
+        </h:panelGroup>
+        <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.incrementClicks}">
+            <f:ajax execute="@this" render="productesPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="productesPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.buttonDisplayed}"
+                             action="productTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="productForm?faces-redirect=true" />
+        </h:panelGroup>
+        <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.incrementClicks}">
+            <f:ajax execute="@this" render="ordersPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="ordersPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.buttonDisplayed}"
+                             action="orderTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="orderForm?faces-redirect=true" />
+        </h:panelGroup>
+        <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.incrementClicks}">
+            <f:ajax execute="@this" render="orderItemsPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="orderItemsPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.buttonDisplayed}"
+                             action="orderItemTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="orderItemForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Marken" actionListener="#{brandController.incrementClicks}">
+            <f:ajax execute="@this" render="BrandPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="BrandPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{brandController.buttonDisplayed}"
+                             action="brandTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{brandController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="brandForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Kategorien" actionListener="#{categoryController.incrementClicks}">
+            <f:ajax execute="@this" render="CategoryPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="CategoryPanel">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{categoryController.buttonDisplayed}"
+                             action="categoryTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{categoryController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                             action="categoryForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="button" value="Mitarbeiter" actionListener="#{staffController.incrementClicks}"
+                         rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
+            <f:ajax execute="@this" render="StaffPanel"/>
+        </h:commandButton>
+        <h:panelGroup id="StaffPanel" rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
+            <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{staffController.buttonDisplayed}"
+                             action="staffTable?faces-redirect=true" />
+            <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{staffController.buttonDisplayed}"
+                             action="staffForm?faces-redirect=true" />
+        </h:panelGroup>
+
+        <h:commandButton styleClass="user" action="#{logout.logout}"/>
+    </div>
+</h:form>
+</html>

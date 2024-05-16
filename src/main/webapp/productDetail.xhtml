@@ -5,75 +5,31 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>CustomerDetail</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-        <link rel="stylesheet" type="text/css" href="css/detail.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <div class="header">
-                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
-                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
-                    <f:ajax execute="@this" render="customersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="customersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.incrementClicks}">
-                    <f:ajax execute="@this" render="productesPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="productesPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.buttonDisplayed}"
-                                     action="productTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.buttonDisplayed}"
-                                     action="productForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.incrementClicks}">
-                    <f:ajax execute="@this" render="ordersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="ordersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.incrementClicks}">
-                    <f:ajax execute="@this" render="orderItemsPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="orderItemsPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="user" action="#{logout.logout}"/>
-            </div>
-        </h:form>
+<ui:composition template="/template/detailTemplate.xhtml">
+    <ui:define name="title">
+        Kundendetail
+    </ui:define>
+    <ui:define name="content">
         <h1 style="text-align: center">Product Detail</h1>
         <h:form styleClass="container">
             <h:outputLabel value="Product ID: "/>
-            <h:inputText value="#{productController.selectedProduct.id}"/><br/>
+            <h:inputText value="#{productController.selectedProduct.id}" readonly="true"/><br/>
             <h:outputLabel value="ListenPreis: "/>
-            <h:inputText value="#{productController.selectedProduct.price}" /><br/>
+            <h:inputText value="#{productController.selectedProduct.price}"/><br/>
             <h:outputLabel value="ModellJahr: "/>
-            <h:inputText value="#{productController.selectedProduct.modelYear}" /><br/>
+            <h:inputText value="#{productController.selectedProduct.modelYear}"/><br/>
             <h:outputLabel value="Produkt Name: "/>
-            <h:inputText value="#{productController.selectedProduct.name}" /><br/>
-            <h:outputLabel value="Marke Nummer: "/>
-            <h:inputText value="#{productController.selectedProduct.brand.brandId}" /><br/>
-            <h:outputLabel value="Kategorie Nummer: "/>
-            <h:inputText value="#{productController.selectedProduct.category.categoryId}" /><br/>
-            <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="button"/>
+            <h:inputText value="#{productController.selectedProduct.name}"/><br/>
+            <h:outputLabel value="Marke Name: "/>
+            <h:selectOneMenu id="brandName" value="#{productController.selectedProduct.brand.brandName}">
+                <f:selectItems value="#{brandController.brandList}"/>
+            </h:selectOneMenu><br/>
+            <h:outputLabel value="Kategorie Name: "/>
+            <h:selectOneMenu id="categoryName" value="#{productController.selectedProduct.category.categoryName}">
+                <f:selectItems value="#{categoryController.categoryList}"/>
+            </h:selectOneMenu><br/>
+            <h:commandButton value="Speichern" action="#{productController.updateProductRecord()}" styleClass="button"/>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
-        </div>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>
