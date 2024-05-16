@@ -5,89 +5,40 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Produkttabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <div class="header">
-                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
-                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
-                    <f:ajax execute="@this" render="customersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="customersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.incrementClicks}">
-                    <f:ajax execute="@this" render="productesPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="productesPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.buttonDisplayed}"
-                                     action="productTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.buttonDisplayed}"
-                                     action="productForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.incrementClicks}">
-                    <f:ajax execute="@this" render="ordersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="ordersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.incrementClicks}">
-                    <f:ajax execute="@this" render="orderItemsPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="orderItemsPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton action="#{logout.logout}" styleClass="user"/>
-            </div>
-        </h:form>
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Produkttabelle
+    </ui:define>
+    <ui:define name="content">
         <h:form>
-        <h1>Produkten</h1>
-        <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{product.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Listenpreis</f:facet>
-                <h:outputText value="#{product.price}">
-                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Modelljahr</f:facet>
-                #{product.modelYear}
-            </h:column>
-            <h:column>
-
-
-
-
-
+            <h1>Produkten</h1>
+            <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{product.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Listenpreis</f:facet>
+                    <h:outputText value="#{product.price}">
+                        <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Modelljahr</f:facet>
+                    #{product.modelYear}
+                </h:column>
+                <h:column>
                     <h:commandButton styleClass="viewButton" action="#{productController.showDetails(product)}">
-                        <f:ajax execute="@form" render="@all" />
+                        <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
-
-                <h:commandButton  styleClass="deleteButton" action="#{productController.deleteProductRecord(product)}" >
-                    <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords" />
-                </h:commandButton>
-            </h:column>
-        </h:dataTable>
-    </h:form>
-        <h:messages globalOnly="true" showDetail="true" showSummary="true" />
-
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{productController.deleteProductRecord(product)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
         <h:form styleClass="button-container" id="totalRecordsForm">
             <h:outputLabel id="totalRecords" value="Insgesamt #{productController.totalRecords}  Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{productController.pageSize}">
@@ -121,10 +72,6 @@
                 <h:commandButton value="Gehen" action="#{productController.goToPage}"/>
             </div>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
-        </div>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

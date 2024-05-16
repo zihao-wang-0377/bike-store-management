@@ -5,103 +5,51 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Bestellungstabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <div class="header">
-                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
-                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
-                    <f:ajax execute="@this" render="customersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="customersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.incrementClicks}">
-                    <f:ajax execute="@this" render="productesPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="productesPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.buttonDisplayed}"
-                                     action="productTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.buttonDisplayed}"
-                                     action="productForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.incrementClicks}">
-                    <f:ajax execute="@this" render="ordersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="ordersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.incrementClicks}">
-                    <f:ajax execute="@this" render="orderItemsPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="orderItemsPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton action="#{logout.logout}" styleClass="user"/>
-            </div>
-        </h:form>
-
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Bestellungstabelle
+    </ui:define>
+    <ui:define name="content">
         <h:form>
-        <h1>Bestellungen</h1>
-        <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
-            <h:column>
-                <f:facet name="header">Bestellstatus</f:facet>
-                #{order.orderStatus}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Bestlldatum</f:facet>
-                <h:outputText value="#{order.orderDate}">
-                    <f:converter converterId="localDateConverter"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Versanddatum</f:facet>
-                <h:outputText value="#{order.shippedDate}">
-                    <f:converter converterId="localDateConverter"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Kunden-ID</f:facet>
-                #{order.customer.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Geschäfts-ID</f:facet>
-                #{order.store.storeId}
-            </h:column>
-            <h:column>
-
-                <h:commandButton styleClass="viewButton" action="#{orderController.showDetails(order)}">
-                    <f:ajax execute="@form" render="@all" />
-                </h:commandButton>
-                <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}">
-                    <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
-                </h:commandButton>
-
-
-
-
-
-            </h:column>
-        </h:dataTable>
-    </h:form>
-
-        <h:form id="messageForm">
-            <h:messages id="Messages" globalOnly="true" showDetail="true" showSummary="true" />
+            <h1>Bestellungen</h1>
+            <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
+                <h:column>
+                    <f:facet name="header">Bestellstatus</f:facet>
+                    #{order.orderStatus}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Bestlldatum</f:facet>
+                    <h:outputText value="#{order.orderDate}">
+                        <f:converter converterId="localDateConverter"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Versanddatum</f:facet>
+                    <h:outputText value="#{order.shippedDate}">
+                        <f:converter converterId="localDateConverter"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Kunden-ID</f:facet>
+                    #{order.customer.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Geschäfts-ID</f:facet>
+                    #{order.store.storeId}
+                </h:column>
+                <h:column>
+                    <h:commandButton styleClass="viewButton" action="#{orderController.showDetails(order)}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
         </h:form>
-
+        <h:form id="messageForm">
+            <h:messages id="Messages" globalOnly="true" showDetail="true" showSummary="true"/>
+        </h:form>
         <h:form styleClass="button-container" id="totalRecordsForm">
             <h:outputLabel id="totalRecords" value="Insgesamt #{orderController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderController.pageSize}">
@@ -135,10 +83,6 @@
                 <h:commandButton value="Gehen" action="#{orderController.goToPage}"/>
             </div>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
-        </div>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

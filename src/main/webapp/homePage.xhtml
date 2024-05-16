@@ -9,9 +9,10 @@
     <h:head>
         <title>Startseite</title>
         <link rel="stylesheet" type="text/css" href="css/table.css"/>
+        <link rel="stylesheet" type="text/css" href="css/header.css"/>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form immediate="true">
             <div class="header">
                 <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
                 <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
@@ -50,13 +51,44 @@
                     <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
                                      action="orderItemForm?faces-redirect=true" />
                 </h:panelGroup>
-                <h:commandButton action="#{logout.logout}" styleClass="user"/>
-            </div>
-            <div class="homePage-image-container">
-                <img src="svg/bike.jpg"  alt="bike"/>
+
+                <h:commandButton styleClass="button" value="Marken" actionListener="#{brandController.incrementClicks}">
+                    <f:ajax execute="@this" render="BrandPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="BrandPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{brandController.buttonDisplayed}"
+                                     action="brandTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{brandController.buttonDisplayed}"
+                                     action="brandForm?faces-redirect=true" />
+                </h:panelGroup>
+
+                <h:commandButton styleClass="button" value="Kategorien" actionListener="#{categoryController.incrementClicks}">
+                    <f:ajax execute="@this" render="CategoryPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="CategoryPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{categoryController.buttonDisplayed}"
+                                     action="categoryTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{categoryController.buttonDisplayed}"
+                                     action="categoryForm?faces-redirect=true" />
+                </h:panelGroup>
+
+                <h:commandButton styleClass="button" value="Mitarbeiter" actionListener="#{staffController.incrementClicks}">
+                    <f:ajax execute="@this" render="StaffPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="StaffPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{staffController.buttonDisplayed}"
+                                     action="staffTable?faces-redirect=true" />
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{staffController.buttonDisplayed}"
+                                     action="staffForm?faces-redirect=true" />
+                </h:panelGroup>
+
+                <h:commandButton styleClass="user" action="#{logout.logout}"/>
             </div>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;" >
+        <div style="display: flex; justify-content: center; margin-top: 20px; height: 650px;">
+            <img src="svg/bike.jpg" alt="bike"/>
+        </div>
+        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
             <div style="margin: 15px;">&copy; Bike Store</div>
             <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
         </div>

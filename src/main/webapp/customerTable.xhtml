@@ -5,103 +5,61 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Kundentabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <div class="header">
-                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
-                <h:commandButton styleClass="button" value="Kunden" actionListener="#{customerController.incrementClicks}">
-                <f:ajax execute="@this" render="customersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="customersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{customerController.buttonDisplayed}"
-                                     action="customerForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Produkte" actionListener="#{productController.incrementClicks}">
-                    <f:ajax execute="@this" render="productesPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="productesPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{productController.buttonDisplayed}"
-                                     action="productTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{productController.buttonDisplayed}"
-                                     action="productForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="Bestellungen" actionListener="#{orderController.incrementClicks}">
-                    <f:ajax execute="@this" render="ordersPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="ordersPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderController.buttonDisplayed}"
-                                     action="orderForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton styleClass="button" value="BestellPositionen" actionListener="#{orderItemController.incrementClicks}">
-                    <f:ajax execute="@this" render="orderItemsPanel"/>
-                </h:commandButton>
-                <h:panelGroup id="orderItemsPanel">
-                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemTable?faces-redirect=true" />
-                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen" rendered="#{orderItemController.buttonDisplayed}"
-                                     action="orderItemForm?faces-redirect=true" />
-                </h:panelGroup>
-                <h:commandButton action="#{logout.logout}" styleClass="user"/>
-            </div>
-        </h:form>
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Kundentabelle
+    </ui:define>
+    <ui:define name="content">
         <h:form>
-        <h1>Kunden</h1>
-        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
-            <h:column>
-                <f:facet name="header">Vorname</f:facet>
-                #{customer.firstname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nachname</f:facet>
-                #{customer.lastname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{customer.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Telefonnummer</f:facet>
-                #{customer.phone}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Straße</f:facet>
-                #{customer.street}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Stadt</f:facet>
-                #{customer.city}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Postleitzahl</f:facet>
-                #{customer.zipcode}
-            </h:column>
-            <h:column>
+            <h1>Kunden</h1>
+            <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
+                <h:column>
+                    <f:facet name="header">Vorname</f:facet>
+                    #{customer.firstname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nachname</f:facet>
+                    #{customer.lastname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{customer.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefonnummer</f:facet>
+                    #{customer.phone}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Straße</f:facet>
+                    #{customer.street}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Stadt</f:facet>
+                    #{customer.city}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Postleitzahl</f:facet>
+                    #{customer.zipcode}
+                </h:column>
+                <h:column>
 
 
-                <h:commandButton styleClass="viewButton" action="#{customerController.showDetails(customer)}">
-                    <f:ajax execute="@form" render="@all" />
-                </h:commandButton>
-                    <h:commandButton styleClass="deleteButton" action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
+                    <h:commandButton styleClass="viewButton" action="#{customerController.showDetails(customer)}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
 
 
-            </h:column>
-        </h:dataTable>
-    </h:form>
-        <h:messages globalOnly="true" showDetail="true" showSummary="true" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
 
         <h:form styleClass="button-container" id="totalRecordsForm">
-            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge" />
+            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
@@ -134,10 +92,6 @@
                 <h:commandButton value="Gehen" action="#{customerController.goToPage}"/>
             </div>
         </h:form>
-        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
-            <div style="margin: 15px;">&copy; Bike Store</div>
-            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
-        </div>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>
