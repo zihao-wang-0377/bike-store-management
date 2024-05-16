@@ -41,12 +41,4 @@ public class BrandService implements Serializable {
         }
         em.remove(brand);
     }
-
-    public List<Long> getReferencedProductId(Brand brand){
-        TypedQuery<Long> query = em.createQuery(
-                "select p.id FROM Product p where p.brand = :brand",Long.class
-        );
-        query.setParameter("brand", brand);
-        return query.getResultList();
-    }
 }
