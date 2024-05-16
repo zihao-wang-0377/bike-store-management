@@ -1,6 +1,7 @@
 package de.pdbm.starter.business.messages.service;
 
 import de.pdbm.starter.business.messages.entity.Brand;
+import jakarta.ejb.Stateless;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,7 @@ import jakarta.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 
+@Stateless
 public class BrandService implements Serializable {
     @PersistenceContext
     EntityManager em;
@@ -37,15 +39,7 @@ public class BrandService implements Serializable {
         if (!em.contains(brand)) {
             brand = em.merge(brand);
         }
-        List<Long> referencedProductIds = this.getReferencedProductId(brand);
-        if (referencedProductIds.size() > 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Hinweis", "das Brand ist referenced by diese Products, " + referencedProductIds));
-        } else {
-            em.remove(brand);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Erfolg", "Brand erfolgreich gelöscht."));
-        }
+        em.remove(brand);
     }
 
     public List<Long> getReferencedProductId(Brand brand){
@@ -53,17 +47,6 @@ public class BrandService implements Serializable {
                 "select p.id FROM Product p where p.brand = :brand",Long.class
         );
         query.setParameter("brand", brand);
-        return query.getResultList();
-    }
-
-    public void update(Brand brand){
-        em.merge(brand);
-    }
-
-    public List<Brand> getAllBrand(){
-        TypedQuery<Brand> query = em.createQuery(
-                "select s from Brand s ", Brand.class
-        );
         return query.getResultList();
     }
 }

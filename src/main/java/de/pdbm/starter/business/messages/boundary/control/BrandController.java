@@ -4,8 +4,10 @@ import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.service.BrandService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.annotation.View;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintViolation;
@@ -60,6 +62,8 @@ public class BrandController implements Serializable {
             return;
         }
         brandService.save(brand);
+        loadBrandList();
+        getTotalRecords();
     }
 
     // Paginierung-Methoden
@@ -173,23 +177,11 @@ public class BrandController implements Serializable {
         return selectedBrand;
     }
 
-    // Detailseite
-    public String showDetails(Brand selectedBrand) {
-        this.selectedBrand = selectedBrand;
-        return "brandDetail.xhtml?faces-redirect=true";
-    }
-
     // Eintrag loeschen
     public void deleteBrand(Brand brand) {
         brandService.delete(brand);
         loadBrandList();
         getTotalRecords();
-    }
-
-    // Aktualisierung
-    public String updateBrandRecord(Brand brand) {
-        brandService.update(selectedBrand);
-        return "brandTable.xhtml?faces-redirect=true";
     }
 
     // Fuer Button in Header

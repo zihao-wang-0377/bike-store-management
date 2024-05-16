@@ -15,8 +15,10 @@ public class Brand {
 
     @Column(name = "brand_name")
     private String brandName;
+
     @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Product> products = new HashSet<>();
+
     // Konstruktor
     public Brand() {
     }
@@ -41,8 +43,9 @@ public class Brand {
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
-@Override
-    public String toString(){
+
+    @Override
+    public String toString() {
         return brandName;
-}
+    }
 }
