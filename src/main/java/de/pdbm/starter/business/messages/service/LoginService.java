@@ -17,8 +17,8 @@ public class LoginService implements Serializable {
     // Die Rolle des Benutzers zurückgeben
     public String getUserRole(String email) {
         String rolequery = "SELECT CASE " +
-                "           WHEN s.managerId IS NULL THEN 'ADMIN' " +
-                "           WHEN s.managerId = 1 THEN 'USER1' " +
+                "           WHEN s.manager IS NULL THEN 'ADMIN' " +
+                "           WHEN s.manager.staffId = 1 THEN 'USER1' " +
                 "           ELSE 'USER2' " +
                 "         END " +
                 "FROM Staff s " +
