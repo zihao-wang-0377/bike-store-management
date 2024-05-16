@@ -22,11 +22,11 @@
                     #{brand.brandName}
                 </h:column>
                 <h:column>
-                    <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+                    <h:commandButton styleClass="viewButton" action="#{brandController.showDetails(brand)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
                     <h:commandButton styleClass="deleteButton"
-                                     action="#{orderItemController.deleteOrderItemRecord(orderItem)}">
+                                     action="#{brandController.deleteBrand(brand)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
                 </h:column>

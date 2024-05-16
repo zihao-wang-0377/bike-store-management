@@ -21,8 +21,7 @@ public class Brand {
     public Brand() {
     }
 
-    public Brand(Integer brandId, String brandName) {
-        this.brandId = brandId;
+    public Brand(String brandName) {
         this.brandName = brandName;
     }
 

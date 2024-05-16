@@ -4,18 +4,26 @@ import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.service.BrandService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
 public class BrandController implements Serializable {
     @Inject
     BrandService brandService;
+
+    @Inject
+    Validator validator;
 
     private Integer brandId;
 
@@ -38,6 +46,20 @@ public class BrandController implements Serializable {
     public BrandController(Integer brandId, String brandName) {
         this.brandId = brandId;
         this.brandName = brandName;
+    }
+
+    // Objekt erstellen und speichern
+    public void save() {
+        Brand brand = new Brand(brandName);
+        Set<ConstraintViolation<Brand>> violations = validator.validate(brand);
+
+        if(!violations.isEmpty()) {
+            for(ConstraintViolation<Brand> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+        brandService.save(brand);
     }
 
     // Paginierung-Methoden
