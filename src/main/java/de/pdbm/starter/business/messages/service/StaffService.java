@@ -36,6 +36,12 @@ public class StaffService implements Serializable {
         return query.getResultList();
     }
 
+    public List<Staff> findByLastName(String lastname) {
+        TypedQuery<Staff> query = em.createQuery("SELECT s FROM Staff s WHERE LOWER(s.lastName) LIKE LOWER(:lastname)", Staff.class);
+        query.setParameter("lastname", "%" + lastname + "%");
+        return query.getResultList();
+    }
+
     public long getStaffCount(){
         return em.createQuery("select count(s) from Staff s", Long.class).getSingleResult();
     }
@@ -47,20 +53,10 @@ public class StaffService implements Serializable {
         if (!em.contains(staff)) {
             staff = em.merge(staff);
         }
-       // List<Long> referencedProductIds = this.getReferencedProductId(product);
-
-
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                "Fehler", ": das Produkt ist referenced by diese Order" + referencedProductIds + "auf null bevor Sie es löschen: " ));
-
         em.remove(staff);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-//                "Erfolg", "Produkt erfolgreich gelöscht."));
-
     }
 
     public void update(Staff staff) {
         em.merge(staff);
     }
-
 }

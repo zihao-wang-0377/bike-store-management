@@ -53,6 +53,12 @@ public class ProductService implements Serializable {
         return query.getSingleResult();
     }
 
+    public List<Product> findByProductName(String name) {
+        TypedQuery<Product> query = em.createQuery("select p from Product p where LOWER(p.name) like LOWER(:name)", Product.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
     public void delete(Product product) {
         if (!em.contains(product)) {
             product = em.merge(product);

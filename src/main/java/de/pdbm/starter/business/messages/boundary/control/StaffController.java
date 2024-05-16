@@ -1,8 +1,5 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.entity.Brand;
-import de.pdbm.starter.business.messages.entity.Category;
-import de.pdbm.starter.business.messages.entity.Product;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.service.StaffService;
 import jakarta.enterprise.context.SessionScoped;
@@ -12,7 +9,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
-import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ public class StaffController implements Serializable {
     private Integer active;
     private String email;
     private String firstName;
-    private String nachName;
+    private String lastName;
     private String phone;
 
     private String managerId;
@@ -57,55 +53,50 @@ public class StaffController implements Serializable {
     public void loadStaffList() {
         this.staffList = staffService.findPaginated(currentPage, pageSize);
     }
+
     public long getTotalRecords() {
         this.totalRecords = staffService.getStaffCount();
         return totalRecords;
     }
 
-    public void deleteStaffRecord(Staff staff){
+    public void deleteStaffRecord(Staff staff) {
         staffService.delete(staff);
         loadStaffList();
         getTotalRecords();
-
     }
 
-    public String showDetails(Staff selectedStaff){
+    public String showDetails(Staff selectedStaff) {
         this.selectedStaff = selectedStaff;
         return "staffDetail.xhtml?faces-redirect=true";
     }
-    public void save() {
 
-        //Staff staff = new Staff(firstName,nachName,active,phone,email);
-//        Category category = categoryService.findCategoryById(categoryId);
-//        Product product = new Product(price, year, name, brand, category);
-//        Set<ConstraintViolation<Product>> violations = validator.validate(product);
-//
+    public void save() {
         Staff staff = new Staff();
         staff.setActive(active);
         staff.setEmail(email);
         staff.setFirstName(firstName);
-        staff.setLastName(nachName);
+        staff.setLastName(lastName);
         Set<ConstraintViolation<Staff>> violations = validator.validate(staff);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Staff> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
-            return; // 如果有验证错误，则不继续执行保存操作
+            return;
         }
         staffService.save(staff);
         loadStaffList();
-
     }
 
-    public String updateStaffRecord(){
+    public String updateStaffRecord() {
         staffService.update(selectedStaff);
         return "staffTable.xhtml?faces-redirect=true";
     }
-    public boolean isButtonDisplayed(){
+
+    public boolean isButtonDisplayed() {
         return clicks % 2 == 1;
     }
 
-    public void incrementClicks(){
+    public void incrementClicks() {
         clicks++;
     }
 
@@ -141,12 +132,12 @@ public class StaffController implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getNachName() {
-        return nachName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNachName(String nachName) {
-        this.nachName = nachName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -210,15 +201,18 @@ public class StaffController implements Serializable {
         }
         return pageNumbers.toArray(new Integer[0]);
     }
+
     public int getTotalPages() {
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
+
     public void setPage(int page) {
         if (page >= 1 && page <= getTotalPages()) {
             currentPage = page;
             loadStaffList();
         }
     }
+
     public void nextPage() {
         currentPage++;
         loadStaffList();
@@ -239,5 +233,10 @@ public class StaffController implements Serializable {
     public void lastPage() {
         currentPage = getTotalPages();
         loadStaffList();
+    }
+
+    // Suche nach Nachname
+    public void searchByLastName() {
+        this.staffList = staffService.findByLastName(lastName);
     }
 }

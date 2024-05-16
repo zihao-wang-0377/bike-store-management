@@ -14,7 +14,7 @@
             <h1>Kunden</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Nachnamen suchen: " for="lastname" />
-                <h:inputText id="lastname" value="#{customerController.lastnameString}">
+                <h:inputText id="lastname" value="#{customerController.lastName}">
                     <f:ajax event="keyup" render="customerTable" listener="#{customerController.searchByLastName}"/>
                 </h:inputText>
             </div>

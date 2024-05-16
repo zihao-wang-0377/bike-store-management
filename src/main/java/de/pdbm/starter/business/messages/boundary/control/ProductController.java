@@ -34,7 +34,7 @@ public class ProductController implements Serializable {
 
     @Inject
     CategoryService categoryService;
-@Inject
+    @Inject
     Validator validator;
     private Integer productId;
 
@@ -45,8 +45,8 @@ public class ProductController implements Serializable {
     @Min(value = 1900, message = "Jahr kann nicht früher als 1900")
     @PositiveOrZero(message = "Jahr kann nicht negativ sein")
     private Integer year;
-   // @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
-@NotBlank(message = "name kann nicht blank sein")
+    // @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+    @NotBlank(message = "name kann nicht blank sein")
     private String name;
     @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
 
@@ -88,11 +88,12 @@ public class ProductController implements Serializable {
         productService.save(product);
 
     }
-    public boolean isButtonDisplayed(){
+
+    public boolean isButtonDisplayed() {
         return clicks % 2 == 1;
     }
 
-    public void incrementClicks(){
+    public void incrementClicks() {
         clicks++;
     }
 
@@ -239,23 +240,25 @@ public class ProductController implements Serializable {
         return selectedProduct;
     }
 
-    public String showDetails(Product selectedProduct){
+    public String showDetails(Product selectedProduct) {
         this.selectedProduct = selectedProduct;
         return "productDetail.xhtml?faces-redirect=true";
     }
 
-    // Navigation fuer Zurueck Button
- public void deleteProductRecord(Product product){
+    // Suche nach Produktnamen
+    public void searchByProductName() {
+        productList = productService.findByProductName(name);
+    }
+
+    // Eintrag loeschen
+    public void deleteProductRecord(Product product) {
         productService.delete(product);
         loadProduktList();
         getTotalRecords();
- }
+    }
 
- public String updateProductRecord(){
+    public String updateProductRecord() {
         productService.update(selectedProduct);
         return "productTable.xhtml?faces-redirect=true";
- }
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
     }
 }

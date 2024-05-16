@@ -12,7 +12,13 @@
     <ui:define name="content">
         <h:form>
             <h1>Marken</h1>
-            <h:dataTable value="#{brandController.brandList}" var="brand">
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Markennamen suchen: " for="brandName"/>
+                <h:inputText id="brandName" value="#{brandController.brandName}">
+                    <f:ajax event="keyup" render="brandTable" listener="#{brandController.searchByBrandName}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="brandTable" value="#{brandController.brandList}" var="brand">
                 <h:column>
                     <f:facet name="header">Marke-ID</f:facet>
                     #{brand.brandId}

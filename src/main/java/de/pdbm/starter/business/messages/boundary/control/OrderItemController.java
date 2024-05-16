@@ -27,10 +27,10 @@ public class OrderItemController implements Serializable {
     @Inject
     ProductService productService;
 
-    @Pattern(regexp = "^[12345]$",message = "BestellPosition soll zwischen 1 bis 5 sein")
+    @Pattern(regexp = "^[12345]$", message = "BestellPosition soll zwischen 1 bis 5 sein")
     private String itemId;
 
-    @ForeignKeyExists(entity = Order.class,customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
+    @ForeignKeyExists(entity = Order.class, customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
 
 
@@ -72,20 +72,20 @@ public class OrderItemController implements Serializable {
     }
 
     // Objekt erstellen und speichern
-    public void save(){
-        Integer itemIdInt =Integer.parseInt(itemId);
+    public void save() {
+        Integer itemIdInt = Integer.parseInt(itemId);
         Order order = orderService.findById(orderId);
         Product product = productService.findById(productId);
         orderItemPk.setItem_id(itemIdInt);
         orderItemPk.setOrder_id(orderId);
-        orderItemService.save(new OrderItem( orderItemPk,order,  discount,  price,  quantity,  product));
+        orderItemService.save(new OrderItem(orderItemPk, order, discount, price, quantity, product));
     }
 
-    public boolean isButtonDisplayed(){
+    public boolean isButtonDisplayed() {
         return clicks % 2 == 1;
     }
 
-    public void incrementClicks(){
+    public void incrementClicks() {
         clicks++;
     }
 
@@ -105,28 +105,28 @@ public class OrderItemController implements Serializable {
         return orderItemList;
     }
 
-    public void loadOrderItemList(){
+    public void loadOrderItemList() {
         this.orderItemList = orderItemService.findPaginated(currentPage, pageSize);
     }
 
-    public void nextPage(){
+    public void nextPage() {
         currentPage++;
         loadOrderItemList();
     }
 
-    public void prevPage(){
-        if(currentPage > 0){
+    public void prevPage() {
+        if (currentPage > 0) {
             currentPage--;
             loadOrderItemList();
         }
     }
 
-    public void firstPage(){
+    public void firstPage() {
         currentPage = 1;
         loadOrderItemList();
     }
 
-    public void lastPage(){
+    public void lastPage() {
         currentPage = getTotalPages();
         loadOrderItemList();
     }
@@ -160,18 +160,18 @@ public class OrderItemController implements Serializable {
         loadOrderItemList();
     }
 
-    public void setPage(int page){
-        if(page >= 1 && page <= getTotalPages()){
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
             currentPage = page;
             loadOrderItemList();
         }
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadOrderItemList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadOrderItemList();
         } else {
@@ -232,19 +232,20 @@ public class OrderItemController implements Serializable {
         return selectedOrderItem;
     }
 
-    public String showDetails(OrderItem selectedOrderItem){
+    public String showDetails(OrderItem selectedOrderItem) {
         this.selectedOrderItem = selectedOrderItem;
         return "orderItemDetail.xhtml?faces-redirect=true";
     }
 
-    // Navigation fuer Zurueck Button
-    public void deleteOrderItemRecord(OrderItem orderItem){
+    // Suche nach Bestellnummer
+    public void searchByOrderId() {
+        orderItemList = orderItemService.findByOrderId(orderId);
+    }
+
+    // Eintrag loeschen
+    public void deleteOrderItemRecord(OrderItem orderItem) {
         orderItemService.delete(orderItem);
         loadOrderItemList();
         getTotalRecords();
     }
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
-    }
 }
-
