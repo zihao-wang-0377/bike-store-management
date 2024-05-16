@@ -39,6 +39,12 @@ public class BrandService implements Serializable {
         return em.find(Brand.class,brandId);
     }
 
+    public List<Brand> findByBrandName(String brandName) {
+        TypedQuery<Brand> query = em.createQuery("SELECT b FROM Brand b WHERE LOWER(b.brandName) LIKE LOWER(:brandName)", Brand.class);
+        query.setParameter("brandName", "%" + brandName + "%");
+        return query.getResultList();
+    }
+
     public void delete(Brand brand) {
         if (!em.contains(brand)) {
             brand = em.merge(brand);

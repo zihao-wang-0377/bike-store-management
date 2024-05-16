@@ -12,7 +12,13 @@
     <ui:define name="content">
         <h:form>
             <h1>Bestellungen</h1>
-            <h:dataTable value="#{orderController.orders}" var="order" styleClass="order-table">
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Bestellstatus suchen: " for="orderStatus"/>
+                <h:inputText id="orderStatus" value="#{orderController.orderStatus}">
+                    <f:ajax event="keyup" render="orderTable" listener="#{orderController.searchByOrderStatus}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="orderTable" value="#{orderController.orders}" var="order" styleClass="order-table">
                 <h:column>
                     <f:facet name="header">Bestellstatus</f:facet>
                     #{order.orderStatus}

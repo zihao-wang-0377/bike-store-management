@@ -11,13 +11,13 @@
     </ui:define>
     <ui:define name="content">
         <h:form immediate = "true">
-           <div>
-              <h:outputLabel value="Last Name:" for="lastname" />
-               <h:inputText id="lastname" value="#{customerController.lastnameString}">
+            <h1>Kunden</h1>
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Nachnamen suchen: " for="lastname" />
+                <h:inputText id="lastname" value="#{customerController.lastName}">
                     <f:ajax event="keyup" render="customerTable" listener="#{customerController.searchByLastName}"/>
                 </h:inputText>
-           </div>
-            <h1>Kunden</h1>
+            </div>
             <h:dataTable id="customerTable" value="#{customerController.customers}" var="customer" styleClass="order-table">
                 <h:column>
                     <f:facet name="header">Vorname</f:facet>

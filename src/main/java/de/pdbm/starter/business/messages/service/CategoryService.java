@@ -37,6 +37,12 @@ public class CategoryService implements Serializable {
         return em.find(Category.class, id);
     }
 
+    public List<Category> findCategoryByName(String name) {
+        TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE LOWER(c.categoryName) LIKE LOWER(:name)", Category.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
     public void delete(Category category) {
         if (!em.contains(category)) {
             category = em.merge(category);

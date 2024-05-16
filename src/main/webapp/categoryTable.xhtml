@@ -12,7 +12,13 @@
     <ui:define name="content">
         <h:form>
             <h1>Kategorien</h1>
-            <h:dataTable value="#{categoryController.categoryList}" var="category">
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Kategorienname suchen: " for="categoryName"/>
+                <h:inputText id="categoryName" value="#{categoryController.categoryName}">
+                    <f:ajax event="keyup" render="categoryTable" listener="#{categoryController.searchByCategoryName}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="categoryTable" value="#{categoryController.categoryList}" var="category">
                 <h:column>
                     <f:facet name="header">Kategorie-ID</f:facet>
                     #{category.categoryId}

@@ -12,7 +12,13 @@
     <ui:define name="content">
         <h:form>
             <h1>Bestellpositionen</h1>
-            <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Bestellnummer suchen: " for="orderId"/>
+                <h:inputText id="orderId" value="#{orderItemController.orderId}">
+                    <f:ajax event="keyup" render="orderItemTable" listener="#{orderItemController.searchByOrderId}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="orderItemTable" value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
                 <h:column>
                     <f:facet name="header">Bestellnummer</f:facet>
                     <h:outputText value="#{orderItem.orderId}"/>

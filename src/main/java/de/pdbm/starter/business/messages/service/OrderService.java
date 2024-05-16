@@ -18,10 +18,10 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class OrderService implements Serializable {
-    @PersistenceContext(type = TRANSACTION )
+    @PersistenceContext(type = TRANSACTION)
     EntityManager em;
 
-    public void save(Order order){
+    public void save(Order order) {
         // Persistiere (speichere) die übergebene Bestellung in der Datenbank
         if (order.getId() == null) {
             em.persist(order);
@@ -30,19 +30,19 @@ public class OrderService implements Serializable {
         }
     }
 
-    public List<Order> findPaginated(int page, int size){
+    public List<Order> findPaginated(int page, int size) {
         TypedQuery<Order> query = em.createQuery("select c from Order c", Order.class);
         query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
 
-    public Order findById(Integer id){
+    public Order findById(Integer id) {
         // Suche eine Bestellung in der Datenbank anhand ihrer ID
         return em.find(Order.class, id);
     }
 
-    public long getOrderCount(){
+    public long getOrderCount() {
         return em.createQuery("select count(c) from Order c", Long.class).getSingleResult();
     }
 
@@ -53,28 +53,37 @@ public class OrderService implements Serializable {
         List<Long> referencedOrderItemIds = this.getReferencedOrderItemId(order);
 
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderItemIds + "auf null bevor Sie es löschen: " ));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "Fehler", ": das Customer ist referenced by diese Orders, Sie können das nicht einfach wegmachen.Bitte setzen Sie die Customer_id von diesen Orders" + referencedOrderItemIds + "auf null bevor Sie es löschen: "));
 
-            em.remove(order);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Erfolg", "order erfolgreich gelöscht."));
+        em.remove(order);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Erfolg", "order erfolgreich gelöscht."));
 
     }
-    public List<Long> getReferencedOrderItemId(Order order){
+
+    public List<Long> getReferencedOrderItemId(Order order) {
         TypedQuery<Long> query = em.createQuery(
-                "select o.orderItemPk FROM OrderItem o where o.orderItemPk.order_id = :order",Long.class
+                "select o.orderItemPk FROM OrderItem o where o.orderItemPk.order_id = :order", Long.class
         );
         query.setParameter("order", order.getId());
         return query.getResultList();
     }
-    public List<Order> getOrderByCustomerId(Integer id){
-        TypedQuery<Order> query = em.createQuery("select o from Order o where o.customer = :customer", Order.class);
-        query.setParameter("customer",id);
-        List<Order> result = query.getResultList();
-        return result ;
+
+    public List<Order> findByOrderStatus(Integer orderStatus) {
+        TypedQuery<Order> query = em.createQuery("SELECT o FROM Order o WHERE o.orderStatus = :orderStatus", Order.class);
+        query.setParameter("orderStatus", orderStatus);
+        return query.getResultList();
     }
-@Transactional
+
+    public List<Order> getOrderByCustomerId(Integer id) {
+        TypedQuery<Order> query = em.createQuery("select o from Order o where o.customer = :customer", Order.class);
+        query.setParameter("customer", id);
+        List<Order> result = query.getResultList();
+        return result;
+    }
+
+    @Transactional
     public void update(Order order) {
         Order existingOrder = em.find(Order.class, order.getId());
         if (existingOrder != null) {

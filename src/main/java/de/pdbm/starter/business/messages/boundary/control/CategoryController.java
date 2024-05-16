@@ -173,6 +173,11 @@ public class CategoryController implements Serializable {
         return selectedCategory;
     }
 
+    // Suche nach Kategoriennamen
+    public void searchByCategoryName() {
+        categoryList = categoryService.findCategoryByName(categoryName);
+    }
+
     // Eintrag loeschen
     public void deleteCategory(Category category) {
         categoryService.delete(category);

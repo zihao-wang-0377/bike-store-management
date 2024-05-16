@@ -61,7 +61,6 @@ Validator validator;
     private int clicks;
 
     private Customer selectedCustomer;
-    private String lastnameString;
 
     // Konstruktor
     public CustomerController() {
@@ -113,9 +112,6 @@ Validator validator;
             loadCustomerList();
         }
         return customerList;
-    }
-    public void searchByLastName() {
-        this.customerList = customerService.findByLastName(lastnameString);
     }
 
     public void loadCustomerList(){
@@ -269,21 +265,17 @@ Validator validator;
         return selectedCustomer;
     }
 
-    public String getLastnameString() {
-        return lastnameString;
-    }
-
-    public void setLastnameString(String lastnameString) {
-        this.lastnameString = lastnameString;
-    }
-
     public String showDetails(Customer selectedCustomer){
         this.selectedCustomer = selectedCustomer;
         return "customerDetail.xhtml?faces-redirect=true";
     }
 
-    // Navigation fuer Zurueck Button
+    // Suche nach Nachnamen
+    public void searchByLastName() {
+        this.customerList = customerService.findByLastName(lastName);
+    }
 
+    // Eintrag loeschen
     public void deleteCustomerRecord(Customer customer){
         customerService.delete(customer);
         loadCustomerList();

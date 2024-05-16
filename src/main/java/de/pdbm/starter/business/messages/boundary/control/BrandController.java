@@ -181,6 +181,11 @@ public class BrandController implements Serializable {
         getTotalRecords();
     }
 
+    // Suche nach Markennamen
+    public void searchByBrandName() {
+        brandList = brandService.findByBrandName(brandName);
+    }
+
     // Fuer Button in Header
     private int clicks;
 
