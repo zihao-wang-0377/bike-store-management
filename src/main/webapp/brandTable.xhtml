@@ -21,7 +21,7 @@
                     <f:facet name="header">Markenname</f:facet>
                     #{brand.brandName}
                 </h:column>
-                <h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
                     <h:commandButton styleClass="deleteButton"
                                      action="#{brandController.deleteBrand(brand)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>

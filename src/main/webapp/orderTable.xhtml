@@ -37,7 +37,7 @@
                     <f:facet name="header">Geschäfts-ID</f:facet>
                     #{order.store.storeId}
                 </h:column>
-                <h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
                     <h:commandButton styleClass="viewButton" action="#{orderController.showDetails(order)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>

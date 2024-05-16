@@ -74,18 +74,14 @@
 	</security-constraint>
 
 	<security-constraint>
-
 		<web-resource-collection>
-			<web-resource-name>staff pages </web-resource-name>
-
-			<url-pattern>/staffForm.xhtml</url-pattern>
+			<web-resource-name>admin</web-resource-name>
 			<url-pattern>/staffTable.xhtml</url-pattern>
+			<url-pattern>/staffForm.xhtml</url-pattern>
 			<url-pattern>/staffDetail.xhtml</url-pattern>
-
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMIN</role-name>
 		</auth-constraint>
 	</security-constraint>
-
 </web-app>

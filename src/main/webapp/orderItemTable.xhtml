@@ -35,7 +35,7 @@
                     <f:facet name="header">Anzahl</f:facet>
                     <h:outputText value="#{orderItem.quantity}"/>
                 </h:column>
-                <h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
                     <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>

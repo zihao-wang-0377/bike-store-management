@@ -25,20 +25,6 @@
                <f:facet name="header">Nachname</f:facet>
                <h:outputText value="#{staff.lastName}"/>
             </h:column>
-<!--            <h:column>-->
-<!--               <f:facet name="header">Listenpreis</f:facet>-->
-<!--               <h:outputText value="#{orderItem.price}">-->
-<!--                  <f:convertNumber pattern="#,##0.00" locale="de_DE"/>-->
-<!--               </h:outputText>-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--               <f:facet name="header">Rabatte</f:facet>-->
-<!--               <h:outputText value="#{orderItem.discount}"/>-->
-<!--            </h:column>-->
-<!--            <h:column>-->
-<!--               <f:facet name="header">Anzahl</f:facet>-->
-<!--               <h:outputText value="#{orderItem.quantity}"/>-->
-<!--            </h:column>-->
             <h:column>
                <h:commandButton styleClass="viewButton" action="#{staffController.showDetails(staff)}">
                   <f:ajax execute="@form" render="@all"/>

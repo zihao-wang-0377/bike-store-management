@@ -41,9 +41,7 @@
                     <f:facet name="header">Postleitzahl</f:facet>
                     #{customer.zipcode}
                 </h:column>
-                <h:column>
-
-
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
                     <h:commandButton styleClass="viewButton" action="#{customerController.showDetails(customer)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
@@ -51,13 +49,10 @@
                                      action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
-
-
                 </h:column>
             </h:dataTable>
         </h:form>
         <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
-
         <h:form styleClass="button-container" id="totalRecordsForm">
             <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
