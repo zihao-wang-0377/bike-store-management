@@ -7,6 +7,7 @@ import de.pdbm.starter.business.messages.service.ProductService;
 import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Product;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -37,7 +38,8 @@ public class ProductController implements Serializable {
 @Inject
     Validator validator;
     private Integer productId;
-
+private String brandName;
+private String categoryName;
     @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
 
@@ -56,7 +58,13 @@ public class ProductController implements Serializable {
     private Integer categoryId;
 
     private List<Product> productList;
-
+    @PostConstruct
+    public void init() {
+        // 初始化 selectedProduct 和相关对象
+        selectedProduct = new Product();
+//        selectedProduct.setBrand(new Brand());
+//        selectedProduct.setCategory(new Category());
+    }
     private int currentPage = 1;
 
     private int pageSize = 10;
@@ -74,9 +82,14 @@ public class ProductController implements Serializable {
 
     // Objekt erstellen und speichern
     public void save() {
-        Brand brand = brandService.findBrandById(brandId);
-        Category category = categoryService.findCategoryById(categoryId);
-        Product product = new Product(price, year, name, brand, category);
+//        Brand brand = brandService.findBrandById(brandId);
+//        Category category = categoryService.findCategoryById(categoryId);
+        Product product = new Product();
+        product.setBrand(brandService.findByBrandName(brandName));
+        product.setPrice(price);
+        product.setName(name);
+        product.setCategory(categoryService.findByCategoryName(categoryName));
+        product.setModelYear(year);
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
 
         if (!violations.isEmpty()) {
@@ -94,6 +107,22 @@ public class ProductController implements Serializable {
 
     public void incrementClicks(){
         clicks++;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     // Paginierung-Methoden

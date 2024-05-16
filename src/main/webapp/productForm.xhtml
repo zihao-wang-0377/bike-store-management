@@ -21,12 +21,14 @@
             <h:outputLabel for="description" value="ModellJahr: "/>
             <h:inputTextarea id="description" value="#{productController.year}"/>
             <br></br>
-            <h:outputLabel for="brandId" value="MarkeNummer: "/>
-            <h:inputTextarea id="brandId" value="#{productController.brandId}"/>
-            <br></br>
-            <h:outputLabel for="categoryId" value="CategorieNummer: "/>
-            <h:inputTextarea id="categoryId" value="#{productController.categoryId}"/>
-            <br></br>
+            <h:outputLabel value="Marke Name: "/>
+            <h:selectOneMenu id="brandName" value="#{productController.brandName}">
+                <f:selectItems value="#{brandController.brandList}"/>
+            </h:selectOneMenu><br/>
+            <h:outputLabel value="Kategorie Name: "/>
+            <h:selectOneMenu id="categoryName" value="#{productController.categoryName}" >
+                <f:selectItems value="#{categoryController.categoryList}"/>
+            </h:selectOneMenu><br/>
             <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

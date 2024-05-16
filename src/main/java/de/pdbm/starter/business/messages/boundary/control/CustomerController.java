@@ -38,15 +38,15 @@ Validator validator;
     private String lastName;
 
     @Size(min = 0, message = "Telephone Nummer kann leer sein")
-    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein")
+    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein,achten Sie bitte die leerstelle dazwischen. ")
     private String phone;
-    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung")
+    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung,gültige Staat sind BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH ")
 
     private String state;
-    @Pattern(regexp = "^\\d+\\s.*$" ,message = "bitte geben sie Zahl zuerst ein")
+    @Pattern(regexp = "^\\d+\\s.*$" ,message = "Straße:bitte geben sie Zahl zuerst ein,gültige Format sind z.b 74 jahnstrasse")
 
     private String street;
-    @Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl")
+    @Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl wie z.b 38302")
 
     private String zipCode;
 
