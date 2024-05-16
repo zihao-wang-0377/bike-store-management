@@ -24,12 +24,15 @@ public class Staff {
     private String lastName;
 
     private String phone;
-@ManyToOne
-    @JoinColumn (name = "manager_id")
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
     private Staff manager;
-@ManyToOne
-@JoinColumn (name = "store_id")
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
     private Store store;
+
     @OneToMany(mappedBy = "manager", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Column(name = "manager_id")
     private Set<Staff> staffs;
@@ -40,28 +43,6 @@ public class Staff {
     // Konstruktor
     public Staff() {
     }
-
-//    public Staff(Integer staffId, Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Integer storeId) {
-//        this.staffId = staffId;
-//        this.active = active;
-//        this.email = email;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.phone = phone;
-
-//    public Staff(Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Store store) {
-//        this.active = active;
-//        this.email = email;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.phone = phone;
-//        this.managerId = managerId;
-//        this.store = store;
-//    }
-//        this.managerId = managerId;
-//        this.storeId = storeId;
-//    }
-
 
     public Staff(Integer active, String email, String firstName, String lastName, String phone, Staff manager, Store store) {
         this.active = active;

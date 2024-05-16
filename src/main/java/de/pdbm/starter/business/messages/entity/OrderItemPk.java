@@ -51,8 +51,9 @@ public class OrderItemPk implements Serializable {
     public int hashCode() {
         return Objects.hash(item_id, order_id);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "OrderItemPk{" +
                 "orderId=" + order_id +
                 ", itemId=" + item_id +

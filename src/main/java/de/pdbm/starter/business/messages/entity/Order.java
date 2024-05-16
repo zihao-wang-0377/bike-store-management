@@ -24,15 +24,12 @@ public class Order {
     private Integer id;
 
     @Column(name = "order_date")
-
     private LocalDate orderDate;
 
     @Column(name = "order_status")
-
     private Integer orderStatus;
 
     @Column(name = "required_date")
-
     private LocalDate requiredDate;
 
     @Column(name = "shipped_date")
@@ -40,21 +37,18 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn (name = "staff_id")
-
+    @JoinColumn(name = "staff_id")
     private Staff staff;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-
     private Store store;
 
     @OneToMany(
-            cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
+            cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
             mappedBy = "order"
     )
     private Set<OrderItem> orderItems = new HashSet<>();

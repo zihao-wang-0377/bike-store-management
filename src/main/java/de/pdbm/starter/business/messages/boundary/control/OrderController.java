@@ -43,25 +43,26 @@ public class OrderController implements Serializable {
     private Validator validator;
 
     private Integer orderId;
+
     @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
-
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
+
     @Pattern(regexp = "^[1234]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt) sein")
-
     private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
-    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
 
+    @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
     private LocalDate requiredDate;
 
     private LocalDate shippedDate;
+
     @ForeignKeyExists(entity = Customer.class, customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
     @NotNull(message = "customerId kann nicht null sein")
     private Integer customerId;
+
     @ForeignKeyExists(entity = Staff.class, customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
-
     private Integer staffId;
-    @ForeignKeyExists(entity = Store.class, customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
 
+    @ForeignKeyExists(entity = Store.class, customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
     private Integer storeId;
 
     private List<Order> orderList;

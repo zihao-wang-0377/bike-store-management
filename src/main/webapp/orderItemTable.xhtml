@@ -18,7 +18,8 @@
                     <f:ajax event="keyup" render="orderItemTable" listener="#{orderItemController.searchByOrderId}"/>
                 </h:inputText>
             </div>
-            <h:dataTable id="orderItemTable" value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
+            <h:dataTable id="orderItemTable" value="#{orderItemController.orderItems}" var="orderItem"
+                         styleClass="order-table">
                 <h:column>
                     <f:facet name="header">Bestellnummer</f:facet>
                     <h:outputText value="#{orderItem.orderId}"/>

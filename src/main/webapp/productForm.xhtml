@@ -26,7 +26,7 @@
                 <f:selectItems value="#{brandController.brandList}"/>
             </h:selectOneMenu><br/>
             <h:outputLabel value="Kategorie Name: "/>
-            <h:selectOneMenu id="categoryName" value="#{productController.categoryName}" >
+            <h:selectOneMenu id="categoryName" value="#{productController.categoryName}">
                 <f:selectItems value="#{categoryController.categoryList}"/>
             </h:selectOneMenu><br/>
             <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="save-button"/>

@@ -1,4 +1,4 @@
-.homePage{
+.homePage {
     background-color: #f2f2f2; /* Button background color */
     background-image: url("../svg/home.svg");
     background-repeat: no-repeat;
@@ -7,10 +7,12 @@
     border: #ccc;
     padding: 5px 15px;
 }
-.homePage:hover{
+
+.homePage:hover {
     background-color: #DCDCDC;
 }
-.user{
+
+.user {
     background-color: #f2f2f2; /* Button background color */
     background-image: url("../svg/user.svg");
     background-repeat: no-repeat;
@@ -19,10 +21,12 @@
     border: #ccc;
     padding: 5px 15px;
 }
-.user:hover{
+
+.user:hover {
     background-color: #DCDCDC;
 }
-.header{
+
+.header {
     display: flex;
     background-color: #f2f2f2;
     flex-direction: row;
@@ -32,21 +36,24 @@
     position: sticky;
     top: 0;
 }
-.button{
+
+.button {
     text-align: center;
     padding: 5px 15px;
     color: #333;
     border: #ccc;
     background-color: #f2f2f2;
 }
-.button:hover{
+
+.button:hover {
     background-color: #DCDCDC;
 }
-.panelGroup{
+
+.panelGroup {
     display: flex;
     flex-direction: column;
     position: relative;
-    top:50px;
+    top: 50px;
     left: -150px;
     text-align: center;
     height: 30px;
@@ -56,6 +63,7 @@
     border: #ccc;
     background-color: #f2f2f2;
 }
-.panelGroup:hover{
+
+.panelGroup:hover {
     background-color: #DCDCDC;
 }

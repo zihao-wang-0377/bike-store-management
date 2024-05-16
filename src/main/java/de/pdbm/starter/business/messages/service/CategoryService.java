@@ -24,11 +24,13 @@ public class CategoryService implements Serializable {
         query.setMaxResults(size);
         return query.getResultList();
     }
+
     public Category findByCategoryName(String categoryName) {
         TypedQuery<Category> query = em.createQuery("select c from Category c where c.categoryName = :categoryName", Category.class);
         query.setParameter("categoryName", categoryName);
         return query.getSingleResult();
     }
+
     public long getCategoryCount() {
         return em.createQuery("select count(c) from Category c", Long.class).getSingleResult();
     }

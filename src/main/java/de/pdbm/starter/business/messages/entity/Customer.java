@@ -17,16 +17,12 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
-
     private String city;
-
 
     private String email;
 
-
     @Column(name = "first_name")
     private String firstname;
-
 
     @Column(name = "last_name")
     private String lastname;
@@ -39,8 +35,10 @@ public class Customer {
 
     @Column(name = "zip_code")
     private String zipcode;
+
     @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Order> orders = new HashSet<>();
+
     public Customer(String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
         this.city = city;
         this.email = email;

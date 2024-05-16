@@ -10,15 +10,16 @@
         Kategeorietabelle
     </ui:define>
     <ui:define name="content">
-        <h:form immediate = "true">
+        <h:form immediate="true">
             <h1>Kunden</h1>
             <div style="margin-bottom: 20px">
-                <h:outputLabel value="Nach Nachnamen suchen: " for="lastname" />
+                <h:outputLabel value="Nach Nachnamen suchen: " for="lastname"/>
                 <h:inputText id="lastname" value="#{customerController.lastName}">
                     <f:ajax event="keyup" render="customerTable" listener="#{customerController.searchByLastName}"/>
                 </h:inputText>
             </div>
-            <h:dataTable id="customerTable" value="#{customerController.customers}" var="customer" styleClass="order-table">
+            <h:dataTable id="customerTable" value="#{customerController.customers}" var="customer"
+                         styleClass="order-table">
                 <h:column>
                     <f:facet name="header">Vorname</f:facet>
                     #{customer.firstname}
@@ -48,10 +49,12 @@
                     #{customer.zipcode}
                 </h:column>
                 <h:column>
-                    <h:commandButton id="detail" styleClass="viewButton" action="#{customerController.showDetails(customer)}">
-                        <f:ajax execute="@this" render="detail" />
+                    <h:commandButton id="detail" styleClass="viewButton"
+                                     action="#{customerController.showDetails(customer)}">
+                        <f:ajax execute="@this" render="detail"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton" action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
 
@@ -59,10 +62,10 @@
                 </h:column>
             </h:dataTable>
         </h:form>
-        <h:messages globalOnly="true" showDetail="true" showSummary="true" />
+        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
 
         <h:form styleClass="button-container" id="totalRecordsForm">
-            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge" />
+            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>

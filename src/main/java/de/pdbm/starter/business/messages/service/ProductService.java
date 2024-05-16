@@ -17,16 +17,16 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class ProductService implements Serializable {
-    @PersistenceContext (type = TRANSACTION)
+    @PersistenceContext(type = TRANSACTION)
     EntityManager em;
 
-    public void save(Product product){
+    public void save(Product product) {
         em.persist(product);
     }
 
-    public List<Product> findPaginated(int page, int size){
+    public List<Product> findPaginated(int page, int size) {
         TypedQuery<Product> query = em.createQuery("select c from Product c", Product.class);
-        query.setFirstResult((page -1) * size);
+        query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
@@ -36,7 +36,7 @@ public class ProductService implements Serializable {
         return em.find(Product.class, id);
     }
 
-    public long getProductCount(){
+    public long getProductCount() {
         return em.createQuery("select count(c) from Product c", Long.class).getSingleResult();
     }
 
@@ -66,22 +66,23 @@ public class ProductService implements Serializable {
         List<Long> referencedProductIds = this.getReferencedProductId(product);
 
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Fehler", ": das Produkt ist referenced by diese Order" + referencedProductIds + "auf null bevor Sie es löschen: " ));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "Fehler", ": das Produkt ist referenced by diese Order" + referencedProductIds + "auf null bevor Sie es löschen: "));
 
-            em.remove(product);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Erfolg", "Produkt erfolgreich gelöscht."));
+        em.remove(product);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Erfolg", "Produkt erfolgreich gelöscht."));
 
     }
-    public List<Long> getReferencedProductId(Product product){
+
+    public List<Long> getReferencedProductId(Product product) {
         TypedQuery<Long> query1 = em.createQuery(
-                "select s.stockPk FROM Stock s where s.stockPk.product_id = :product",Long.class
+                "select s.stockPk FROM Stock s where s.stockPk.product_id = :product", Long.class
         );
         query1.setParameter("product", product.getId());
         List<Long> result1 = query1.getResultList();
         TypedQuery<Long> query2 = em.createQuery(
-                "select o.orderItemPk FROM OrderItem o where o.product = :product",Long.class
+                "select o.orderItemPk FROM OrderItem o where o.product = :product", Long.class
         );
 
         query2.setParameter("product", product);

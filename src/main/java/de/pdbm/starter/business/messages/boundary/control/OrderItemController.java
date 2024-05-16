@@ -33,12 +33,9 @@ public class OrderItemController implements Serializable {
     @ForeignKeyExists(entity = Order.class, customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
 
-
     private BigDecimal discount;
 
-
     private BigDecimal price;
-
 
     private Integer quantity;
 
