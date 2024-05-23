@@ -1,0 +1,12 @@
+- Gute ReadMe +
+- alte Branches nicht gelöscht -
+- Formatierung noch immer inkonsistent (Leerzeichen)! -
+- Dateien im .idea Ordner unschön im Git -
+
+- Sie ändern immer noch die produktive Datenbank: hibernate.hbm2ddl.auto=update
+- Defaults (PersistenceContextType=TRANSACTION) sollten Sie nicht setzen
+- BrandService persistiert ohne Transaktion
+- Fremdschlüssel gibt es immer in der DB wg C in ACID
+- LocalDate kann JSF automatisch, kein Konvertierer nötig
+- keine planung-3.txt, reflexion-3.txt
+Bewertung: 72%
