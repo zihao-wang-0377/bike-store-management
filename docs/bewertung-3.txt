@@ -9,4 +9,5 @@
 - Fremdschlüssel gibt es immer in der DB wg C in ACID
 - LocalDate kann JSF automatisch, kein Konvertierer nötig
 - keine planung-3.txt, reflexion-3.txt
-Bewertung: 72%
+- Branch iteration3: Punkte aktualisiert: 72% -> 80%
+Bewertung: 80%
