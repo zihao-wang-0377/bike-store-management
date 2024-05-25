@@ -1,12 +1,17 @@
 package de.pdbm.starter.business.messages.entity;
 
 
+import de.pdbm.starter.business.messages.boundary.control.ForeignKeyExists;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -22,7 +27,7 @@ public class Order {
     private LocalDate orderDate;
 
     @Column(name = "order_status")
-    private Integer oderStatus;
+    private Integer orderStatus;
 
     @Column(name = "required_date")
     private LocalDate requiredDate;
@@ -35,17 +40,24 @@ public class Order {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn (name = "staff_id")
+    @JoinColumn(name = "staff_id")
     private Staff staff;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @OneToMany(
+            cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
+            mappedBy = "order"
+    )
+    private Set<OrderItem> orderItems = new HashSet<>();
+
+
     public Order(Integer id, LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.id = id;
         this.orderDate = orderDate;
-        this.oderStatus = oderStatus;
+        this.orderStatus = oderStatus;
         this.requiredDate = requiredDate;
         this.shippedDate = shippedDate;
         this.customer = customer;
@@ -53,9 +65,9 @@ public class Order {
         this.store = store;
     }
 
-    public Order(LocalDate orderDate, Integer oderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
+    public Order(LocalDate orderDate, Integer orderStatus, LocalDate requiredDate, LocalDate shippedDate, Customer customer, Staff staff, Store store) {
         this.orderDate = orderDate;
-        this.oderStatus = oderStatus;
+        this.orderStatus = orderStatus;
         this.requiredDate = requiredDate;
         this.shippedDate = shippedDate;
         this.customer = customer;
@@ -105,12 +117,12 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Integer getOderStatus() {
-        return oderStatus;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOderStatus(Integer oderStatus) {
-        this.oderStatus = oderStatus;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public LocalDate getRequiredDate() {
@@ -143,5 +155,13 @@ public class Order {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

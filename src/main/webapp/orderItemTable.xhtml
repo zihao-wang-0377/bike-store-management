@@ -5,47 +5,56 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Bestellpositionstabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderItemController.navigateToHomePage()}"
-                             styleClass="back-button"/>
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Bestellpositionstabelle
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h1>Bestellpositionen</h1>
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Bestellnummer suchen: " for="orderId"/>
+                <h:inputText id="orderId" value="#{orderItemController.orderId}">
+                    <f:ajax event="keyup" render="orderItemTable" listener="#{orderItemController.searchByOrderId}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="orderItemTable" value="#{orderItemController.orderItems}" var="orderItem"
+                         styleClass="order-table">
+                <h:column>
+                    <f:facet name="header">Bestellnummer</f:facet>
+                    <h:outputText value="#{orderItem.orderId}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Produkt-ID</f:facet>
+                    <h:outputText value="#{orderItem.productId}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Listenpreis</f:facet>
+                    <h:outputText value="#{orderItem.price}">
+                        <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Rabatte</f:facet>
+                    <h:outputText value="#{orderItem.discount}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Anzahl</f:facet>
+                    <h:outputText value="#{orderItem.quantity}"/>
+                </h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
+                    <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{orderItemController.deleteOrderItemRecord(orderItem)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
         </h:form>
-        <h1>Bestellpositionen</h1>
-        <h:dataTable value="#{orderItemController.orderItems}" var="orderItem" styleClass="order-table">
-            <h:column>
-                <f:facet name="header">BestellpositionID</f:facet>
-                <h:outputText value="#{orderItem.itemId}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Bestellnummer</f:facet>
-                <h:outputText value="#{orderItem.orderId}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Rabatte</f:facet>
-                <h:outputText value="#{orderItem.discount}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">ListenPreis</f:facet>
-                <h:outputText value="#{orderItem.price}">
-                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Anzahl</f:facet>
-                <h:outputText value="#{orderItem.quantity}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">ProduktID</f:facet>
-                <h:outputText value="#{orderItem.productId}"/>
-            </h:column>
-        </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{orderItemController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{orderItemController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
@@ -78,6 +87,6 @@
                 <h:commandButton value="Gehen" action="#{orderItemController.goToPage}"/>
             </div>
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

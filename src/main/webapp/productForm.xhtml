@@ -5,15 +5,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Produktformular</title>
-        <link rel="stylesheet" type="text/css" href="css/form.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{productForm.navigateToHomePage()}" styleClass="back-button"/>
-        </h:form>
+<ui:composition template="/template/formTemplate.xhtml">
+    <ui:define name="title">
+        Produktformular
+    </ui:define>
+    <ui:define name="content">
         <h1>Neues Produkt anlegen</h1>
         <h:form>
             <h:outputLabel for="name" value="Name: "/>
@@ -25,14 +21,16 @@
             <h:outputLabel for="description" value="ModellJahr: "/>
             <h:inputTextarea id="description" value="#{productController.year}"/>
             <br></br>
-            <h:outputLabel for="brandId" value="MarkeNummer: "/>
-            <h:inputTextarea id="brandId" value="#{productController.brandId}"/>
-            <br></br>
-            <h:outputLabel for="categoryId" value="CategorieNummer: "/>
-            <h:inputTextarea id="categoryId" value="#{productController.categoryId}"/>
-            <br></br>
+            <h:outputLabel value="Marke Name: "/>
+            <h:selectOneMenu id="brandName" value="#{productController.brandName}">
+                <f:selectItems value="#{brandController.brandList}"/>
+            </h:selectOneMenu><br/>
+            <h:outputLabel value="Kategorie Name: "/>
+            <h:selectOneMenu id="categoryName" value="#{productController.categoryName}">
+                <f:selectItems value="#{categoryController.categoryList}"/>
+            </h:selectOneMenu><br/>
             <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="save-button"/>
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

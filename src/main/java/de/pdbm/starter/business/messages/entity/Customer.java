@@ -1,6 +1,13 @@
 package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -28,6 +35,9 @@ public class Customer {
 
     @Column(name = "zip_code")
     private String zipcode;
+
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Order> orders = new HashSet<>();
 
     public Customer(String city, String email, String firstname, String lastname, String phone, String state, String street, String zipcode) {
         this.city = city;
@@ -115,5 +125,13 @@ public class Customer {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

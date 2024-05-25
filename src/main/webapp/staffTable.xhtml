@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Mitarbeiter
+    </ui:define>
+    <ui:define name="tablecss">
+        <link rel="stylesheet" type="text/css" href="css/table.css"/>
+
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h1>Mitarbeiter</h1>
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Nachnamen suchen: " for="lastname"/>
+                <h:inputText id="lastname" value="#{staffController.lastName}">
+                    <f:ajax event="keyup" render="staffTable" listener="#{staffController.searchByLastName}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="staffTable" value="#{staffController.staffs}" var="staff" styleClass="order-table">
+                <h:column>
+                    <f:facet name="header">Vorname</f:facet>
+                    <h:outputText value="#{staff.firstName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nachname</f:facet>
+                    <h:outputText value="#{staff.lastName}"/>
+                </h:column>
+                <h:column>
+                    <h:commandButton styleClass="viewButton" action="#{staffController.showDetails(staff)}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton" action="#{staffController.deleteStaffRecord(staff)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{staffController.totalRecords} Einträge"/>
+            <h:selectOneMenu styleClass="select" value="#{staffController.pageSize}">
+                <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
+                <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
+                <f:selectItem itemValue="20" itemLabel="20 Einträge/Seite"/>
+                <f:selectItem itemValue="50" itemLabel="50 Einträge/Seite"/>
+                <f:ajax event="change" execute="@this" render="@all"/>
+            </h:selectOneMenu>
+            <div class="pagination">
+                <h:commandButton styleClass="firstPage" action="#{staffController.firstPage}"
+                                 disabled="#{staffController.currentPage == 1}"/>
+                <h:commandButton styleClass="previous" action="#{staffController.prevPage}"
+                                 disabled="#{staffController.currentPage == 1}"/>
+                <ui:repeat value="#{staffController.pageNumbers}" var="pageNum">
+                    <h:commandLink styleClass="repeat" value="#{pageNum}"
+                                   action="#{staffController.setPage(pageNum)}"
+                                   rendered="#{pageNum != staffController.currentPage}"/>
+                    <h:outputText styleClass="current" value="#{pageNum} "
+                                  rendered="#{pageNum == staffController.currentPage}"/>
+                </ui:repeat>
+                <h:outputText styleClass="rest" value="..."
+                              rendered="#{staffController.currentPage + 3 lt staffControllerController.totalPages}"/>
+                <h:commandButton styleClass="next" action="#{staffController.nextPage}"
+                                 disabled="#{staffController.currentPage == staffController.totalPages}"/>
+                <h:commandButton styleClass="lastPage" action="#{staffController.lastPage}"
+                                 disabled="#{staffController.currentPage == staffController.totalPages}"/>
+            </div>
+            <div class="goto">
+                <h:outputLabel value="Zur Seite"/>
+                <h:inputText styleClass="text" value="#{staffController.currentPage}" size="3"/>
+                <h:commandButton value="Gehen" action="#{staffController.goToPage}"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

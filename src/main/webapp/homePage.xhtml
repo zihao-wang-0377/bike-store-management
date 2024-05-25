@@ -8,24 +8,111 @@
 <f:view>
     <h:head>
         <title>Startseite</title>
-        <link rel="stylesheet" type="text/css" href="css/homepage.css"/>
+        <link rel="stylesheet" type="text/css" href="css/table.css"/>
+        <link rel="stylesheet" type="text/css" href="css/header.css"/>
     </h:head>
     <h:body>
-        <h:form>
-            <h1>Anzeigen</h1>
-            <h:commandButton value="Produkttabelle" action="productTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Kundentabelle" action="customerTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Bestellungstabelle" action="orderTable?faces-redirect=true" styleClass="button"/>
-            <h:commandButton value="Bestellpositionstabelle" action="orderItemTable?faces-redirect=true"
-                             styleClass="button"/>
-<!--            <br></br>-->
-<!--            <h1>Anlegen</h1>-->
-<!--            <h:commandButton value="Produktformular" action="productForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Kundenformular" action="customerForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Bestellformular" action="orderForm?faces-redirect=true" styleClass="button"/>-->
-<!--            <h:commandButton value="Bestellpositionsformular" action="orderItemForm?faces-redirect=true"-->
-<!--                             styleClass="button"/>-->
+        <h:form immediate="true">
+            <div class="header">
+                <h:commandButton action="homePage?faces-redirect=true" styleClass="homePage"/>
+                <h:commandButton styleClass="button" value="Kunden"
+                                 actionListener="#{customerController.incrementClicks}">
+                    <f:ajax execute="@this" render="customersPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="customersPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{customerController.buttonDisplayed}"
+                                     action="customerTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{customerController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="customerForm?faces-redirect=true"/>
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="Produkte"
+                                 actionListener="#{productController.incrementClicks}">
+                    <f:ajax execute="@this" render="productesPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="productesPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{productController.buttonDisplayed}"
+                                     action="productTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{productController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="productForm?faces-redirect=true"/>
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="Bestellungen"
+                                 actionListener="#{orderController.incrementClicks}">
+                    <f:ajax execute="@this" render="ordersPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="ordersPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{orderController.buttonDisplayed}"
+                                     action="orderTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{orderController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="orderForm?faces-redirect=true"/>
+                </h:panelGroup>
+                <h:commandButton styleClass="button" value="BestellPositionen"
+                                 actionListener="#{orderItemController.incrementClicks}">
+                    <f:ajax execute="@this" render="orderItemsPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="orderItemsPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{orderItemController.buttonDisplayed}"
+                                     action="orderItemTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{orderItemController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="orderItemForm?faces-redirect=true"/>
+                </h:panelGroup>
+
+                <h:commandButton styleClass="button" value="Marken" actionListener="#{brandController.incrementClicks}">
+                    <f:ajax execute="@this" render="BrandPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="BrandPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{brandController.buttonDisplayed}"
+                                     action="brandTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{brandController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="brandForm?faces-redirect=true"/>
+                </h:panelGroup>
+
+                <h:commandButton styleClass="button" value="Kategorien"
+                                 actionListener="#{categoryController.incrementClicks}">
+                    <f:ajax execute="@this" render="CategoryPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="CategoryPanel">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{categoryController.buttonDisplayed}"
+                                     action="categoryTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{categoryController.buttonDisplayed and (request.isUserInRole('ADMIN') or request.isUserInRole('USER1'))}"
+                                     action="categoryForm?faces-redirect=true"/>
+                </h:panelGroup>
+
+                <h:commandButton styleClass="button" value="Mitarbeiter"
+                                 actionListener="#{staffController.incrementClicks}"
+                                 rendered="#{request.isUserInRole('ADMIN')}">
+                    <f:ajax execute="@this" render="StaffPanel"/>
+                </h:commandButton>
+                <h:panelGroup id="StaffPanel" rendered="#{request.isUserInRole('ADMIN')}">
+                    <h:commandButton styleClass="panelGroup" value="Tabelle anzeigen"
+                                     rendered="#{staffController.buttonDisplayed}"
+                                     action="staffTable?faces-redirect=true"/>
+                    <h:commandButton styleClass="panelGroup" value="Neue Einträge erstellen"
+                                     rendered="#{staffController.buttonDisplayed}"
+                                     action="staffForm?faces-redirect=true"/>
+                </h:panelGroup>
+
+                <h:commandButton styleClass="user" action="#{logout.logout}"/>
+            </div>
         </h:form>
+        <div style="display: flex; justify-content: center; margin-top: 20px; height: 650px;">
+            <img src="svg/bike.jpg" alt="bike"/>
+        </div>
+        <div style="height: 40px; display: flex; align-items: center; justify-content: space-between; margin-top: 30px; background-color: #f2f2f2;">
+            <div style="margin: 15px;">&copy; Bike Store</div>
+            <div style="margin: 15px;">Gruppe 10 - Software Engineering Projekt SS2024</div>
+        </div>
     </h:body>
 </f:view>
 </html>

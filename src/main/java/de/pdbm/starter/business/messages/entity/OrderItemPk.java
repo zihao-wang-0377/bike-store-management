@@ -38,4 +38,25 @@ public class OrderItemPk implements Serializable {
     public void setOrder_id(Integer order_id) {
         this.order_id = order_id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItemPk that = (OrderItemPk) o;
+        return Objects.equals(item_id, that.item_id) && Objects.equals(order_id, that.order_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item_id, order_id);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItemPk{" +
+                "orderId=" + order_id +
+                ", itemId=" + item_id +
+                '}';
+    }
 }

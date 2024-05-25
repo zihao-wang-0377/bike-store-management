@@ -2,20 +2,32 @@ package de.pdbm.starter.business.messages.boundary.control;
 
 import de.pdbm.starter.business.messages.service.CustomerService;
 import de.pdbm.starter.business.messages.entity.Customer;
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.*;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class CustomerController implements Serializable {
     @Inject
     CustomerService customerService;
+
+    @Inject
+    Validator validator;
 
     private Integer customerId;
 
@@ -29,20 +41,19 @@ public class CustomerController implements Serializable {
     private String firstName;
 
     @NotBlank(message = "Nachname darf nicht null sein")
-
     private String lastName;
 
     @Size(min = 0, message = "Telephone Nummer kann leer sein")
-    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein")
+    @Pattern(regexp = "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$", message = "Invalid telephone number format bitte geben Sie diese Format  (559) 628-2239 ein,achten Sie bitte die leerstelle dazwischen. ")
     private String phone;
 
-    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung")
+    @Pattern(regexp = "^(BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH)$", message = "Bitte geben Sie eine deutsche Staat Abkürzung,gültige Staat sind BW|BY|BE|BB|HB|HH|HE|MV|NI|NW|RP|SL|SN|ST|SH|TH ")
     private String state;
 
-    @Pattern(regexp = "^\\d+\\s.*$" ,message = "bitte geben sie Zahl zuerst ein")
+    @Pattern(regexp = "^\\d+\\s.*$", message = "Straße:bitte geben sie Zahl zuerst ein,gültige Format sind z.b 74 jahnstrasse")
     private String street;
 
-    @Pattern(regexp = "^\\d{5}$",message = "bitte geben Sie eine gültige Postleitzahl")
+    @Pattern(regexp = "^\\d{5}$", message = "bitte geben Sie eine gültige Postleitzahl wie z.b 38302")
     private String zipCode;
 
     private List<Customer> customerList;
@@ -52,6 +63,10 @@ public class CustomerController implements Serializable {
     private int pageSize = 10;
 
     private long totalRecords;
+
+    private int clicks;
+
+    private Customer selectedCustomer;
 
     // Konstruktor
     public CustomerController() {
@@ -69,8 +84,25 @@ public class CustomerController implements Serializable {
     }
 
     // Objekt erstellen und speichern
-    public void save(){
-        customerService.save(new Customer( city,  email,  firstName,  lastName,  phone,  state,  street,  zipCode));
+    public void save() {
+        Customer customer = new Customer(city, email, firstName, lastName, phone, state, street, zipCode);
+        Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Customer> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+        customerService.save(customer);
+    }
+
+    public boolean isButtonDisplayed() {
+        return clicks % 2 == 1;
+    }
+
+    public void incrementClicks() {
+        clicks++;
     }
 
     // Paginierung-Methoden
@@ -89,28 +121,28 @@ public class CustomerController implements Serializable {
         return customerList;
     }
 
-    public void loadCustomerList(){
+    public void loadCustomerList() {
         this.customerList = customerService.findPaginated(currentPage, pageSize);
     }
 
-    public void nextPage(){
+    public void nextPage() {
         currentPage++;
         loadCustomerList();
     }
 
-    public void prevPage(){
-        if(currentPage > 0){
+    public void prevPage() {
+        if (currentPage > 0) {
             currentPage--;
             loadCustomerList();
-       }
+        }
     }
 
-    public void firstPage(){
+    public void firstPage() {
         currentPage = 1;
         loadCustomerList();
     }
 
-    public void lastPage(){
+    public void lastPage() {
         currentPage = getTotalPages();
         loadCustomerList();
     }
@@ -124,8 +156,8 @@ public class CustomerController implements Serializable {
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
 
-    public void setPage(int page){
-        if(page >= 1 && page <= getTotalPages()){
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
             currentPage = page;
             loadCustomerList();
         }
@@ -152,10 +184,10 @@ public class CustomerController implements Serializable {
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadCustomerList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadCustomerList();
         } else {
@@ -236,8 +268,29 @@ public class CustomerController implements Serializable {
         this.zipCode = zipCode;
     }
 
-    // Navigation fuer Zurueck Button
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
+    public Customer getSelectedCustomer() {
+        return selectedCustomer;
+    }
+
+    public String showDetails(Customer selectedCustomer) {
+        this.selectedCustomer = selectedCustomer;
+        return "customerDetail.xhtml?faces-redirect=true";
+    }
+
+    // Suche nach Nachnamen
+    public void searchByLastName() {
+        this.customerList = customerService.findByLastName(lastName);
+    }
+
+    // Eintrag loeschen
+    public void deleteCustomerRecord(Customer customer) {
+        customerService.delete(customer);
+        loadCustomerList();
+        getTotalRecords();
+    }
+
+    public String updateCustomerRecord() {
+        customerService.update(selectedCustomer);
+        return "customerTable.xhtml?faces-redirect=true";
     }
 }

@@ -5,49 +5,48 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Produkttabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{productController.navigateToHomePage()}"
-                             styleClass="back-button"/>
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Produkttabelle
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h1>Produkten</h1>
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Name suchen: " for="name"/>
+                <h:inputText id="name" value="#{productController.name}">
+                    <f:ajax event="keyup" render="productTable" listener="#{productController.searchByProductName}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="productTable" value="#{productController.products}" var="product" styleClass="order-tabel">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{product.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Listenpreis</f:facet>
+                    <h:outputText value="#{product.price}">
+                        <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Modelljahr</f:facet>
+                    #{product.modelYear}
+                </h:column>
+                <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
+                    <h:commandButton styleClass="viewButton" action="#{productController.showDetails(product)}">
+                        <f:ajax execute="@form" render="@all"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{productController.deleteProductRecord(product)}">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
         </h:form>
-        <h1>Produkten</h1>
-        <h:dataTable value="#{productController.products}" var="product" styleClass="order-tabel">
-            <h:column>
-                <f:facet name="header">ProduktID</f:facet>
-                #{product.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Listenpreis</f:facet>
-                <!--                #{product.price}-->
-                <h:outputText value="#{product.price}">
-                    <!--                    <f:convertNumber locale="de_DE" type="number" groupingUsed="true" />-->
-                    <f:convertNumber pattern="#,##0.00" locale="de_DE"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Modelljahr</f:facet>
-                #{product.modelYear}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{product.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">MarkeNummer</f:facet>
-                #{product.brand.brandId}
-            </h:column>
-            <h:column>
-                <f:facet name="header">CategorieNummer</f:facet>
-                #{product.category.categoryId}
-            </h:column>
-        </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{productController.totalRecords} Einträge"/>
+        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{productController.totalRecords}  Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{productController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
@@ -79,6 +78,6 @@
                 <h:commandButton value="Gehen" action="#{productController.goToPage}"/>
             </div>
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

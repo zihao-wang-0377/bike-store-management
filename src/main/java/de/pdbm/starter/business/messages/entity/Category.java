@@ -2,6 +2,9 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -13,12 +16,14 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Product> products = new HashSet<>();
+
     // Konstruktor
     public Category() {
     }
 
-    public Category(Integer categoryId, String categoryName) {
-        this.categoryId = categoryId;
+    public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
@@ -37,5 +42,10 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return categoryName;
     }
 }

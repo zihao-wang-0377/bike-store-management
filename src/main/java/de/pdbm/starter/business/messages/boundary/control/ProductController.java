@@ -1,23 +1,31 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.service.BrandService;
 import de.pdbm.starter.business.messages.service.CategoryService;
 import de.pdbm.starter.business.messages.service.ProductService;
 import de.pdbm.starter.business.messages.entity.Brand;
 import de.pdbm.starter.business.messages.entity.Category;
 import de.pdbm.starter.business.messages.entity.Product;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class ProductController implements Serializable {
     @Inject
     ProductService productService;
@@ -28,7 +36,14 @@ public class ProductController implements Serializable {
     @Inject
     CategoryService categoryService;
 
+    @Inject
+    Validator validator;
+
     private Integer productId;
+
+    private String brandName;
+
+    private String categoryName;
 
     @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
@@ -38,7 +53,7 @@ public class ProductController implements Serializable {
     @PositiveOrZero(message = "Jahr kann nicht negativ sein")
     private Integer year;
 
-    @Pattern(regexp = "^[a-zA-Z0-9 ']+ - \\d{4}(\\/\\d{4})?$", message = "Bitte geben Sie nach dieser Format 'Surly Krampus Frameset - 2018' oder 'Electra Girl's Hawaii 1 (20-inch) - 2015/2016' ein")
+    @NotBlank(message = "name kann nicht blank sein")
     private String name;
 
     @ForeignKeyExists(entity = Brand.class, customerMessage = "das BrandId ,das Sie eingegeben haben existiert nicht")
@@ -49,11 +64,20 @@ public class ProductController implements Serializable {
 
     private List<Product> productList;
 
+    @PostConstruct
+    public void init() {
+        selectedProduct = new Product();
+    }
+
     private int currentPage = 1;
 
     private int pageSize = 10;
 
     private long totalRecords;
+
+    private int clicks;
+
+    private Product selectedProduct;
 
     // Konstruktor
     public ProductController() {
@@ -61,9 +85,46 @@ public class ProductController implements Serializable {
 
     // Objekt erstellen und speichern
     public void save() {
-        Brand brand = brandService.findBrandById(brandId);
-        Category category = categoryService.findCategoryById(categoryId);
-        productService.save(new Product(price, year, name, brand, category));
+        Product product = new Product();
+        product.setBrand(brandService.findByName(brandName));
+        product.setPrice(price);
+        product.setName(name);
+        product.setCategory(categoryService.findByCategoryName(categoryName));
+        product.setModelYear(year);
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Product> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+        productService.save(product);
+
+    }
+
+    public boolean isButtonDisplayed() {
+        return clicks % 2 == 1;
+    }
+
+    public void incrementClicks() {
+        clicks++;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     // Paginierung-Methoden
@@ -205,8 +266,29 @@ public class ProductController implements Serializable {
         this.categoryId = categoryId;
     }
 
-    // Navigation fuer Zurueck Button
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
+    public Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public String showDetails(Product selectedProduct) {
+        this.selectedProduct = selectedProduct;
+        return "productDetail.xhtml?faces-redirect=true";
+    }
+
+    // Suche nach Produktnamen
+    public void searchByProductName() {
+        productList = productService.findByProductName(name);
+    }
+
+    // Eintrag loeschen
+    public void deleteProductRecord(Product product) {
+        productService.delete(product);
+        loadProduktList();
+        getTotalRecords();
+    }
+
+    public String updateProductRecord() {
+        productService.update(selectedProduct);
+        return "productTable.xhtml?faces-redirect=true";
     }
 }

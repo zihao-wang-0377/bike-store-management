@@ -1,9 +1,13 @@
 package de.pdbm.starter.business.messages.entity;
 
+import de.pdbm.starter.business.messages.boundary.control.ForeignKeyExists;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -29,6 +33,12 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<OrderItem> orderItem = new HashSet<>();
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Stock> stocks = new HashSet<>();
 
     // Konstruktor
     public Product() {
@@ -89,5 +99,21 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<OrderItem> getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(Set<OrderItem> orderItem) {
+        this.orderItem = orderItem;
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 }

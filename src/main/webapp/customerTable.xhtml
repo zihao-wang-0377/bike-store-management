@@ -5,57 +5,67 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Kundentabelle</title>
-        <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    </h:head>
-    <h:body>
+<ui:composition template="/template/tableTemplate.xhtml">
+    <ui:define name="title">
+        Kategeorietabelle
+    </ui:define>
+    <ui:define name="content">
         <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{customerController.navigateToHomePage()}"
-                             styleClass="back-button"/>
+            <h1>Kunden</h1>
+            <div style="margin-bottom: 20px">
+                <h:outputLabel value="Nach Nachnamen suchen: " for="lastname"/>
+                <h:inputText id="lastname" value="#{customerController.lastName}">
+                    <f:ajax event="keyup" render="customerTable" listener="#{customerController.searchByLastName}"/>
+                </h:inputText>
+            </div>
+            <h:dataTable id="customerTable" value="#{customerController.customers}" var="customer"
+                         styleClass="order-table">
+                <h:column>
+                    <f:facet name="header">Vorname</f:facet>
+                    #{customer.firstname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nachname</f:facet>
+                    #{customer.lastname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{customer.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefonnummer</f:facet>
+                    #{customer.phone}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Straße</f:facet>
+                    #{customer.street}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Stadt</f:facet>
+                    #{customer.city}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Postleitzahl</f:facet>
+                    #{customer.zipcode}
+                </h:column>
+                <h:column>
+                    <h:commandButton id="detail" styleClass="viewButton"
+                                     action="#{customerController.showDetails(customer)}">
+                        <f:ajax execute="@this" render="detail"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="deleteButton"
+                                     action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
+                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                    </h:commandButton>
+
+
+                </h:column>
+            </h:dataTable>
         </h:form>
-        <h1>Kunden</h1>
-        <h:dataTable value="#{customerController.customers}" var="customer" styleClass="order-table">
-            <h:column>
-                <f:facet name="header">KundeID</f:facet>
-                #{customer.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Stadt</f:facet>
-                #{customer.city}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{customer.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Vorname</f:facet>
-                #{customer.firstname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nachname</f:facet>
-                #{customer.lastname}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Telefonnummer</f:facet>
-                #{customer.phone}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Staat</f:facet>
-                #{customer.state}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Straße</f:facet>
-                #{customer.street}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Postleitzahl</f:facet>
-                #{customer.zipcode}
-            </h:column>
-        </h:dataTable>
-        <h:form styleClass="button-container">
-            <h:outputLabel value="Insgesamt #{customerController.totalRecords} Einträge"/>
+        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
+
+        <h:form styleClass="button-container" id="totalRecordsForm">
+            <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>
                 <f:selectItem itemValue="10" itemLabel="10 Einträge/Seite"/>
@@ -88,6 +98,6 @@
                 <h:commandButton value="Gehen" action="#{customerController.goToPage}"/>
             </div>
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

@@ -2,9 +2,9 @@
 
 ## Projektübersicht
 
-* Die Implementierung eines einfachen, deutsch lokalisierten Vertriebsunterstützungssystems für die interne Verwendung in einem Unternehmen. Das Projekt befindet sich derzeit in der zweiten Iteration.
-* Aktueller Stand: In der aktuellen Iteration ist es möglich, Daten aus der vorhandenen Datenbank zu lesen und sie in einer webbasierten Anwendung anzuzeigen. Die Webseite enthält eine tabellarische Darstellung der Daten, die über mehrere Seiten paginiert ist. Benutzer haben die Möglichkeit, zwischen den Seiten zu navigieren und die Anzahl der angezeigten Einträge pro Seite anzupassen.
-* Geplante Funktionen für zukünftige Iterationen: In den kommenden Iterationen werden Funktionen zur Datenmanipulation (Erstellen, Lesen, Aktualisieren, Löschen) implementiert.
+* Die Implementierung eines einfachen, deutsch lokalisierten Vertriebsunterstützungssystems für die interne Verwendung in einem Unternehmen.
+* Das Projekt hat seine dritte Iteration abgeschlossen. Derzeit können die Benutzer nach der Anmeldung im Rahmen ihrer Berechtigungen auf die Daten zugreifen, z. B. kann der Administrator alle Daten einsehen und ändern. USER1 kann auf alle Daten ansehen und bearbeiten außer Mitarbeiterndaten (Staff data) , während USER2 die Daten nur anzeigen und nicht ändern kann.
+* Eine letzte Iteration steht noch aus.
 
 ## Installation und Bedienung
 Für dieses Projekt nutzen wir WildFly 31, Java 21 und Postgres 15. UTF-8 als Zeichen-Codierung.
@@ -12,6 +12,7 @@ Für dieses Projekt nutzen wir WildFly 31, Java 21 und Postgres 15. UTF-8 als Ze
 ## Projektstatus
 1. Iteration (22.03.2024 – 05.04.2024): Einfache Vertriebsunterstützung
 2. Iteration (05.04.2024 – 25.04.2024): Vertriebsunterstützung Bike-Stores
+3. Iteration (25.04.2024 – 16.05.2024): Vertriebsunterstützung Bikes-Stores vervollständigen
 
 ## Zusammenfassung und Ergebnisse aller Iterationen
 
@@ -38,6 +39,10 @@ Das Eingabefeld für das Bestelldatum enthält auf der rechten Seite eine Schalt
 ### Iteration 2 - Vertriebsunterstützung Bike-Stores
 
 Von „bikes-db.sql“ Daten in die Datenbank „bikes“ importieren und den Inhalt der Datenbank im Web-Frontend anzeigen. Die Tabellen werden paginiert dargestellt, sodass Benutzer die Gesamtzahl der Zeilen sehen, die Anzahl der Zeilen pro Seite auswählen und zu einer bestimmten Seite springen können.
+
+### Iteration 3 - Vertriebsunterstützung Bikes-Stores vervollständigen
+
+Die Implementierung von Funktionen zur Datenmanipulation (Erstellen, Lesen, Aktualisieren, Löschen) wurde abgeschlossen. Benutzer können neue Einträge hinzufügen, vorhandene Einträge bearbeiten und löschen. Die Benutzeroberfläche wurde verbessert, um die Benutzerfreundlichkeit zu erhöhen. Jede Tabelle verfügt über eine entsprechende Suchfunktion, die das Auffinden von Daten erleichtert. Das System unterstützt die Benutzerauthentifizierung und vergibt auf Basis von Master- und Detail-Seiten entsprechende Datenzugriffsrechte an entsprechende Benutzer. 
 
 ## Autoren
 * Zihao Wang

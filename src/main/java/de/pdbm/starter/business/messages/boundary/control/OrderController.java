@@ -8,18 +8,24 @@ import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Order;
 import de.pdbm.starter.business.messages.entity.Staff;
 import de.pdbm.starter.business.messages.entity.Store;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.*;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class OrderController implements Serializable {
     @Inject
     OrderService orderService;
@@ -33,12 +39,15 @@ public class OrderController implements Serializable {
     @Inject
     CustomerService customerService;
 
+    @Inject
+    private Validator validator;
+
     private Integer orderId;
 
     @PastOrPresent(message = "das Bestelldatum muss in der Vergangheit oder Gegenwart sein")
     private LocalDate orderDate; // hier kann man eine heute funktion schreiben
 
-    @Pattern(regexp = "^[1]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt). sein,aber am Anfang soll es 1 heißt es erst bestellt")
+    @Pattern(regexp = "^[1234]$", message = "Order status muss unter 1(bestellt), 2(versendet), 3(zustellt),  4(zugestellt) sein")
     private String orderStatus; // hier schreibe ich das als String um Regex besser zu schreiben ansonst so man ein Validator schreiben
 
     @Future(message = "Erwartetes Lieferdatum muss in der Zukunft sein")
@@ -46,13 +55,14 @@ public class OrderController implements Serializable {
 
     private LocalDate shippedDate;
 
-    @ForeignKeyExists(entity = Customer.class,customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    @ForeignKeyExists(entity = Customer.class, customerMessage = "KundeId,die Sie eingegeben haben existiert nicht")
+    @NotNull(message = "customerId kann nicht null sein")
     private Integer customerId;
 
-    @ForeignKeyExists(entity = Staff.class,customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
+    @ForeignKeyExists(entity = Staff.class, customerMessage = "staffId,die Sie eingegeben haben existiert nicht")
     private Integer staffId;
 
-    @ForeignKeyExists(entity = Store.class,customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
+    @ForeignKeyExists(entity = Store.class, customerMessage = "storeId,die Sie eingegeben haben existiert nicht")
     private Integer storeId;
 
     private List<Order> orderList;
@@ -63,17 +73,51 @@ public class OrderController implements Serializable {
 
     private long totalRecords;
 
+    private int clicks;
+
+    private Order selectedOrder;
+
+    public Order getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void setSelectedOrder(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+
+    public void selectOrder(Order order) {
+        this.selectedOrder = order;
+        System.out.println("Order selected: " + order.getId());
+    }
+
     // Konstruktor
     public OrderController() {
     }
 
     // Objekt erstellen und speichern
-    public void save(){
+    public void save() {
         Integer oderStatusInt = Integer.parseInt(orderStatus);
         Customer customer = customerService.findById(customerId);
         Staff staff = staffService.findStaffById(staffId);
         Store store = storeService.findStoreById(storeId);
-        orderService.save(new Order( orderDate,  oderStatusInt,  requiredDate,  shippedDate,  customer,  staff,  store));
+        Order order = new Order(orderDate, oderStatusInt, requiredDate, shippedDate, customer, staff, store);
+        Set<ConstraintViolation<Order>> violations = validator.validate(order);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Order> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+        orderService.save(order);
+    }
+
+    public boolean isButtonDisplayed() {
+        return clicks % 2 == 1;
+    }
+
+    public void incrementClicks() {
+        clicks++;
     }
 
     // Paginierung-Methoden
@@ -92,28 +136,28 @@ public class OrderController implements Serializable {
         return orderList;
     }
 
-    public void loadOrderList(){
+    public void loadOrderList() {
         this.orderList = orderService.findPaginated(currentPage, pageSize);
     }
 
-    public void nextPage(){
+    public void nextPage() {
         currentPage++;
         loadOrderList();
     }
 
-    public void prevPage(){
-        if(currentPage > 0){
+    public void prevPage() {
+        if (currentPage > 0) {
             currentPage--;
             loadOrderList();
         }
     }
 
-    public void firstPage(){
+    public void firstPage() {
         currentPage = 1;
         loadOrderList();
     }
 
-    public void lastPage(){
+    public void lastPage() {
         currentPage = getTotalPages();
         loadOrderList();
     }
@@ -122,8 +166,8 @@ public class OrderController implements Serializable {
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
 
-    public void setPage(int page){
-        if(page >= 1 && page <= getTotalPages()){
+    public void setPage(int page) {
+        if (page >= 1 && page <= getTotalPages()) {
             currentPage = page;
             loadOrderList();
         }
@@ -150,10 +194,10 @@ public class OrderController implements Serializable {
     }
 
     public void goToPage() {
-        if(currentPage < 1) {
+        if (currentPage < 1) {
             currentPage = 1;
             loadOrderList();
-        } else if(currentPage > getTotalPages()) {
+        } else if (currentPage > getTotalPages()) {
             currentPage = getTotalPages();
             loadOrderList();
         } else {
@@ -231,8 +275,35 @@ public class OrderController implements Serializable {
         this.storeId = storeId;
     }
 
-    // Navigation fuer Zurueck Button
-    public String navigateToHomePage() {
-        return "homePage.xhtml?faces-redirect=true";
+    // Suche nach Bestellstatus
+    public void searchByOrderStatus() {
+        orderList = orderService.findByOrderStatus(Integer.parseInt(orderStatus));
+    }
+
+    // Eintrag loeschen
+    public void deleteOrderRecord(Order order) {
+        orderService.delete(order);
+        loadOrderList();
+        getTotalRecords();
+    }
+
+    public String showDetails(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+        return "orderDetail.xhtml?faces-redirect=true";
+    }
+
+    public void saveOrder() {
+        Set<ConstraintViolation<Order>> violations = validator.validate(selectedOrder);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Order> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+
+        orderService.update(selectedOrder);
+        System.out.println("Order saved: " + selectedOrder.getId());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellung bearbeitet", "Bestellung " + selectedOrder.getId() + " erfolgreich gespeichert."));
     }
 }

@@ -1,28 +1,32 @@
 package de.pdbm.starter.business.messages.service;
 
+import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.entity.Product;
 import jakarta.ejb.Stateless;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class ProductService implements Serializable {
-    @PersistenceContext (type = TRANSACTION)
+    @PersistenceContext(type = TRANSACTION)
     EntityManager em;
 
-    public void save(Product product){
+    public void save(Product product) {
         em.persist(product);
     }
 
-    public List<Product> findPaginated(int page, int size){
+    public List<Product> findPaginated(int page, int size) {
         TypedQuery<Product> query = em.createQuery("select c from Product c", Product.class);
-        query.setFirstResult((page -1) * size);
+        query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
@@ -32,7 +36,7 @@ public class ProductService implements Serializable {
         return em.find(Product.class, id);
     }
 
-    public long getProductCount(){
+    public long getProductCount() {
         return em.createQuery("select count(c) from Product c", Long.class).getSingleResult();
     }
 
@@ -49,8 +53,46 @@ public class ProductService implements Serializable {
         return query.getSingleResult();
     }
 
+    public List<Product> findByProductName(String name) {
+        TypedQuery<Product> query = em.createQuery("select p from Product p where LOWER(p.name) like LOWER(:name)", Product.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
     public void delete(Product product) {
+        if (!em.contains(product)) {
+            product = em.merge(product);
+        }
+        List<Long> referencedProductIds = this.getReferencedProductId(product);
+
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "Fehler", ": das Produkt ist referenced by diese Order" + referencedProductIds + "auf null bevor Sie es löschen: "));
+
         em.remove(product);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Erfolg", "Produkt erfolgreich gelöscht."));
+
+    }
+
+    public List<Long> getReferencedProductId(Product product) {
+        TypedQuery<Long> query1 = em.createQuery(
+                "select s.stockPk FROM Stock s where s.stockPk.product_id = :product", Long.class
+        );
+        query1.setParameter("product", product.getId());
+        List<Long> result1 = query1.getResultList();
+        TypedQuery<Long> query2 = em.createQuery(
+                "select o.orderItemPk FROM OrderItem o where o.product = :product", Long.class
+        );
+
+        query2.setParameter("product", product);
+        List<Long> result2 = query2.getResultList();
+
+        // Zusammenführen der Ergebnisse
+        List<Long> combinedResults = new ArrayList<>(result1);
+        combinedResults.addAll(result2);
+
+        return combinedResults;
     }
 
     public void deleteById(Integer id) {

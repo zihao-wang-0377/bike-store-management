@@ -2,6 +2,9 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "staffs")
 public class Staff {
@@ -22,23 +25,33 @@ public class Staff {
 
     private String phone;
 
-    private Integer managerId;
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Staff manager;
 
-    private Integer storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @OneToMany(mappedBy = "manager", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Column(name = "manager_id")
+    private Set<Staff> staffs;
+
+    @OneToMany(mappedBy = "staff", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Order> orders = new HashSet<>();
 
     // Konstruktor
     public Staff() {
     }
 
-    public Staff(Integer staffId, Integer active, String email, String firstName, String lastName, String phone, Integer managerId, Integer storeId) {
-        this.staffId = staffId;
+    public Staff(Integer active, String email, String firstName, String lastName, String phone, Staff manager, Store store) {
         this.active = active;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-        this.managerId = managerId;
-        this.storeId = storeId;
+        this.manager = manager;
+        this.store = store;
     }
 
     // Getter und Setter
@@ -90,19 +103,20 @@ public class Staff {
         this.phone = phone;
     }
 
-    public Integer getManagerId() {
-        return managerId;
+
+    public Staff getManager() {
+        return manager;
     }
 
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
+    public void setManager(Staff manager) {
+        this.manager = manager;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

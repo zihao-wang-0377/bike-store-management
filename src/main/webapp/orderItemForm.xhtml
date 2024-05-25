@@ -5,15 +5,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:head>
-        <title>Bestellpositionsformular</title>
-        <link rel="stylesheet" type="text/css" href="css/form.css"/>
-    </h:head>
-    <h:body>
-        <h:form immediate="true">
-            <h:commandButton value="Zurück" action="#{orderItemForm.navigateToHomePage()}" styleClass="back-button"/>
-        </h:form>
+<ui:composition template="/template/formTemplate.xhtml">
+    <ui:define name="title">
+        Bestellpositionsformular
+    </ui:define>
+    <ui:define name="content">
         <h1>Neue Bestellposition anlegen</h1>
         <h:form>
             <h:outputLabel for="orderItemID" value="BestellPositionnummer: "/>
@@ -35,18 +31,7 @@
             <h:inputText id="ProduktID" value="#{orderItemController.productId}"/>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderItemController.save()}" styleClass="save-button"/>
-            <br></br>
-<!--            <div style="margin-top: 10px;">-->
-<!--                <h:outputText id="errorMessage1" value="#{orderItemForm.errorMessage1}"-->
-<!--                              rendered="#{not empty orderItemForm.errorMessage1}" styleClass="error-message"/>-->
-<!--                <br></br>-->
-<!--                <h:outputText id="errorMessage2" value="#{orderItemForm.errorMessage2}"-->
-<!--                              rendered="#{not empty orderItemForm.errorMessage2}" styleClass="error-message"/>-->
-<!--                <br></br>-->
-<!--                <h:outputText id="errorMessage3" value="#{orderItemForm.errorMessage3}"-->
-<!--                              rendered="#{not empty orderItemForm.errorMessage3}" styleClass="error-message"/>-->
-<!--            </div>-->
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

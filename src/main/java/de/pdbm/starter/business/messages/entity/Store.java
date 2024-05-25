@@ -2,6 +2,9 @@ package de.pdbm.starter.business.messages.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "stores")
 public class Store {
@@ -25,6 +28,15 @@ public class Store {
 
     @Column(name = "zip_code")
     private String zipcode;
+
+    @OneToMany(mappedBy = "store", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Order> orders = new HashSet<>();
+
+    @OneToMany(mappedBy = "store", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Staff> staffs = new HashSet<>();
+
+    @OneToMany(mappedBy = "store", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Stock> stocks = new HashSet<>();
 
     // Konstruktor
     public Store() {
@@ -104,5 +116,29 @@ public class Store {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Staff> getStaffs() {
+        return staffs;
+    }
+
+    public void setStaffs(Set<Staff> staffs) {
+        this.staffs = staffs;
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 }
