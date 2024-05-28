@@ -38,7 +38,7 @@ public class CustomerTest {
     }
 
     @Test(priority = 2)
-    public void testSearchCustomer() throws InterruptedException {
+    public void testSearchCustomer() {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt8:customersPanel\"]/input[1]")).click();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).sendKeys(customer.getLastname());
