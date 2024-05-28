@@ -8,7 +8,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class loginTest {
+public class LoginTest {
     public WebDriver webDriver;
     @BeforeClass
     void Setup(){
