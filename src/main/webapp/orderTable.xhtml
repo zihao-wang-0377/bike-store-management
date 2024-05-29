@@ -13,9 +13,10 @@
         <h:form>
             <h1>Bestellungen</h1>
             <div style="margin-bottom: 20px">
-                <h:outputLabel value="Nach Bestellstatus suchen: " for="orderStatus"/>
-                <h:inputText id="orderStatus" value="#{orderController.orderStatus}">
-                    <f:ajax event="keyup" render="orderTable" listener="#{orderController.searchByOrderStatus}"/>
+                <h:outputLabel value="Nach BestellsDatum suchen: " for="orderDate"/>
+                <h:inputText id="orderDate" value="#{orderController.orderDate}">
+                    <f:converter converterId="localDateConverter"/>
+                    <f:ajax event="keyup" render="orderTable" listener="#{orderController.searchByOrderDate}"/>
                 </h:inputText>
             </div>
             <h:dataTable id="orderTable" value="#{orderController.orders}" var="order" styleClass="order-table">

@@ -11,6 +11,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,9 +71,9 @@ public class OrderService implements Serializable {
         return query.getResultList();
     }
 
-    public List<Order> findByOrderStatus(Integer orderStatus) {
-        TypedQuery<Order> query = em.createQuery("SELECT o FROM Order o WHERE o.orderStatus = :orderStatus", Order.class);
-        query.setParameter("orderStatus", orderStatus);
+    public List<Order> findByOrderDate(LocalDate orderDate) {
+        TypedQuery<Order> query = em.createQuery("SELECT o FROM Order o WHERE o.orderDate = :orderDate", Order.class);
+        query.setParameter("orderDate", orderDate);
         return query.getResultList();
     }
 

@@ -276,8 +276,8 @@ public class OrderController implements Serializable {
     }
 
     // Suche nach Bestellstatus
-    public void searchByOrderStatus() {
-        orderList = orderService.findByOrderStatus(Integer.parseInt(orderStatus));
+    public void searchByOrderDate() {
+        orderList = orderService.findByOrderDate(orderDate);
     }
 
     // Eintrag loeschen
@@ -292,18 +292,19 @@ public class OrderController implements Serializable {
         return "orderDetail.xhtml?faces-redirect=true";
     }
 
-    public void saveOrder() {
+    public String saveOrder() {
         Set<ConstraintViolation<Order>> violations = validator.validate(selectedOrder);
 
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Order> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
-            return;
+            return null;
         }
 
         orderService.update(selectedOrder);
         System.out.println("Order saved: " + selectedOrder.getId());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellung bearbeitet", "Bestellung " + selectedOrder.getId() + " erfolgreich gespeichert."));
+        return "orderTable.xhtml?faces-redirect=true";
     }
 }
