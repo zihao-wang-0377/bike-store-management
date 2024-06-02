@@ -4,12 +4,11 @@
     background-repeat: no-repeat;
     background-position: center;
     color: #333; /* Button text color */
-    border: #ccc;
-    padding: 5px 15px;
 }
 
 .homePage:hover {
     background-color: #DCDCDC;
+    color: #f2f2f2;
 }
 
 .user {
@@ -18,52 +17,68 @@
     background-repeat: no-repeat;
     background-position: center;
     color: #333; /* Button text color */
-    border: #ccc;
-    padding: 5px 15px;
 }
 
 .user:hover {
     background-color: #DCDCDC;
+    color: #f2f2f2;
 }
 
-.header {
+.icon {
+    margin: 10px;
+}
+
+.navbar {
     display: flex;
+    overflow: hidden;
     background-color: #f2f2f2;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 40px;
+    justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
 }
 
-.button {
-    text-align: center;
-    padding: 5px 15px;
+.navbar a, .dropbtn {
+    float: left;
+    display: block;
     color: #333;
-    border: #ccc;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
     background-color: #f2f2f2;
 }
 
-.button:hover {
-    background-color: #DCDCDC;
+.dropdown {
+    float: left;
+    overflow: hidden;
 }
 
-.panelGroup {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    top: 50px;
-    left: -150px;
-    text-align: center;
-    height: 30px;
-    width: 150px;
-    padding: 5px 15px;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f2f2f2;
+    min-width: 160px;
+    z-index: 1;
+    top: 11%;
+}
+
+.dropdown-content a {
+    float: none;
     color: #333;
-    border: #ccc;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
     background-color: #f2f2f2;
 }
 
-.panelGroup:hover {
+.dropdown-content a:hover {
     background-color: #DCDCDC;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #DCDCDC;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
