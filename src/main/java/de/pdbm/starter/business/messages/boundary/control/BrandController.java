@@ -185,15 +185,4 @@ public class BrandController implements Serializable {
     public void searchByBrandName() {
         brandList = brandService.findByBrandName(brandName);
     }
-
-    // Fuer Button in Header
-    private int clicks;
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
-    }
 }

@@ -64,8 +64,6 @@ public class CustomerController implements Serializable {
 
     private long totalRecords;
 
-    private int clicks;
-
     private Customer selectedCustomer;
 
     // Konstruktor
@@ -95,14 +93,6 @@ public class CustomerController implements Serializable {
             return;
         }
         customerService.save(customer);
-    }
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
     }
 
     // Paginierung-Methoden

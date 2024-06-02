@@ -75,8 +75,6 @@ public class ProductController implements Serializable {
 
     private long totalRecords;
 
-    private int clicks;
-
     private Product selectedProduct;
 
     // Konstruktor
@@ -101,14 +99,6 @@ public class ProductController implements Serializable {
         }
         productService.save(product);
 
-    }
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
     }
 
     public String getBrandName() {

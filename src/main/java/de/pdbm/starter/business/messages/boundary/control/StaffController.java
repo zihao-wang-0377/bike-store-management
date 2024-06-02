@@ -48,8 +48,6 @@ public class StaffController implements Serializable {
 
     private long totalRecords;
 
-    private int clicks;
-
     private Staff selectedStaff;
 
     public List<Staff> getStaffs() {
@@ -99,14 +97,6 @@ public class StaffController implements Serializable {
     public String updateStaffRecord() {
         staffService.update(selectedStaff);
         return "staffTable.xhtml?faces-redirect=true";
-    }
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
     }
 
     public Integer getStaffId() {

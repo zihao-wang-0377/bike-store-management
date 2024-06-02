@@ -73,8 +73,6 @@ public class OrderController implements Serializable {
 
     private long totalRecords;
 
-    private int clicks;
-
     private Order selectedOrder;
 
     public Order getSelectedOrder() {
@@ -110,14 +108,6 @@ public class OrderController implements Serializable {
             return;
         }
         orderService.save(order);
-    }
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
     }
 
     // Paginierung-Methoden

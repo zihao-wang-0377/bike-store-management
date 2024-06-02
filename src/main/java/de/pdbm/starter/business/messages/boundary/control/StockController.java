@@ -8,13 +8,4 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class StockController implements Serializable {
-    private int clicks;
-
-    public boolean isButtonDisplayed() {
-        return clicks % 2 == 1;
-    }
-
-    public void incrementClicks() {
-        clicks++;
-    }
 }
