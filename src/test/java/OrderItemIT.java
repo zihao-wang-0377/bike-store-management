@@ -1,18 +1,17 @@
-package SeleniumTest;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-public class OrderItemTest {
+
+public class OrderItemIT {
 
     public WebDriver webDriver;
 
-    @BeforeClass
+    @BeforeEach
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
@@ -21,7 +20,7 @@ public class OrderItemTest {
         webDriver.findElement(By.xpath("//*[@id='j_idt6']/input[4]")).click();
     }
 
-    @Test(priority = 1)
+    @Test
     public void testCreateOrderItem() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
         Actions actions = new Actions(webDriver);
@@ -38,7 +37,7 @@ public class OrderItemTest {
 //        gibt es Problem bei der speichern
     }
 
-    @Test(priority = 2)
+   @Test
     public void testSearchOrder() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
         Actions actions = new Actions(webDriver);

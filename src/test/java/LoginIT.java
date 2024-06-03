@@ -1,23 +1,25 @@
-package SeleniumTest;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-public class LoginTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class LoginIT {
     public WebDriver webDriver;
-    @BeforeClass
-    void Setup(){
+
+    @BeforeEach
+    void setup() {
+        // 设置 ChromeDriver 的路径，例如：
+        // System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
     }
 
     @Test
-    public void login(){
+    void login() {
         try {
             webDriver.findElement(By.xpath("//*[@id='j_idt6:username']")).sendKeys("fabiola.jackson@bikes.shop");
             webDriver.findElement(By.xpath("//*[@id='j_idt6:password']")).sendKeys("555-5554");
@@ -25,15 +27,16 @@ public class LoginTest {
 
             // Verify that the URL is correct after login
             String currentUrl = webDriver.getCurrentUrl().split(";")[0];
-            Assert.assertEquals(currentUrl,"http://localhost:8080/team-10/loginPage.xhtml");
+            assertEquals("http://localhost:8080/team-10/loginPage.xhtml", currentUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.fail("Login test failed due to an exception: " + e.getMessage());
+            fail("Login test failed due to an exception: " + e.getMessage());
         }
     }
-    @AfterTest
-    public void teardown() {
+
+    @AfterEach
+    void teardown() {
         if (webDriver != null) {
             webDriver.quit();
         }

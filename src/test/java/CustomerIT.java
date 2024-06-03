@@ -1,20 +1,19 @@
-package SeleniumTest;
-
 import de.pdbm.starter.business.messages.entity.Customer;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-public class CustomerTest {
+
+public class CustomerIT {
     public WebDriver webDriver;
     public Customer customer = new Customer("Wolfenbuttel", "123@gmail.com", "mask", "Elon", "(559) 628-2239", "HH", "12 exer", "38302");
 
-    @BeforeClass
+    @BeforeEach
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
@@ -23,7 +22,7 @@ public class CustomerTest {
         webDriver.findElement(By.xpath("//*[@id='j_idt6']/input[4]")).click();
     }
 
-    @Test(priority = 1)
+   @Test
     public void testcreateCustomer() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[2]/span"));
         Actions actions = new Actions(webDriver);
@@ -41,7 +40,7 @@ public class CustomerTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[10]")).click();
     }
 
-    @Test(priority = 2)
+    @Test
     public void testSearchCustomer() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[2]/span"));
         Actions actions = new Actions(webDriver);
@@ -52,7 +51,7 @@ public class CustomerTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
         Thread.sleep(600);
     }
-    @Test(priority = 3)
+   @Test
     public void testEditCustomer() throws InterruptedException {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:detail\"]")).click();
         customer.setLastname("Koorper");
@@ -61,7 +60,7 @@ public class CustomerTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[11]")).click();
     }
 
-    @Test(priority = 4)
+   @Test
     public void testDeleteCustomer() throws InterruptedException {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
@@ -69,7 +68,7 @@ public class CustomerTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:j_idt78\"]")).click();
     }
 
-    @AfterTest
+    @AfterEach
     public void teardown() {
         if (webDriver != null) {
             webDriver.quit();

@@ -1,23 +1,23 @@
-package SeleniumTest;
 import de.pdbm.starter.business.messages.entity.Product;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+
 
 import java.math.BigDecimal;
 
-public class ProductTest {
+public class ProductIT {
 
     public WebDriver webDriver;
     public Product product = new Product(new BigDecimal(999.99), 2024, "autobike", null, null );
 
 
-    @BeforeClass
+    @BeforeEach
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
@@ -26,7 +26,7 @@ public class ProductTest {
         webDriver.findElement(By.xpath("//*[@id='j_idt6']/input[4]")).click();
     }
 
-    @Test(priority = 1)
+    @Test
     public void testCreateProduct() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[3]/span"));
         Actions actions = new Actions(webDriver);
@@ -39,7 +39,7 @@ public class ProductTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).click();
     }
 
-    @Test(priority = 2)
+    @Test
     public void testSearchProduct() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[3]/span"));
         Actions actions = new Actions(webDriver);
@@ -51,7 +51,7 @@ public class ProductTest {
         Thread.sleep(600);
     }
 
-    @Test(priority = 3)
+   @Test
     public void testEditProduct() throws InterruptedException {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:detail\"]")).click();
         product.setName("BIG Bike");
@@ -60,7 +60,7 @@ public class ProductTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[6]")).click();
     }
 
-    @Test(priority = 4)
+   @Test
     public void testDeleteProduct() throws InterruptedException {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
@@ -68,7 +68,7 @@ public class ProductTest {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:j_idt66\"]")).click();
     }
 
-    @AfterTest
+    @AfterEach
     public void teardown() {
         if (webDriver != null) {
             webDriver.quit();

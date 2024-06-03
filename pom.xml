@@ -44,12 +44,12 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.10.2</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.testng</groupId>-->
+<!--            <artifactId>testng</artifactId>-->
+<!--            <version>7.10.2</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -133,6 +133,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skip>false</skip> <!-- 确保 skip 设置为 false -->
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
