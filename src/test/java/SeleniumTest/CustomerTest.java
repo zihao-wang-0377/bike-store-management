@@ -3,7 +3,9 @@ package SeleniumTest;
 import de.pdbm.starter.business.messages.entity.Customer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,42 +25,48 @@ public class CustomerTest {
 
     @Test(priority = 1)
     public void testcreateCustomer() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:j_idt8\"]")).click();
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[2]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:customersPanel\"]/input[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:vorname\"]")).sendKeys(customer.getFirstname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:nachname\"]")).sendKeys(customer.getLastname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:strasse\"]")).sendKeys(customer.getStreet());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:phone\"]")).sendKeys(customer.getPhone());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:email\"]")).sendKeys(customer.getEmail());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:staat\"]")).sendKeys(customer.getState());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:stadt\"]")).sendKeys(customer.getCity());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:plz\"]")).sendKeys(customer.getZipcode());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[10]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[2]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:vorname\"]")).sendKeys(customer.getFirstname());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:nachname\"]")).sendKeys(customer.getLastname());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:strasse\"]")).sendKeys(customer.getStreet());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:phone\"]")).sendKeys(customer.getPhone());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:email\"]")).sendKeys(customer.getEmail());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:staat\"]")).sendKeys(customer.getState());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:stadt\"]")).sendKeys(customer.getCity());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:plz\"]")).sendKeys(customer.getZipcode());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[10]")).click();
     }
 
     @Test(priority = 2)
-    public void testSearchCustomer() {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt8:customersPanel\"]/input[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).sendKeys(customer.getLastname());
+    public void testSearchCustomer() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[2]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
+        Thread.sleep(600);
     }
     @Test(priority = 3)
     public void testEditCustomer() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:customerTable:0:detail\"]")).click();
-        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:detail\"]")).click();
         customer.setLastname("Koorper");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[4]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[4]")).sendKeys(customer.getLastname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[11]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).sendKeys(customer.getLastname());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[11]")).click();
     }
 
     @Test(priority = 4)
     public void testDeleteCustomer() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:lastname\"]")).sendKeys(customer.getLastname());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:customerTable:0:j_idt61\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:j_idt78\"]")).click();
     }
 
     @AfterTest

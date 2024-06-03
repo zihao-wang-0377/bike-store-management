@@ -2,7 +2,9 @@ package SeleniumTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,22 +22,28 @@ public class BrandTest {
     }
     @Test(priority = 1)
     public void createBrandTest() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:j_idt20\"]")).click();
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[6]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:BrandPanel\"]/input[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:brandName\"]")).sendKeys("Hello World");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[3]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[2]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:brandName\"]")).sendKeys("Hello World");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[3]")).click();
     }
     @Test(priority = 2)
-    public void searchBrandTest(){
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt8:BrandPanel\"]/input[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:brandName\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:brandName\"]")).sendKeys("Hello World");
+    public void searchBrandTest() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[6]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).sendKeys("Hello World");
+        Thread.sleep(600);
     }
     @Test(priority = 3)
     public void deleteBrandTest() throws InterruptedException {
-        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:brandTable:0:j_idt46\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandTable:0:j_idt63\"]")).click();
     }
     @AfterTest
     public void teardown() {

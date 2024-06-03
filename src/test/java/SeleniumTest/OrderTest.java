@@ -2,7 +2,9 @@ package SeleniumTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,37 +24,42 @@ public class OrderTest {
 
     @Test(priority = 1)
     public void testCreateOrder() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:j_idt14\"]")).click();
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[4]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:ordersPanel\"]/input[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:customerID\"]")).sendKeys("3");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:staffID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:storeID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:Bestelldatum\"]")).sendKeys("28.05.2024");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:ErwartetesLieferdatum\"]")).sendKeys("29.05.2024");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[7]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"ordersPanel\"]/a[2]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:customerID\"]")).sendKeys("55");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:staffID\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:storeID\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:Bestelldatum\"]")).sendKeys("26.08.2020");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[7]")).click();
     }
 
     @Test(priority = 2)
-    public void testSearchOrder() {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt8:ordersPanel\"]/input[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderDate\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderDate\"]")).sendKeys("28.05.2024");
+    public void testSearchOrder() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[4]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"ordersPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).sendKeys("26.08.2020");
+        Thread.sleep(600);
     }
     @Test(priority = 3)
     public void testEditOrder() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderTable:0:j_idt55\"]")).click();
-        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[6]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[6]")).sendKeys("28.06.2024");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[10]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderTable:0:j_idt72\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[3]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[3]")).sendKeys("28.08.2020");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[10]")).click();
     }
     @Test(priority = 4)
     public void testDeleteOrder() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderDate\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderDate\"]")).sendKeys("28.05.2024");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).sendKeys("28.08.2020");
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:orderTable:0:j_idt56\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderTable:0:j_idt73\"]")).click();
     }
 
     @AfterTest

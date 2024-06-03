@@ -6,14 +6,13 @@
 	<persistence-unit name="default">
 
 <!--		<jta-data-source>java:jboss/datasources/sep</jta-data-source>-->
-		<jta-data-source>java:jboss/datasources/bikes10</jta-data-source>
+		<jta-data-source>${jakarta.persistence.jta-data-source}</jta-data-source>
 
 		<properties>
-			<!--
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
-            -->
-<!--			<property name="hibernate.hbm2ddl.auto" value="update" />-->
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="${hibernate.show_sql}" />
+			<!--suppress JpaDomInspection -->
+			<property name="jakarta.persistence.schema-generation.database.action" value="${jakarta.persistence.schema-generation.database.action}" />
+			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
 		</properties>
 
 	</persistence-unit>

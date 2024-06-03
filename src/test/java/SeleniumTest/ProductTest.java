@@ -2,7 +2,9 @@ package SeleniumTest;
 import de.pdbm.starter.business.messages.entity.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -26,38 +28,44 @@ public class ProductTest {
 
     @Test(priority = 1)
     public void testCreateProduct() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:j_idt11\"]")).click();
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[3]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt5:productesPanel\"]/input[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:name\"]")).sendKeys(product.getName());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:price\"]")).sendKeys(String.valueOf(product.getPrice()));
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36:description\"]")).sendKeys(String.valueOf(product.getModelYear()));
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[4]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[2]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:name\"]")).sendKeys(product.getName());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:price\"]")).sendKeys(String.valueOf(product.getPrice()));
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:description\"]")).sendKeys(String.valueOf(product.getModelYear()));
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).click();
     }
 
     @Test(priority = 2)
-    public void testSearchProduct() {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt8:productesPanel\"]/input[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:name\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:name\"]")).sendKeys(product.getName());
+    public void testSearchProduct() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[3]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
+        Thread.sleep(600);
     }
 
     @Test(priority = 3)
     public void testEditProduct() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:productTable:0:detail\"]")).click();
-        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:detail\"]")).click();
         product.setName("BIG Bike");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[5]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[5]")).sendKeys(product.getName());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt36\"]/input[6]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).sendKeys(product.getName());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[6]")).click();
     }
 
     @Test(priority = 4)
     public void testDeleteProduct() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:name\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:name\"]")).sendKeys(product.getName());
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
         Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt35:productTable:0:j_idt49\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:j_idt66\"]")).click();
     }
 
     @AfterTest

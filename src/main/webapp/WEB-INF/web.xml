@@ -23,9 +23,8 @@
 		<param-name>jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
-	<!-- SECURITY ROLE -->
-	<security-role>
+	<!--${enable.security.start}
+   	<security-role>
 		<role-name>ADMIN</role-name>
 	</security-role>
 	<security-role>
@@ -35,7 +34,7 @@
 		<role-name>USER2</role-name>
 	</security-role>
 
-	<!-- SECURITY CONSTRAINT -->
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>user2</web-resource-name>
@@ -84,4 +83,7 @@
 			<role-name>ADMIN</role-name>
 		</auth-constraint>
 	</security-constraint>
+    ${enable.security.end}-->
+	<!-- SECURITY ROLE -->
+
 </web-app>
