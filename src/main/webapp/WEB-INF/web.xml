@@ -6,7 +6,7 @@
     	<display-name>team-10</display-name>
 
 	<welcome-file-list>
-		<welcome-file>loginPage.xhtml</welcome-file>
+		<welcome-file>homePage.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<context-param>

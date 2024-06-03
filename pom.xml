@@ -171,7 +171,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>5.0.0.Final</version>
                 <configuration>
-                    <version>28.0.1.Final</version>
+                    <version>31.0.1.Final</version>
                 </configuration>
                 <executions>
                     <execution>
