@@ -11,15 +11,15 @@
     color: #f2f2f2;
 }
 
-.user {
+.logout {
     background-color: #f2f2f2; /* Button background color */
-    background-image: url("../svg/user.svg");
+    background-image: url("../svg/logout.svg");
     background-repeat: no-repeat;
     background-position: center;
     color: #333; /* Button text color */
 }
 
-.user:hover {
+.logout:hover {
     background-color: #DCDCDC;
     color: #f2f2f2;
 }
