@@ -37,7 +37,6 @@
                         </h:commandLink>
                     </div>
                 </div>
-                <!-- Repeat similar structure for other sections like Bestellungen, BestellPositionen, Marken, Kategorien, Mitarbeiter -->
                 <div class="dropdown">
                     <span class="dropbtn">Bestellungen</span>
                     <div class="dropdown-content" id="ordersPanel">
@@ -81,7 +80,7 @@
                 <h:panelGroup rendered="#{request.isUserInRole('ADMIN')}">
                     <div class="dropdown">
                         <span class="dropbtn">Mitarbeiter</span>
-                        <div class="dropdown-content" id="employeesPanel">
+                        <div class="dropdown-content" id="staffsPanel">
                             <h:commandLink action="staffTable?faces-redirect=true">Tabelle anzeigen</h:commandLink>
                             <h:commandLink action="staffForm?faces-redirect=true">Neue Einträge erstellen</h:commandLink>
                         </div>
