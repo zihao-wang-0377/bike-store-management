@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
@@ -27,8 +28,10 @@ public class LoginService implements Serializable {
         TypedQuery<String> query = em.createQuery(rolequery, String.class);
         query.setParameter("email", email);
 
-        if (query.getResultList().size() > 0) {
-            return query.getResultList().get(0);
+        List<String> results = query.getResultList();
+
+        if (results.size() > 0) {
+            return results.get(0);
         } else {
             return null;
         }
@@ -38,8 +41,11 @@ public class LoginService implements Serializable {
     public String getPassword(String email) {
         TypedQuery<String> query = em.createQuery("select substring(s.phone, 7, length(s.phone)) from Staff s where s.email = :email", String.class);
         query.setParameter("email", email);
-        if (query.getResultList().size() > 0) {
-            return query.getResultList().get(0).toString();
+
+        List<String> results = query.getResultList();
+
+        if (results.size() > 0) {
+            return results.get(0);
         } else {
             return null;
         }
