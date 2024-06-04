@@ -138,7 +138,9 @@ public class CustomerController implements Serializable {
     }
 
     public long getTotalRecords() {
-        totalRecords = customerService.getCustomerCount();
+        if (totalRecords == 0) {
+            totalRecords = customerService.getCustomerCount();
+        }
         return totalRecords;
     }
 
