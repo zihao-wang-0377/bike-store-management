@@ -1,6 +1,5 @@
 package de.pdbm.starter.business.messages.boundary.control;
 
-import de.pdbm.starter.business.messages.entity.Customer;
 import de.pdbm.starter.business.messages.service.BrandService;
 import de.pdbm.starter.business.messages.service.CategoryService;
 import de.pdbm.starter.business.messages.service.ProductService;
@@ -11,7 +10,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintViolation;
@@ -181,7 +179,9 @@ public class ProductController implements Serializable {
     }
 
     public long getTotalRecords() {
-        this.totalRecords = productService.getProductCount();
+        if (totalRecords == 0) {
+            totalRecords = productService.getProductCount();
+        }
         return totalRecords;
     }
 

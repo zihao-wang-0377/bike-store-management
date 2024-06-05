@@ -123,7 +123,9 @@ public class OrderItemController implements Serializable {
     }
 
     public long getTotalRecords() {
-        this.totalRecords = orderItemService.getOrderItemCount();
+        if (totalRecords == 0) {
+            totalRecords = orderItemService.getOrderItemCount();
+        }
         return totalRecords;
     }
 
