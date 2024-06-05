@@ -68,8 +68,8 @@
                 <hibernate.show_sql>true</hibernate.show_sql>
                 <jakarta.persistence.schema-generation.database.action>none</jakarta.persistence.schema-generation.database.action>
                 <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
-                <enable.security.start>--></enable.security.start>
-                <enable.security.end>&lt;!--</enable.security.end>
+                <enable.security.start>&lt;!--</enable.security.start>
+                <enable.security.end>--></enable.security.end>
                 <enable.datasource.team10>true</enable.datasource.team10>
             </properties>
         </profile>
@@ -134,7 +134,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <skip>false</skip> <!-- 确保 skip 设置为 false -->
+                    <skip>false</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -172,6 +172,15 @@
                 <version>5.0.0.Final</version>
                 <configuration>
                     <version>31.0.1.Final</version>
+                    <commands>
+<!--                        <command>batch</command>-->
+<!--                        <command>/subsystem=elytron/policy=jacc:add(jacc-policy={})</command>-->
+                        <command>
+                            /subsystem=undertow/application-security-domain=other:write-attribute(name=integrated-jaspi,value=false)
+                        </command>
+<!--                        <command>:reload</command>-->
+<!--                        <command>run-batch</command>-->
+                    </commands>
                 </configuration>
                 <executions>
                     <execution>
@@ -180,6 +189,13 @@
                         <goals>
                             <goal>start</goal>
                             <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>execute-wildfly-commands</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute-commands</goal>
                         </goals>
                     </execution>
                     <execution>
