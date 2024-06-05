@@ -23,8 +23,8 @@
             <h:outputLabel value="Quantity: "/>
             <h:inputText value="#{orderItemController.selectedOrderItem.quantity}"/><br/>
             <h:outputLabel value="Produkt ID"/>
-            <h:inputText value="#{orderItemController.selectedOrderItem.productId}"/><br/>
-            <h:commandButton value="Speichern" action="#{orderItemController.save()}" styleClass="button"/>
+            <h:inputText value="#{orderItemController.selectedOrderItem.productId}" readonly="true"/><br/>
+            <h:commandButton value="Speichern" action="#{orderItemController.updateOrderItemRecord()}" styleClass="button"/>
         </h:form>
     </ui:define>
 </ui:composition>

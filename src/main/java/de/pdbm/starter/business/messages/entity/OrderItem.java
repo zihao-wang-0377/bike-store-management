@@ -18,20 +18,18 @@ public class OrderItem {
     private Order order;
 
     @Column(name = "discount")
-    @Min(value = 0, message = "Der Rabatt muss mindestens 0 sein")
-    @Max(value = 1, message = "Der Rabatt muss innerhalb 1 sein")
     private BigDecimal discount;
 
     @Column(name = "list_price")
-    @Positive(message = "Preis muss positiv sein")
+
     private BigDecimal price;
 
-    @PositiveOrZero(message = "Anzahl muss größer als 0")
+
     private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @ForeignKeyExists(entity = Product.class, customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
+//    @ForeignKeyExists(entity = Product.class, customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Product product;
 
     // Konstruktor
