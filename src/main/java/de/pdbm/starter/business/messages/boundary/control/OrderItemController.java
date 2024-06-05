@@ -5,15 +5,20 @@ import de.pdbm.starter.business.messages.service.OrderItemService;
 import de.pdbm.starter.business.messages.service.OrderService;
 import de.pdbm.starter.business.messages.service.ProductService;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Named
 @SessionScoped
@@ -23,7 +28,8 @@ public class OrderItemController implements Serializable {
 
     @Inject
     OrderService orderService;
-
+@Inject
+    private Validator validator;
     @Inject
     ProductService productService;
 
@@ -32,13 +38,15 @@ public class OrderItemController implements Serializable {
 
     @ForeignKeyExists(entity = Order.class, customerMessage = "OrderId,das Sie gegeben haben existiert nicht")
     private Integer orderId;
+    @Min(value = 0, message = "Der Rabatt muss mindestens 0 sein")
+    @Max(value = 1, message = "Der Rabatt muss innerhalb 1 sein")
 
     private BigDecimal discount;
-
+    @Positive(message = "Preis muss positiv sein")
     private BigDecimal price;
-
+    @PositiveOrZero(message = "Anzahl muss größer als 0")
     private Integer quantity;
-
+@ForeignKeyExists(entity = Product.class,customerMessage = "ProduktId,das Sie gegeben haben existiert nicht")
     private Integer productId;
 
     private OrderItemPk orderItemPk = new OrderItemPk();
@@ -68,12 +76,27 @@ public class OrderItemController implements Serializable {
 
     // Objekt erstellen und speichern
     public void save() {
+      OrderItem orderItem = new OrderItem();
+        Set<ConstraintViolation<OrderItem>> violations = validator.validate(orderItem);
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<OrderItem> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
+
         Integer itemIdInt = Integer.parseInt(itemId);
         Order order = orderService.findById(orderId);
         Product product = productService.findById(productId);
         orderItemPk.setItem_id(itemIdInt);
         orderItemPk.setOrder_id(orderId);
-        orderItemService.save(new OrderItem(orderItemPk, order, discount, price, quantity, product));
+        orderItem.setOrderItemPk(orderItemPk);
+        orderItem.setOrder(order);
+        orderItem.setDiscount(discount);
+        orderItem.setProduct(product);
+        orderItem.setQuantity(quantity);
+        orderItem.setPrice(price);
+        orderItemService.save(orderItem);
     }
 
     // Paginierung-Methoden
@@ -236,5 +259,9 @@ public class OrderItemController implements Serializable {
         orderItemService.delete(orderItem);
         loadOrderItemList();
         getTotalRecords();
+    }
+    public String updateOrderItemRecord(){
+        orderItemService.update(selectedOrderItem);
+        return "orderItemTable.xhtml?faces-redirect=true";
     }
 }
