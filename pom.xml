@@ -71,6 +71,7 @@
                 <enable.security.start>&lt;!--</enable.security.start>
                 <enable.security.end>--></enable.security.end>
                 <enable.datasource.team10>true</enable.datasource.team10>
+                <loadTestData>fasle</loadTestData>
             </properties>
         </profile>
 
@@ -84,6 +85,7 @@
                 <enable.security.start/>
                 <enable.security.end/>
                 <enable.datasource.team10>false</enable.datasource.team10>
+                <loadTestData>true</loadTestData>
             </properties>
         </profile>
     </profiles>
