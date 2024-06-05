@@ -1,9 +1,9 @@
 package de.pdbm.starter.business.messages;
 
-import de.pdbm.starter.business.messages.entity.Customer;
-import de.pdbm.starter.business.messages.entity.Staff;
-import de.pdbm.starter.business.messages.entity.Store;
+import de.pdbm.starter.business.messages.boundary.control.LocalDateConverter;
+import de.pdbm.starter.business.messages.entity.*;
 import de.pdbm.starter.business.messages.service.CustomerService;
+import jakarta.annotation.Priority;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.annotation.PostConstruct;
@@ -11,6 +11,9 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 @Startup
@@ -32,6 +35,11 @@ public class TestDatenInit {
     @Transactional
     public void init() {
         insertStaffs();
+        insertCustomer();
+        insertBrand();
+        insertProduct();
+        insertStore();
+        insertOrder();
     }
 
     private void insertStaffs() {
@@ -55,4 +63,33 @@ public class TestDatenInit {
         Staff test2Staff = new Staff(1, "test2.staff2@ostfalia.de", "Test2", "Staff", "(187) 114-0404", user2Staff, store);
         em.persist(test2Staff);
     }
+
+    private void insertCustomer(){
+        Customer test1Customer = new Customer("Wolfenbuttel", "1234@gmail.com", "ma", "Elon", "(559) 628-2239", "HH", "12 exer", "38302");
+        em.persist(test1Customer);
+        Customer test2Customer = new Customer("Wolfenbuttel", "12344@gmail.com", "mask", "michel", "(559) 628-2239", "HH", "12 exer", "38304");
+        em.persist(test2Customer);
+    }
+
+    private void insertBrand(){
+        Brand test1Brand = new Brand("Big bike");
+        em.persist(test1Brand);
+        Brand test2Brand = new Brand("1");
+        em.persist(test2Brand);
+    }
+    private void insertStore(){
+        Store test1Store = new Store();
+        em.persist(test1Store);
+    }
+    private void insertProduct(){
+        Product product = new Product(new BigDecimal(100), 2024, "autobike", null, null);
+        em.persist(product);
+    }
+
+    private void insertOrder(){
+        Order order = new Order();
+        em.persist(order);
+    }
+
+
 }

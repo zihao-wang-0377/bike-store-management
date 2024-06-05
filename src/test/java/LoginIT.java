@@ -12,8 +12,6 @@ public class LoginIT {
 
     @BeforeEach
     void setup() {
-        // 设置 ChromeDriver 的路径，例如：
-        // System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
     }

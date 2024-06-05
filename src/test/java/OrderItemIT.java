@@ -1,12 +1,11 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderItemIT {
 
     public WebDriver webDriver;
@@ -21,6 +20,7 @@ public class OrderItemIT {
     }
 
     @Test
+    @Order(1)
     public void testCreateOrderItem() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
         Actions actions = new Actions(webDriver);
@@ -28,7 +28,7 @@ public class OrderItemIT {
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[2]")).click();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:orderItemID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:orderID\"]")).sendKeys("999");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:orderID\"]")).sendKeys("1");
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:Rabatte\"]")).sendKeys("0.1");
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:ListenPreis\"]")).sendKeys("999");
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:quantity\"]")).sendKeys("10");
@@ -38,7 +38,8 @@ public class OrderItemIT {
     }
 
    @Test
-    public void testSearchOrder() throws InterruptedException {
+   @Order(2)
+    public void testSearchOrderItem() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
         Actions actions = new Actions(webDriver);
         actions.moveToElement(hoverElement).perform();
@@ -46,6 +47,9 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("999");
+    }
+    public void testEditOrderItem(){
+
     }
 }
 
