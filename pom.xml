@@ -21,7 +21,6 @@
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
         <junit.version>5.10.2</junit.version>
-
     </properties>
 
     <dependencies>
@@ -43,21 +42,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-<!--        <dependency>-->
-<!--            <groupId>org.testng</groupId>-->
-<!--            <artifactId>testng</artifactId>-->
-<!--            <version>7.10.2</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.21.0</version>
         </dependency>
-
-
     </dependencies>
 
     <profiles>
@@ -71,8 +60,16 @@
                 <enable.security.start>&lt;!--</enable.security.start>
                 <enable.security.end>--></enable.security.end>
                 <enable.datasource.team10>true</enable.datasource.team10>
-                <loadTestData>fasle</loadTestData>
+
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
         </profile>
 
         <profile>
@@ -85,11 +82,18 @@
                 <enable.security.start/>
                 <enable.security.end/>
                 <enable.datasource.team10>false</enable.datasource.team10>
-                <loadTestData>true</loadTestData>
+
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
         </profile>
     </profiles>
-
 
     <build>
         <finalName>team-10</finalName>
@@ -175,13 +179,9 @@
                 <configuration>
                     <version>31.0.1.Final</version>
                     <commands>
-<!--                        <command>batch</command>-->
-<!--                        <command>/subsystem=elytron/policy=jacc:add(jacc-policy={})</command>-->
                         <command>
                             /subsystem=undertow/application-security-domain=other:write-attribute(name=integrated-jaspi,value=false)
                         </command>
-<!--                        <command>:reload</command>-->
-<!--                        <command>run-batch</command>-->
                     </commands>
                 </configuration>
                 <executions>
