@@ -34,7 +34,6 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:quantity\"]")).sendKeys("10");
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53:ProduktID\"]")).sendKeys("1");
         webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[8]")).click();
-//        gibt es Problem bei der speichern
     }
 
    @Test
@@ -46,10 +45,39 @@ public class OrderItemIT {
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("999");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("1");
     }
-    public void testEditOrderItem(){
-
+    @Test
+    @Order(3)
+    public void testEditOrderItem() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(1000);
+        webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderItemTable:0:j_idt72\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).sendKeys("100");
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[8]")).click();
+    }
+    @Test
+    @Order(4)
+    public void testDeleteOrderItem() throws InterruptedException {
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("1");
+        Thread.sleep(1000);
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderItemTable:0:j_idt73\"]")).click();
+    }
+    @AfterEach
+    public void teardown() {
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 }
 
