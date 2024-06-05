@@ -21,8 +21,8 @@ public class LoginIT {
     @Test
     void login() {
         try {
-            webDriver.findElement(By.xpath("//*[@id='j_idt6:username']")).sendKeys("fabiola.jackson@bikes.shop");
-            webDriver.findElement(By.xpath("//*[@id='j_idt6:password']")).sendKeys("555-5554");
+            webDriver.findElement(By.xpath("//*[@id='j_idt6:username']")).sendKeys("admin.staff@bikes.shop");
+            webDriver.findElement(By.xpath("//*[@id='j_idt6:password']")).sendKeys("444-3049");
             webDriver.findElement(By.xpath("//*[@id='j_idt6']/input[4]")).click();
 
             // Verify that the URL is correct after login
