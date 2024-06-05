@@ -107,7 +107,9 @@ public class CategoryController implements Serializable {
     }
 
     public long getTotalRecords() {
-        totalRecords = categoryService.getCategoryCount();
+        if (totalRecords == 0) {
+            totalRecords = categoryService.getCategoryCount();
+        }
         return totalRecords;
     }
 

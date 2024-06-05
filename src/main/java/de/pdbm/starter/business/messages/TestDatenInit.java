@@ -14,10 +14,12 @@ import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 
 @Startup
 @Singleton
+
 public class TestDatenInit {
     @PersistenceContext
     EntityManager em;
@@ -34,6 +36,19 @@ public class TestDatenInit {
     @PostConstruct
     @Transactional
     public void init() {
+        boolean loadTestData = shouldLoadTestData();
+        if (loadTestData) {
+            loadTestData();
+        } else {
+            System.out.println("Skipping test data initialization in production environment");
+        }
+    }
+    private boolean shouldLoadTestData() {
+        String loadTestDataProperty = System.getProperty("loadTestData");
+        return Boolean.parseBoolean(Optional.ofNullable(loadTestDataProperty).orElse("false"));
+    }
+
+    private void loadTestData() {
         insertStaffs();
         insertCustomer();
         insertBrand();
@@ -41,7 +56,6 @@ public class TestDatenInit {
         insertStore();
         insertOrder();
     }
-
     private void insertStaffs() {
         // Laden Sie das Store-Objekt
         Store store = em.find(Store.class, 1);
