@@ -101,7 +101,7 @@ public class TestDatenInit {
     }
 
     private void insertProduct() {
-        Product product = new Product(new BigDecimal(100), 2024, "autobike", null, null);
+        Product product = new Product(new BigDecimal(100), 2024, "giant", null, null);
         emDev.persist(product);
     }
 
