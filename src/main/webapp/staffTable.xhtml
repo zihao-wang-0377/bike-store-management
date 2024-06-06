@@ -14,7 +14,7 @@
 
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="staff">
             <h1>Mitarbeiter</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Nachnamen suchen: " for="lastname"/>
@@ -32,10 +32,10 @@
                     <h:outputText value="#{staff.lastName}"/>
                 </h:column>
                 <h:column>
-                    <h:commandButton styleClass="viewButton" action="#{staffController.showDetails(staff)}">
+                    <h:commandButton id="detail" styleClass="viewButton" action="#{staffController.showDetails(staff)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton" action="#{staffController.deleteStaffRecord(staff)}">
+                    <h:commandButton id="delete" styleClass="deleteButton" action="#{staffController.deleteStaffRecord(staff)}">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>
                 </h:column>

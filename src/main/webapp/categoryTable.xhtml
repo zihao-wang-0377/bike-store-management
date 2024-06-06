@@ -10,7 +10,7 @@
         Kategeorietabelle
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="kategorie">
             <h1>Kategorien</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Kategorienname suchen: " for="categoryName"/>
@@ -28,7 +28,7 @@
                     #{category.categoryName}
                 </h:column>
                 <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
-                    <h:commandButton styleClass="deleteButton"
+                    <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{categoryController.deleteCategory(category)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>

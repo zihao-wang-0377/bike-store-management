@@ -10,7 +10,7 @@
         Markentabelle
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="brand">
             <h1>Marken</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Markennamen suchen: " for="brandName"/>
@@ -28,7 +28,7 @@
                     #{brand.brandName}
                 </h:column>
                 <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
-                    <h:commandButton styleClass="deleteButton"
+                    <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{brandController.deleteBrand(brand)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>

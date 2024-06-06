@@ -15,9 +15,10 @@ public class CustomerIT {
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
-        webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
-        webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
-        webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();    }
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+    }
 
    @Test
    @Order(1)
@@ -27,15 +28,19 @@ public class CustomerIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:vorname\"]")).sendKeys(customer.getFirstname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:nachname\"]")).sendKeys(customer.getLastname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:strasse\"]")).sendKeys(customer.getStreet());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:phone\"]")).sendKeys(customer.getPhone());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:email\"]")).sendKeys(customer.getEmail());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:staat\"]")).sendKeys(customer.getState());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:stadt\"]")).sendKeys(customer.getCity());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:plz\"]")).sendKeys(customer.getZipcode());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[10]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:vorname\"]")).sendKeys(customer.getFirstname());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:nachname\"]")).sendKeys(customer.getLastname());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:strasse\"]")).sendKeys(customer.getStreet());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:phone\"]")).sendKeys(customer.getPhone());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:email\"]")).sendKeys(customer.getEmail());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:staat\"]")).sendKeys(customer.getState());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:stadt\"]")).sendKeys(customer.getCity());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm:plz\"]")).sendKeys(customer.getZipcode());
+        webDriver.findElement(By.xpath("//*[@id=\"customerForm\"]/input[10]")).click();
+        Thread.sleep(600);
+        String expect = "customer saved successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
 
     @Test
@@ -46,8 +51,8 @@ public class CustomerIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
+        webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).sendKeys(customer.getLastname());
         Thread.sleep(600);
     }
    @Test
@@ -58,14 +63,18 @@ public class CustomerIT {
        actions.moveToElement(hoverElement).perform();
        Thread.sleep(600);
        webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[1]")).click();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
+       webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).sendKeys(customer.getLastname());
        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:detail\"]")).click();
-        customer.setLastname("Koorper");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).sendKeys(customer.getLastname());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[11]")).click();
+       webDriver.findElement(By.xpath("//*[@id=\"customer:customerTable:0:detail\"]")).click();
+       customer.setLastname("Koorper");
+       webDriver.findElement(By.xpath("//*[@id=\"customerDetail\"]/input[4]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"customerDetail\"]/input[4]")).sendKeys(customer.getLastname());
+       webDriver.findElement(By.xpath("//*[@id=\"customerDetail\"]/input[11]")).click();
+       Thread.sleep(600);
+       String expect = "customer updated successfully";
+       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+       Assertions.assertEquals(expect, actual);
     }
 
    @Test
@@ -76,13 +85,14 @@ public class CustomerIT {
        actions.moveToElement(hoverElement).perform();
        Thread.sleep(600);
        webDriver.findElement(By.xpath("//*[@id=\"customersPanel\"]/a[1]")).click();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
+       webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"customer:lastname\"]")).sendKeys(customer.getLastname());
        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:lastname\"]")).sendKeys(customer.getLastname());
-        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:customerTable:0:j_idt78\"]")).click();
+       webDriver.findElement(By.xpath("//*[@id=\"customer:customerTable:0:delete\"]")).click();
+//       Thread.sleep(600);
+//       String expect = "customer deleted successfully";
+//       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+//       Assertions.assertEquals(expect, actual);
     }
 
     @AfterEach

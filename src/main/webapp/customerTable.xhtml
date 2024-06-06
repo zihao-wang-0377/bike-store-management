@@ -10,7 +10,7 @@
         Kategeorietabelle
     </ui:define>
     <ui:define name="content">
-        <h:form immediate="true">
+        <h:form immediate="true" id="customer">
             <h1>Kunden</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Nachnamen suchen: " for="lastname"/>
@@ -53,7 +53,7 @@
                                      action="#{customerController.showDetails(customer)}">
                         <f:ajax execute="@this" render="detail"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"
+                    <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>

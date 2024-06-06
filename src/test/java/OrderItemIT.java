@@ -14,9 +14,10 @@ public class OrderItemIT {
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
-        webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
-        webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
-        webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();   }
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+    }
 
     @Test
     @Order(1)
@@ -26,13 +27,17 @@ public class OrderItemIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:orderItemID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:orderID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:Rabatte\"]")).sendKeys("0.1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:ListenPreis\"]")).sendKeys("999");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:quantity\"]")).sendKeys("10");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:ProduktID\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[8]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:orderItemID\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:orderID\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:Rabatte\"]")).sendKeys("0.1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:ListenPreis\"]")).sendKeys("999");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:quantity\"]")).sendKeys("10");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:ProduktID\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemForm\"]/input[8]")).click();
+        Thread.sleep(600);
+        String expect = "orderItem saved successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
 
    @Test
@@ -43,8 +48,8 @@ public class OrderItemIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).sendKeys("1");
     }
     @Test
     @Order(3)
@@ -54,10 +59,14 @@ public class OrderItemIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(1000);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderItemTable:0:j_idt72\"]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).sendKeys("100");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[8]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderItemTable:0:detail\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[5]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[5]")).sendKeys("100");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[8]")).click();
+        Thread.sleep(600);
+        String expect = "orderItem updated successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @Test
     @Order(4)
@@ -67,10 +76,14 @@ public class OrderItemIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderId\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).sendKeys("1");
         Thread.sleep(1000);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderItemTable:0:j_idt73\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderItemTable:0:delete\"]")).click();
+//        Thread.sleep(600);
+//        String expect = "orderItem deleted successfully";
+//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+//        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {

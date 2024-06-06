@@ -11,7 +11,7 @@
     </ui:define>
     <ui:define name="content">
         <h1 style="text-align: center">Bestellposition Detail</h1>
-        <h:form styleClass="container">
+        <h:form styleClass="container" id="orderItemDetail">
             <h:outputLabel value="Bestellposition-ID:"/>
             <h:inputText value="#{orderItemController.selectedOrderItem.itemId}"/><br/>
             <h:outputLabel value="Bestellungs-ID: "/>

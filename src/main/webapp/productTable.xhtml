@@ -10,7 +10,7 @@
         Produkttabelle
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="product">
             <h1>Produkten</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Name suchen: " for="name"/>
@@ -37,7 +37,7 @@
                     <h:commandButton id="detail" styleClass="viewButton" action="#{productController.showDetails(product)}">
                         <f:ajax execute="@this" render="@detail"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"
+                    <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{productController.deleteProductRecord(product)}">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>

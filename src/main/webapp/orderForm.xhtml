@@ -11,7 +11,7 @@
     </ui:define>
     <ui:define name="content">
         <h1>Neue Bestellung anlegen</h1>
-        <h:form>
+        <h:form id="orderForm">
             <h:outputLabel for="customerID" value="Kunden-ID: "/>
             <h:inputText id="customerID" value="#{orderController.customerId}"/>
             <br></br>

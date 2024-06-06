@@ -14,19 +14,24 @@ public class BrandIT {
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
-        webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
-        webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
-        webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();   }
-   @Test
-   @Order(1)
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+    }
+    @Test
+    @Order(1)
     public void createBrandTest() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[6]/span"));
         Actions actions = new Actions(webDriver);
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:brandName\"]")).sendKeys("Hello World");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[3]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"brandform:brandName\"]")).sendKeys("Hello World");
+        webDriver.findElement(By.xpath("//*[@id=\"brandform\"]/input[3]")).click();
+        Thread.sleep(600);
+        String expect = "brand saved successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @Test
     @Order(2)
@@ -36,22 +41,26 @@ public class BrandIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).sendKeys("Hello World");
+        webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).sendKeys("Hello World");
         Thread.sleep(600);
     }
-   @Test
-   @Order(3)
+    @Test
+    @Order(3)
     public void deleteBrandTest() throws InterruptedException {
-       WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[6]/span"));
-       Actions actions = new Actions(webDriver);
-       actions.moveToElement(hoverElement).perform();
-       Thread.sleep(600);
-       webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[1]")).click();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).clear();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandName\"]")).sendKeys("Hello World");
-       Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:brandTable:0:j_idt63\"]")).click();
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[6]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"brandsPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).sendKeys("Hello World");
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"brand:brandTable:0:delete\"]")).click();
+//        Thread.sleep(600);
+//        String expect = "brand deleted successfully";
+//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+//        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {

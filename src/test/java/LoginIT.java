@@ -20,9 +20,10 @@ public class LoginIT {
     @Test
     void login() {
         try {
-            webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
-            webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
-            webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();
+            webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
+            webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
+            webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+
             // Verify that the URL is correct after login
             String currentUrl = webDriver.getCurrentUrl().split(";")[0];
             assertEquals("http://localhost:8080/team-10/loginPage.xhtml", currentUrl);

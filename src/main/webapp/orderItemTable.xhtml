@@ -10,7 +10,7 @@
         Bestellpositionstabelle
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="orderItem">
             <h1>Bestellpositionen</h1>
             <div style="margin-bottom: 20px">
                 <h:outputLabel value="Nach Bestellnummer suchen: " for="orderId"/>
@@ -43,10 +43,10 @@
                     <h:outputText value="#{orderItem.quantity}"/>
                 </h:column>
                 <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
-                    <h:commandButton styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
+                    <h:commandButton id="detail" styleClass="viewButton" action="#{orderItemController.showDetails(orderItem)}">
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
-                    <h:commandButton styleClass="deleteButton"
+                    <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{orderItemController.deleteOrderItemRecord(orderItem)}">
                         <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
                     </h:commandButton>

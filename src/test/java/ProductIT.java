@@ -20,9 +20,10 @@ public class ProductIT {
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
-        webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
-        webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
-        webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();  }
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
+        webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+    }
 
     @Test
     @Order(1)
@@ -32,10 +33,14 @@ public class ProductIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:name\"]")).sendKeys(product.getName());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:price\"]")).sendKeys(String.valueOf(product.getPrice()));
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:description\"]")).sendKeys(String.valueOf(product.getModelYear()));
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[4]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"productForm:name\"]")).sendKeys(product.getName());
+        webDriver.findElement(By.xpath("//*[@id=\"productForm:price\"]")).sendKeys(String.valueOf(product.getPrice()));
+        webDriver.findElement(By.xpath("//*[@id=\"productForm:description\"]")).sendKeys(String.valueOf(product.getModelYear()));
+        webDriver.findElement(By.xpath("//*[@id=\"productForm\"]/input[4]")).click();
+        Thread.sleep(600);
+        String expect = "product saved successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
 
     @Test
@@ -46,8 +51,8 @@ public class ProductIT {
         actions.moveToElement(hoverElement).perform();
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
+        webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).sendKeys(product.getName());
         Thread.sleep(600);
     }
 
@@ -59,14 +64,18 @@ public class ProductIT {
        actions.moveToElement(hoverElement).perform();
        Thread.sleep(600);
        webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[1]")).click();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
+       webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).sendKeys(product.getName());
        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:detail\"]")).click();
-        product.setName("BIG Bike");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[5]")).sendKeys(product.getName());
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[6]")).click();
+       webDriver.findElement(By.xpath("//*[@id=\"product:productTable:0:detail\"]")).click();
+       product.setName("BIG Bike");
+       webDriver.findElement(By.xpath("//*[@id=\"productDetail\"]/input[5]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"productDetail\"]/input[5]")).sendKeys(product.getName());
+       webDriver.findElement(By.xpath("//*[@id=\"productDetail\"]/input[6]")).click();
+       Thread.sleep(600);
+       String expect = "product updated successfully";
+       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+       Assertions.assertEquals(expect, actual);
     }
 
    @Test
@@ -77,13 +86,14 @@ public class ProductIT {
        actions.moveToElement(hoverElement).perform();
        Thread.sleep(600);
        webDriver.findElement(By.xpath("//*[@id=\"productsPanel\"]/a[1]")).click();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
-       webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
+       webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).clear();
+       webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).sendKeys(product.getName());
        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:name\"]")).sendKeys(product.getName());
-        Thread.sleep(600);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:productTable:0:j_idt66\"]")).click();
+       webDriver.findElement(By.xpath("//*[@id=\"product:productTable:0:delete\"]")).click();
+//       Thread.sleep(600);
+//       String expect = "product deleted successfully";
+//       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+//       Assertions.assertEquals(expect, actual);
     }
 
     @AfterEach

@@ -11,7 +11,7 @@
     </ui:define>
     <ui:define name="content">
         <h1 style="text-align: center">Kunde Detail</h1>
-        <h:form styleClass="container">
+        <h:form styleClass="container" id="customerDetail">
             <h:outputLabel value="Kunden-ID:"/>
             <h:inputText value="#{customerController.selectedCustomer.id}" readonly="true"/><br/>
             <h:outputLabel value="Vorname: "/>

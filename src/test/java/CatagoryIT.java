@@ -23,10 +23,14 @@ public class CatagoryIT {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[7]/span"));
         Actions actions = new Actions(webDriver);
         actions.moveToElement(hoverElement).perform();
-        Thread.sleep(1000);
+        Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"categoriesPanel\"]/a[2]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53:categoryName\"]")).sendKeys("1");
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt53\"]/input[3]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"categoryForm:categoryName\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"categoryForm\"]/input[3]")).click();
+        Thread.sleep(600);
+        String expect = "category saved successfully";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @Test
     @Order(2)
@@ -34,10 +38,10 @@ public class CatagoryIT {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[7]/span"));
         Actions actions = new Actions(webDriver);
         actions.moveToElement(hoverElement).perform();
-        Thread.sleep(1000);
+        Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"categoriesPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:categoryName\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:categoryName\"]")).sendKeys("1");
+        webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryName\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryName\"]")).sendKeys("1");
     }
     @Test
     @Order(3)
@@ -45,12 +49,16 @@ public class CatagoryIT {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[7]/span"));
         Actions actions = new Actions(webDriver);
         actions.moveToElement(hoverElement).perform();
-        Thread.sleep(1000);
+        Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"categoriesPanel\"]/a[1]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:categoryName\"]")).clear();
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:categoryName\"]")).sendKeys("1");
-        Thread.sleep(1000);
-        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:categoryTable:0:j_idt63\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryName\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryName\"]")).sendKeys("1");
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryTable:0:delete\"]")).click();
+//        Thread.sleep(600);
+//        String expect = "catagory deleted successfully";
+//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+//        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {

@@ -59,6 +59,7 @@ public class TestDatenInit {
         insertProduct();
         insertStore();
         insertOrder();
+        insertKatogory();
     }
 
     private void insertStaffs() {
@@ -107,5 +108,9 @@ public class TestDatenInit {
     private void insertOrder() {
         Order order = new Order();
         emDev.persist(order);
+    }
+    private void insertKatogory(){
+        Category category = new Category("1");
+        emDev.persist(category);
     }
 }
