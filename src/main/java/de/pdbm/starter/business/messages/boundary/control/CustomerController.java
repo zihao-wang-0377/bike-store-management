@@ -93,6 +93,8 @@ public class CustomerController implements Serializable {
             return;
         }
         customerService.save(customer);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer  saved successfully", null));
     }
 
     // Paginierung-Methoden
@@ -279,10 +281,22 @@ public class CustomerController implements Serializable {
         customerService.delete(customer);
         loadCustomerList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer deleted successfully", null));
     }
 
-    public String updateCustomerRecord() {
+    public void updateCustomerRecord() {
+        Set<ConstraintViolation<Customer>> violations = validator.validate(selectedCustomer);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Customer> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
         customerService.update(selectedCustomer);
-        return "customerTable.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer updated successfully", null));
+
     }
 }

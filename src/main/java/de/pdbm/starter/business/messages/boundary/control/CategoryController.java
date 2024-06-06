@@ -60,8 +60,8 @@ public class CategoryController implements Serializable {
             return;
         }
         categoryService.save(category);
-        loadCategoryList();
-        getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "category saved successfully", null));
     }
 
     // Paginierung-Methoden
@@ -185,5 +185,8 @@ public class CategoryController implements Serializable {
         categoryService.delete(category);
         loadCategoryList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "category deleted successfully", null));
+
     }
 }

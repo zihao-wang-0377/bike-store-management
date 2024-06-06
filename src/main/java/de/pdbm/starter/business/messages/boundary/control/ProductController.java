@@ -96,6 +96,8 @@ public class ProductController implements Serializable {
             return;
         }
         productService.save(product);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "product saved successfully", null));
 
     }
 
@@ -275,10 +277,23 @@ public class ProductController implements Serializable {
         productService.delete(product);
         loadProduktList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "product deleted successfully", null));
+
     }
 
-    public String updateProductRecord() {
+    public void updateProductRecord() {
+        Set<ConstraintViolation<Product>> violations = validator.validate(selectedProduct);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Product> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
         productService.update(selectedProduct);
-        return "productTable.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "product updated successfully", null));
+
     }
 }

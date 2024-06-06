@@ -59,8 +59,9 @@ public class BrandController implements Serializable {
             return;
         }
         brandService.save(brand);
-        loadBrandList();
-        getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "brand saved successfully", null));
+
     }
 
     // Paginierung-Methoden
@@ -181,6 +182,9 @@ public class BrandController implements Serializable {
         brandService.delete(brand);
         loadBrandList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "brand deleted successfully", null));
+
     }
 
     // Suche nach Markennamen

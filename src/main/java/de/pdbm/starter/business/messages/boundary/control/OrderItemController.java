@@ -259,9 +259,20 @@ public class OrderItemController implements Serializable {
         orderItemService.delete(orderItem);
         loadOrderItemList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "orderitem deleted successfully", null));
     }
-    public String updateOrderItemRecord(){
+    public void updateOrderItemRecord(){
+        Set<ConstraintViolation<OrderItem>> violations = validator.validate(selectedOrderItem);
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<OrderItem> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
         orderItemService.update(selectedOrderItem);
-        return "orderItemTable.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "orderitem updated successfully", null));
+
     }
 }

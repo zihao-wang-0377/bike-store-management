@@ -108,6 +108,8 @@ public class OrderController implements Serializable {
             return;
         }
         orderService.save(order);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "order saved successfully", null));
     }
 
     // Paginierung-Methoden
@@ -277,6 +279,8 @@ public class OrderController implements Serializable {
         orderService.delete(order);
         loadOrderList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "order deleted successfully", null));
     }
 
     public String showDetails(Order selectedOrder) {
@@ -284,19 +288,19 @@ public class OrderController implements Serializable {
         return "orderDetail.xhtml?faces-redirect=true";
     }
 
-    public String saveOrder() {
+    public void saveOrder() {
         Set<ConstraintViolation<Order>> violations = validator.validate(selectedOrder);
 
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Order> violation : violations) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
             }
-            return null;
+            return ;
         }
 
         orderService.update(selectedOrder);
         System.out.println("Order saved: " + selectedOrder.getId());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellung bearbeitet", "Bestellung " + selectedOrder.getId() + " erfolgreich gespeichert."));
-        return "orderTable.xhtml?faces-redirect=true";
+
     }
 }
