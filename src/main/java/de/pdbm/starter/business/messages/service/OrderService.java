@@ -19,7 +19,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class OrderService implements Serializable {
-    @PersistenceContext(type = TRANSACTION)
+    @PersistenceContext
     EntityManager em;
 
     public void save(Order order) {

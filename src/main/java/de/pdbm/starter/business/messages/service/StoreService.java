@@ -9,7 +9,7 @@ import java.io.Serializable;
 import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 public class StoreService implements Serializable {
-    @PersistenceContext(type = TRANSACTION)
+    @PersistenceContext
     EntityManager em;
 
     public Store findStoreById(Integer id) {

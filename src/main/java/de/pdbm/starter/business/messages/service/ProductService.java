@@ -17,7 +17,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class ProductService implements Serializable {
-    @PersistenceContext(type = TRANSACTION)
+    @PersistenceContext
     EntityManager em;
 
     public void save(Product product) {

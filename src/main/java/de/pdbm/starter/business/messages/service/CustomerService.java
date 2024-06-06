@@ -16,7 +16,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class CustomerService implements Serializable {
-    @PersistenceContext(type = TRANSACTION)
+    @PersistenceContext
     EntityManager em;
 
     public void save(Customer customer) {

@@ -12,7 +12,7 @@ import static jakarta.persistence.PersistenceContextType.TRANSACTION;
 
 @Stateless
 public class LoginService implements Serializable {
-    @PersistenceContext(type = TRANSACTION)
+    @PersistenceContext
     EntityManager em;
 
     // Die Rolle des Benutzers zurückgeben
