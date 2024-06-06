@@ -63,16 +63,7 @@ public class ProductService implements Serializable {
         if (!em.contains(product)) {
             product = em.merge(product);
         }
-        List<Long> referencedProductIds = this.getReferencedProductId(product);
-
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                "Fehler", ": das Produkt ist referenced by diese Order" + referencedProductIds + "auf null bevor Sie es löschen: "));
-
         em.remove(product);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Erfolg", "Produkt erfolgreich gelöscht."));
-
     }
 
     public List<Long> getReferencedProductId(Product product) {

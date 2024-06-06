@@ -38,8 +38,8 @@ public class ProductIT {
         webDriver.findElement(By.xpath("//*[@id=\"productForm:description\"]")).sendKeys(String.valueOf(product.getModelYear()));
         webDriver.findElement(By.xpath("//*[@id=\"productForm\"]/input[4]")).click();
         Thread.sleep(600);
-        String expect = "product saved successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Produkt erfolgreich gespeichert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"productForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
 
@@ -73,8 +73,8 @@ public class ProductIT {
        webDriver.findElement(By.xpath("//*[@id=\"productDetail\"]/input[5]")).sendKeys(product.getName());
        webDriver.findElement(By.xpath("//*[@id=\"productDetail\"]/input[6]")).click();
        Thread.sleep(600);
-       String expect = "product updated successfully";
-       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+       String expect = "Produkt erfolgreich aktualisiert";
+       String actual = webDriver.findElement(By.xpath("//*[@id=\"productDetail:messages\"]")).getText();
        Assertions.assertEquals(expect, actual);
     }
 
@@ -90,10 +90,10 @@ public class ProductIT {
        webDriver.findElement(By.xpath("//*[@id=\"product:name\"]")).sendKeys(product.getName());
        Thread.sleep(600);
        webDriver.findElement(By.xpath("//*[@id=\"product:productTable:0:delete\"]")).click();
-//       Thread.sleep(600);
-//       String expect = "product deleted successfully";
-//       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
-//       Assertions.assertEquals(expect, actual);
+       Thread.sleep(600);
+       String expect = "Produkt erfolgreich gelöscht";
+       String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
+       Assertions.assertEquals(expect, actual);
     }
 
     @AfterEach

@@ -97,7 +97,7 @@ public class ProductController implements Serializable {
         }
         productService.save(product);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "product saved successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Produkt erfolgreich gespeichert", null));
 
     }
 
@@ -276,7 +276,7 @@ public class ProductController implements Serializable {
         loadProduktList();
         getTotalRecords();
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "product deleted successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Produkt erfolgreich gelöscht", null));
 
     }
 
@@ -291,7 +291,7 @@ public class ProductController implements Serializable {
         }
         productService.update(selectedProduct);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "product updated successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Produkt erfolgreich aktualisiert", null));
 
     }
 }
