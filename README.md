@@ -24,6 +24,18 @@
 
 - Integrationstests
   - `mvn clean verify -P integration-tests `
+  - oder`mvn wildfly:shutdown clean verify -P integration-tests`
+  - 
+  - alternativ können sie einzelne Testklassen laufen lassen, mit den Befehle
+  - `mvn clean verify -Pintegration-tests -Dgroups=customer` 
+  - `mvn clean verify -Pintegration-tests -Dgroups=category`
+  - `mvn clean verify -Pintegration-tests -Dgroups=brand`
+  - `mvn clean verify -Pintegration-tests -Dgroups=login`
+  - `mvn clean verify -Pintegration-tests -Dgroups=order`
+  - `mvn clean verify -Pintegration-tests -Dgroups=orderitem`
+  - `mvn clean verify -Pintegration-tests -Dgroups=product`
+  - `mvn clean verify -Pintegration-tests -Dgroups=staff`
+  
 
 ## Projektstatus
 1. Iteration (22.03.2024 – 05.04.2024): Einfache Vertriebsunterstützung
