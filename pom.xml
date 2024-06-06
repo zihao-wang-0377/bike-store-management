@@ -60,7 +60,7 @@
                 <enable.security.start>&lt;!--</enable.security.start>
                 <enable.security.end>--></enable.security.end>
                 <enable.datasource.team10>true</enable.datasource.team10>
-
+                <loadTestData>false</loadTestData>
             </properties>
             <build>
                 <resources>
@@ -82,7 +82,7 @@
                 <enable.security.start/>
                 <enable.security.end/>
                 <enable.datasource.team10>false</enable.datasource.team10>
-
+                <loadTestData>true</loadTestData>
             </properties>
             <build>
                 <resources>

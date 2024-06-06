@@ -10,7 +10,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Properties;
 
 @Startup
 @Singleton
@@ -28,10 +30,25 @@ public class TestDatenInit {
     @PostConstruct
     @Transactional
     public void init() {
-        if (emDev != null) {
+        if (shouldLoadTestData()) {
             loadTestData();
         } else {
-            System.out.println("Skipping test data initialization in production environment");
+            System.out.println("Skipping test data initialization");
+        }
+    }
+
+    private boolean shouldLoadTestData() {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
+            Properties prop = new Properties();
+            if (input == null) {
+                System.out.println("Sorry, unable to find application.properties");
+                return false;
+            }
+            prop.load(input);
+            return Boolean.parseBoolean(prop.getProperty("load.test.data"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
 
