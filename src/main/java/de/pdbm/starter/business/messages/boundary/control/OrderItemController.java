@@ -98,8 +98,7 @@ public class OrderItemController implements Serializable {
         orderItem.setPrice(price);
         orderItemService.save(orderItem);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "orderItem saved successfully", null));
-
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellposition erfolgreich gespeichert", null));
     }
 
     // Paginierung-Methoden
@@ -261,7 +260,7 @@ public class OrderItemController implements Serializable {
         loadOrderItemList();
         getTotalRecords();
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "orderItem deleted successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellposition erfolgreich gelöscht", null));
     }
     public void updateOrderItemRecord(){
         Set<ConstraintViolation<OrderItem>> violations = validator.validate(selectedOrderItem);
@@ -273,7 +272,7 @@ public class OrderItemController implements Serializable {
         }
         orderItemService.update(selectedOrderItem);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "orderItem updated successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Bestellposition erfolgreich aktualisiert", null));
 
     }
 }

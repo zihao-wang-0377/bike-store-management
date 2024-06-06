@@ -35,8 +35,8 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:ProduktID\"]")).sendKeys("1");
         webDriver.findElement(By.xpath("//*[@id=\"orderItemForm\"]/input[8]")).click();
         Thread.sleep(600);
-        String expect = "orderItem saved successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Bestellposition erfolgreich gespeichert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"orderItemForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
 
@@ -60,12 +60,13 @@ public class OrderItemIT {
         Thread.sleep(1000);
         webDriver.findElement(By.xpath("//*[@id=\"orderPositionsPanel\"]/a[1]")).click();
         webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderItemTable:0:detail\"]")).click();
+        Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[5]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[5]")).sendKeys("100");
         webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail\"]/input[8]")).click();
         Thread.sleep(600);
-        String expect = "orderItem updated successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Bestellposition erfolgreich aktualisiert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
     @Test
@@ -80,10 +81,10 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).sendKeys("1");
         Thread.sleep(1000);
         webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderItemTable:0:delete\"]")).click();
-//        Thread.sleep(600);
-//        String expect = "orderItem deleted successfully";
-//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
-//        Assertions.assertEquals(expect, actual);
+        Thread.sleep(600);
+        String expect = "Bestellposition erfolgreich gelöscht";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {
