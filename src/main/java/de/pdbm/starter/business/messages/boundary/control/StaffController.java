@@ -70,8 +70,11 @@ public class StaffController implements Serializable {
 
     public void deleteStaffRecord(Staff staff) {
         staffService.delete(staff);
+
         loadStaffList();
         getTotalRecords();
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff deleted successfully", null));
     }
 
     public String showDetails(Staff selectedStaff) {
@@ -93,12 +96,23 @@ public class StaffController implements Serializable {
             return;
         }
         staffService.save(staff);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff created successfully", null));
         loadStaffList();
     }
 
-    public String updateStaffRecord() {
+    public void updateStaffRecord() {
+        Set<ConstraintViolation<Staff>> violations = validator.validate(selectedStaff);
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<Staff> violation : violations) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, violation.getMessage(), null));
+            }
+            return;
+        }
         staffService.update(selectedStaff);
-        return "staffTable.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff updated successfully", null));
+
     }
 
     public Integer getStaffId() {
