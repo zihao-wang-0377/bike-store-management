@@ -72,7 +72,7 @@ public class StaffController implements Serializable {
         loadStaffList();
         getTotalRecords();
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff deleted successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Mitarbeiter erfolgreich gelöscht", null));
     }
 
     public String showDetails(Staff selectedStaff) {
@@ -95,7 +95,7 @@ public class StaffController implements Serializable {
         }
         staffService.save(staff);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff created successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Mitarbeiter erfolgreich gespeichert", null));
         loadStaffList();
     }
 
@@ -109,7 +109,7 @@ public class StaffController implements Serializable {
         }
         staffService.update(selectedStaff);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff updated successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Mitarbeiter erfolgreich aktualisiert", null));
 
     }
 
