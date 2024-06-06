@@ -12,19 +12,19 @@
     <ui:define name="content">
         <h1 style="text-align: center">Produkt Detail</h1>
         <h:form styleClass="container">
-            <h:outputLabel value="Product ID: "/>
+            <h:outputLabel value="Product-ID: "/>
             <h:inputText value="#{productController.selectedProduct.id}" readonly="true"/><br/>
-            <h:outputLabel value="ListenPreis: "/>
+            <h:outputLabel value="Listenpreis: "/>
             <h:inputText value="#{productController.selectedProduct.price}"/><br/>
-            <h:outputLabel value="ModellJahr: "/>
+            <h:outputLabel value="Modelljahr: "/>
             <h:inputText value="#{productController.selectedProduct.modelYear}"/><br/>
-            <h:outputLabel value="Produkt Name: "/>
+            <h:outputLabel value="Produktname: "/>
             <h:inputText value="#{productController.selectedProduct.name}"/><br/>
-            <h:outputLabel value="Marke Name: "/>
+            <h:outputLabel value="Markenname: "/>
             <h:selectOneMenu id="brandName" value="#{productController.selectedProduct.brand.brandName}">
                 <f:selectItems value="#{brandController.brandList}"/>
             </h:selectOneMenu><br/>
-            <h:outputLabel value="Kategorie Name: "/>
+            <h:outputLabel value="Kategorienname: "/>
             <h:selectOneMenu id="categoryName" value="#{productController.selectedProduct.category.categoryName}">
                 <f:selectItems value="#{categoryController.categoryList}"/>
             </h:selectOneMenu><br/>

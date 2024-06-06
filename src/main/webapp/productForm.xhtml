@@ -15,17 +15,17 @@
             <h:outputLabel for="name" value="Name: "/>
             <h:inputText id="name" value="#{productController.name}"/>
             <br></br>
-            <h:outputLabel for="price" value="ListenPreis: "/>
+            <h:outputLabel for="price" value="Listenpreis: "/>
             <h:inputText id="price" value="#{productController.price}"/>
             <br></br>
-            <h:outputLabel for="description" value="ModellJahr: "/>
+            <h:outputLabel for="description" value="Modelljahr: "/>
             <h:inputTextarea id="description" value="#{productController.year}"/>
             <br></br>
-            <h:outputLabel value="Marke Name: "/>
+            <h:outputLabel value="Markenname: "/>
             <h:selectOneMenu id="brandName" value="#{productController.brandName}">
                 <f:selectItems value="#{brandController.brandList}"/>
             </h:selectOneMenu><br/>
-            <h:outputLabel value="Kategorie Name: "/>
+            <h:outputLabel value="Kategorienname: "/>
             <h:selectOneMenu id="categoryName" value="#{productController.categoryName}">
                 <f:selectItems value="#{categoryController.categoryList}"/>
             </h:selectOneMenu><br/>

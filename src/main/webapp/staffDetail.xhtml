@@ -24,18 +24,10 @@
             <h:inputText value="#{staffController.selectedStaff.lastName}"/><br/>
             <h:outputLabel value="Email: "/>
             <h:inputText value="#{staffController.selectedStaff.email}"/><br/>
-            <h:outputLabel value="Phone: "/>
+            <h:outputLabel value="Telefonnummer: "/>
             <h:inputText value="#{staffController.selectedStaff.phone}"/><br/>
-            <h:outputLabel value="Activ: "/>
+            <h:outputLabel value="Aktiv: "/>
             <h:inputText value="#{staffController.selectedStaff.active}"/><br/>
-            <!--            <h:outputLabel value="Street: "/>-->
-            <!--            <h:inputText value="#{customerController.selectedCustomer.street}" /><br/>-->
-            <!--            <h:outputLabel value="City: "/>-->
-            <!--            <h:inputText value="#{customerController.selectedCustomer.city}" /><br/>-->
-            <!--            <h:outputLabel value="Zip Code: "/>-->
-            <!--            <h:inputText value="#{customerController.selectedCustomer.zipcode}" /><br/>-->
-            <!--            <h:outputLabel value="State: "/>-->
-            <!--            <h:inputText value="#{customerController.selectedCustomer.state}" /><br/>-->
             <h:commandButton value="Speichern" action="#{staffController.updateStaffRecord()}" styleClass="button"/>
         </h:form>
     </ui:define>

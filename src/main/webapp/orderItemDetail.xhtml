@@ -12,17 +12,17 @@
     <ui:define name="content">
         <h1 style="text-align: center">Bestellposition Detail</h1>
         <h:form styleClass="container">
-            <h:outputLabel value="Position ID :"/>
+            <h:outputLabel value="Bestellposition-ID:"/>
             <h:inputText value="#{orderItemController.selectedOrderItem.itemId}"/><br/>
-            <h:outputLabel value="Bestellung ID: "/>
+            <h:outputLabel value="Bestellungs-ID: "/>
             <h:inputText value="#{orderItemController.selectedOrderItem.orderId}"/><br/>
-            <h:outputLabel value="Discount: "/>
+            <h:outputLabel value="Rabatte: "/>
             <h:inputText value="#{orderItemController.selectedOrderItem.discount}"/><br/>
-            <h:outputLabel value="ListePreis: "/>
+            <h:outputLabel value="Listepreis: "/>
             <h:inputText value="#{orderItemController.selectedOrderItem.price}"/><br/>
-            <h:outputLabel value="Quantity: "/>
+            <h:outputLabel value="Anzahl: "/>
             <h:inputText value="#{orderItemController.selectedOrderItem.quantity}"/><br/>
-            <h:outputLabel value="Produkt ID"/>
+            <h:outputLabel value="Produkt-ID"/>
             <h:inputText value="#{orderItemController.selectedOrderItem.productId}" readonly="true"/><br/>
             <h:commandButton value="Speichern" action="#{orderItemController.updateOrderItemRecord()}" styleClass="button"/>
         </h:form>

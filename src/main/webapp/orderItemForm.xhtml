@@ -12,22 +12,22 @@
     <ui:define name="content">
         <h1>Neue Bestellposition anlegen</h1>
         <h:form>
-            <h:outputLabel for="orderItemID" value="BestellPositionnummer: "/>
+            <h:outputLabel for="orderItemID" value="Bestellposition-ID: "/>
             <h:inputText id="orderItemID" value="#{orderItemController.itemId}"/>
             <br/>
-            <h:outputLabel for="orderID" value="Bestellnummer: "/>
+            <h:outputLabel for="orderID" value="Bestellungs-ID: "/>
             <h:inputText id="orderID" value="#{orderItemController.orderId}"/>
             <br></br>
             <h:outputLabel for="Rabatte" value="Rabatte: "/>
             <h:inputText id="Rabatte" value="#{orderItemController.discount}"/>
             <br></br>
-            <h:outputLabel for="ListenPreis" value="ListenPreis: "/>
+            <h:outputLabel for="ListenPreis" value="Listenpreis: "/>
             <h:inputText id="ListenPreis" value="#{orderItemController.price}"/>
             <br></br>
             <h:outputLabel for="quantity" value="Anzahl: "/>
             <h:inputText id="quantity" value="#{orderItemController.quantity}"/>
             <br></br>
-            <h:outputLabel for="ProduktID" value="ProduktId: "/>
+            <h:outputLabel for="ProduktID" value="Produkt-ID: "/>
             <h:inputText id="ProduktID" value="#{orderItemController.productId}"/>
             <br></br>
             <h:commandButton value="Speichern" action="#{orderItemController.save()}" styleClass="save-button"/>

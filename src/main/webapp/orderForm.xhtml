@@ -12,13 +12,13 @@
     <ui:define name="content">
         <h1>Neue Bestellung anlegen</h1>
         <h:form>
-            <h:outputLabel for="customerID" value="KundeID: "/>
+            <h:outputLabel for="customerID" value="Kunden-ID: "/>
             <h:inputText id="customerID" value="#{orderController.customerId}"/>
             <br></br>
-            <h:outputLabel for="staffID" value="MitarbeiterID: "/>
+            <h:outputLabel for="staffID" value="Mitarbeiter-ID: "/>
             <h:inputText id="staffID" value="#{orderController.staffId}"/>
             <br></br>
-            <h:outputLabel for="storeID" value="GeschäftsID: "/>
+            <h:outputLabel for="storeID" value="Geschäfts-ID: "/>
             <h:inputText id="storeID" value="#{orderController.storeId}"/>
             <br></br>
             <h:outputLabel for="Bestelldatum" value="Bestelldatum: "/>

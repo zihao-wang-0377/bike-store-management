@@ -12,23 +12,23 @@
     <ui:define name="content">
         <h1 style="text-align: center">Kunde Detail</h1>
         <h:form styleClass="container">
-            <h:outputLabel value="CustomerID :"/>
+            <h:outputLabel value="Kunden-ID:"/>
             <h:inputText value="#{customerController.selectedCustomer.id}" readonly="true"/><br/>
-            <h:outputLabel value="First Name: "/>
+            <h:outputLabel value="Vorname: "/>
             <h:inputText value="#{customerController.selectedCustomer.firstname}"/><br/>
-            <h:outputLabel value="Last Name: "/>
+            <h:outputLabel value="Nachname: "/>
             <h:inputText value="#{customerController.selectedCustomer.lastname}"/><br/>
             <h:outputLabel value="Email: "/>
             <h:inputText value="#{customerController.selectedCustomer.email}"/><br/>
-            <h:outputLabel value="Phone: "/>
+            <h:outputLabel value="Telefonnummer: "/>
             <h:inputText value="#{customerController.selectedCustomer.phone}"/><br/>
-            <h:outputLabel value="Street: "/>
+            <h:outputLabel value="Straße: "/>
             <h:inputText value="#{customerController.selectedCustomer.street}"/><br/>
-            <h:outputLabel value="City: "/>
+            <h:outputLabel value="Stadt: "/>
             <h:inputText value="#{customerController.selectedCustomer.city}"/><br/>
-            <h:outputLabel value="Zip Code: "/>
+            <h:outputLabel value="Postleitzahl: "/>
             <h:inputText value="#{customerController.selectedCustomer.zipcode}"/><br/>
-            <h:outputLabel value="State: "/>
+            <h:outputLabel value="Bundesland: "/>
             <h:inputText value="#{customerController.selectedCustomer.state}"/><br/>
             <h:commandButton value="Speichern" action="#{customerController.updateCustomerRecord()}"
                              styleClass="button"/>
