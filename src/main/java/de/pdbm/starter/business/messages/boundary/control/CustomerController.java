@@ -94,7 +94,7 @@ public class CustomerController implements Serializable {
         }
         customerService.save(customer);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer  saved successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Kunde erfolgreich gespeichert", null));
     }
 
     // Paginierung-Methoden
@@ -280,7 +280,7 @@ public class CustomerController implements Serializable {
         loadCustomerList();
         getTotalRecords();
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer deleted successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Kunde erfolgreich gelöscht", null));
     }
 
     public void updateCustomerRecord() {
@@ -294,7 +294,6 @@ public class CustomerController implements Serializable {
         }
         customerService.update(selectedCustomer);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "customer updated successfully", null));
-
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Kunde erfolgreich aktualisiert", null));
     }
 }
