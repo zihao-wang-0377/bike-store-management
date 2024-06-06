@@ -34,8 +34,8 @@ public class OrderIT {
         webDriver.findElement(By.xpath("//*[@id=\"orderForm:Bestelldatum\"]")).sendKeys("26.08.2020");
         webDriver.findElement(By.xpath("//*[@id=\"orderForm\"]/input[7]")).click();
         Thread.sleep(600);
-        String expect = "order saved successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Bestellung erfolgreich gespeichert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"orderForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
 
@@ -67,8 +67,8 @@ public class OrderIT {
        webDriver.findElement(By.xpath("//*[@id=\"orderDetail\"]/input[3]")).sendKeys("28.08.2020");
        webDriver.findElement(By.xpath("//*[@id=\"orderDetail\"]/input[10]")).click();
        Thread.sleep(600);
-       String expect = "Bestellung bearbeitet";
-       String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+       String expect = "Bestellung erfolgreich aktualisiert";
+       String actual = webDriver.findElement(By.xpath("//*[@id=\"orderDetail:messages\"]")).getText();
        Assertions.assertEquals(expect, actual);
     }
  @Test
@@ -83,10 +83,10 @@ public class OrderIT {
         webDriver.findElement(By.xpath("//*[@id=\"order:orderDate\"]")).sendKeys("28.08.2020");
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"order:orderTable:0:delete\"]")).click();
-//        Thread.sleep(600);
-//        String expect = "order deleted successfully";
-//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
-//        Assertions.assertEquals(expect, actual);
+        Thread.sleep(600);
+        String expect = "Bestellung erfolgreich gelöscht";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
+        Assertions.assertEquals(expect, actual);
     }
 
     @AfterEach
