@@ -66,14 +66,14 @@ public class OrderIT {
  @Test
  @Order(4)
     public void testDeleteOrder() throws InterruptedException {
-     WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[4]/span"));
-     Actions actions = new Actions(webDriver);
-     actions.moveToElement(hoverElement).perform();
-     Thread.sleep(600);
-     webDriver.findElement(By.xpath("//*[@id=\"ordersPanel\"]/a[1]")).click();
-     webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).clear();
-     webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).sendKeys("26.08.2020");
-     Thread.sleep(600);
+        WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[4]/span"));
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(hoverElement).perform();
+        Thread.sleep(600);
+        webDriver.findElement(By.xpath("//*[@id=\"ordersPanel\"]/a[1]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).clear();
+        webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).sendKeys("26.08.2020");
+        Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"j_idt52:orderDate\"]")).sendKeys("28.08.2020");
         Thread.sleep(600);
