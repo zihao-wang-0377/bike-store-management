@@ -62,9 +62,7 @@ public class StaffController implements Serializable {
     }
 
     public long getTotalRecords() {
-        if (totalRecords == 0) {
-            totalRecords = staffService.getStaffCount();
-        }
+        totalRecords = staffService.getStaffCount();
         return totalRecords;
     }
 

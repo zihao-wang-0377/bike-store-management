@@ -107,9 +107,7 @@ public class BrandController implements Serializable {
     }
 
     public long getTotalRecords() {
-        if (totalRecords == 0) {
-            totalRecords = brandService.getBrandCount();
-        }
+        totalRecords = brandService.getBrandCount();
         return totalRecords;
     }
 

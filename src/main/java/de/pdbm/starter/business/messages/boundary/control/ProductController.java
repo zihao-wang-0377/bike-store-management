@@ -181,9 +181,7 @@ public class ProductController implements Serializable {
     }
 
     public long getTotalRecords() {
-        if (totalRecords == 0) {
-            totalRecords = productService.getProductCount();
-        }
+        totalRecords = productService.getProductCount();
         return totalRecords;
     }
 
