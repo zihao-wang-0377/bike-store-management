@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 
 
 import java.math.BigDecimal;
+@Tag("product")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductIT {
 
