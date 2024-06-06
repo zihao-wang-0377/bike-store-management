@@ -17,18 +17,18 @@
     </ui:define>
     <ui:define name="content">
         <h1 style="text-align: center">Mitarbeiter Detail</h1>
-        <h:form styleClass="container">
+        <h:form styleClass="container" id="staffdeteilform">
             <h:outputLabel value="Vorname :"/>
-            <h:inputText value="#{staffController.selectedStaff.firstName}"/><br/>
+            <h:inputText value="#{staffController.selectedStaff.firstName}" id="firstname"/><br/>
             <h:outputLabel value="Nachname: "/>
-            <h:inputText value="#{staffController.selectedStaff.lastName}"/><br/>
+            <h:inputText value="#{staffController.selectedStaff.lastName}" id="lastname"/><br/>
             <h:outputLabel value="Email: "/>
-            <h:inputText value="#{staffController.selectedStaff.email}"/><br/>
+            <h:inputText value="#{staffController.selectedStaff.email}" id="email"/><br/>
             <h:outputLabel value="Telefonnummer: "/>
-            <h:inputText value="#{staffController.selectedStaff.phone}"/><br/>
+            <h:inputText value="#{staffController.selectedStaff.phone}" id="phone"/><br/>
             <h:outputLabel value="Aktiv: "/>
-            <h:inputText value="#{staffController.selectedStaff.active}"/><br/>
-            <h:commandButton value="Speichern" action="#{staffController.updateStaffRecord()}" styleClass="button"/>
+            <h:inputText value="#{staffController.selectedStaff.active}" id="active"/><br/>
+            <h:commandButton value="Speichern" action="#{staffController.updateStaffRecord()}" styleClass="button" id="save"/>
         </h:form>
     </ui:define>
 </ui:composition>

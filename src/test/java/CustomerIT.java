@@ -15,10 +15,9 @@ public class CustomerIT {
     void Setup(){
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/team-10");
-        webDriver.findElement(By.xpath("//*[@id='j_idt6:username']")).sendKeys("admin.staff@bikes.shop");
-        webDriver.findElement(By.xpath("//*[@id='j_idt6:password']")).sendKeys("444-3049");
-        webDriver.findElement(By.xpath("//*[@id='j_idt6']/input[4]")).click();
-    }
+        webDriver.findElement(By.xpath("//*[@id='loginform:username']")).sendKeys("admin.staff@bikes.shop");
+        webDriver.findElement(By.xpath("//*[@id='loginform:password']")).sendKeys("444-3049");
+        webDriver.findElement(By.xpath("//*[@id='loginform']/input[4]")).click();    }
 
    @Test
    @Order(1)
