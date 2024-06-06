@@ -60,7 +60,7 @@ public class BrandController implements Serializable {
         }
         brandService.save(brand);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "brand saved successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Marke erfolgreich gespeichert", null));
 
     }
 
@@ -181,7 +181,7 @@ public class BrandController implements Serializable {
         loadBrandList();
         getTotalRecords();
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "brand deleted successfully", null));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Marke erfolgreich gelöscht", null));
 
     }
 

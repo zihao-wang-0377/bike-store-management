@@ -29,8 +29,8 @@ public class BrandIT {
         webDriver.findElement(By.xpath("//*[@id=\"brandform:brandName\"]")).sendKeys("Hello World");
         webDriver.findElement(By.xpath("//*[@id=\"brandform\"]/input[3]")).click();
         Thread.sleep(600);
-        String expect = "brand saved successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Marke erfolgreich gespeichert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"brandform:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
     @Test
@@ -57,10 +57,10 @@ public class BrandIT {
         webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).sendKeys("Hello World");
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"brand:brandTable:0:delete\"]")).click();
-//        Thread.sleep(600);
-//        String expect = "brand deleted successfully";
-//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
-//        Assertions.assertEquals(expect, actual);
+        Thread.sleep(600);
+        String expect = "Marke erfolgreich gelöscht";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {
