@@ -28,6 +28,7 @@
             <h:inputText value="#{staffController.selectedStaff.phone}" id="phone"/><br/>
             <h:outputLabel value="Aktiv: "/>
             <h:inputText value="#{staffController.selectedStaff.active}" id="active"/><br/>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{staffController.updateStaffRecord()}" styleClass="button" id="save"/>
         </h:form>
     </ui:define>

@@ -30,6 +30,7 @@
             <h:outputLabel for="ProduktID" value="Produkt-ID: "/>
             <h:inputText id="ProduktID" value="#{orderItemController.productId}"/>
             <br></br>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{orderItemController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

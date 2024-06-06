@@ -30,10 +30,13 @@
                 <h:column rendered="#{request.isUserInRole('ADMIN') or request.isUserInRole('USER1')}">
                     <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{brandController.deleteBrand(brand)}" update="messages">
-                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                        <f:ajax execute="@this" render="@form messageForm:messages totalRecordsForm:totalRecords"/>
                     </h:commandButton>
                 </h:column>
             </h:dataTable>
+        </h:form>
+        <h:form id="messageForm">
+            <h:messages id="messages"/>
         </h:form>
         <h:form styleClass="button-container" id="totalRecordsForm">
             <h:outputLabel id="totalRecords" value="Insgesamt #{brandController.totalRecords} Einträge"/>

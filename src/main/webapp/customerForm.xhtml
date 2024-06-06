@@ -36,6 +36,7 @@
             <h:outputLabel for="plz">Postleitzahl:</h:outputLabel>
             <h:inputText id="plz" value="#{customerController.zipCode}"/>
             <br></br>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{customerController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

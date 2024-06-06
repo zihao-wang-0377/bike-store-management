@@ -29,6 +29,7 @@
             <h:selectOneMenu id="categoryName" value="#{productController.categoryName}">
                 <f:selectItems value="#{categoryController.categoryList}"/>
             </h:selectOneMenu><br/>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{productController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

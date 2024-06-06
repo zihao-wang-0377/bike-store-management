@@ -49,13 +49,13 @@
                         <f:ajax execute="@form" render="@all"/>
                     </h:commandButton>
                     <h:commandButton id="delete" styleClass="deleteButton" action="#{orderController.deleteOrderRecord(order)}">
-                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                        <f:ajax execute="@this" render="@form messageForm:messages totalRecordsForm:totalRecords"/>
                     </h:commandButton>
                 </h:column>
             </h:dataTable>
         </h:form>
         <h:form id="messageForm">
-            <h:messages id="Messages" globalOnly="true" showDetail="true" showSummary="true"/>
+            <h:messages id="messages"/>
         </h:form>
         <h:form styleClass="button-container" id="totalRecordsForm">
             <h:outputLabel id="totalRecords" value="Insgesamt #{orderController.totalRecords} Einträge"/>

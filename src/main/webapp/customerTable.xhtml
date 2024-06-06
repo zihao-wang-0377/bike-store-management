@@ -55,16 +55,15 @@
                     </h:commandButton>
                     <h:commandButton styleClass="deleteButton" id="delete"
                                      action="#{customerController.deleteCustomerRecord(customer)}" update="messages">
-                        <f:ajax execute="@this" render="@form totalRecordsForm:totalRecords"/>
+                        <f:ajax execute="@this" render="@form messageForm:messages totalRecordsForm:totalRecords"/>
                     </h:commandButton>
-
-
                 </h:column>
             </h:dataTable>
         </h:form>
-        <h:messages globalOnly="true" showDetail="true" showSummary="true"/>
-
-        <h:form styleClass="button-container" id="totalRecordsForm">
+        <h:form id="messageForm">
+            <h:messages id="messages"/>
+        </h:form>
+        <h:form id="totalRecordsForm" styleClass="button-container">
             <h:outputLabel id="totalRecords" value="Insgesamt #{customerController.totalRecords} Einträge"/>
             <h:selectOneMenu styleClass="select" value="#{customerController.pageSize}">
                 <f:selectItem itemValue="5" itemLabel="5 Einträge/Seite"/>

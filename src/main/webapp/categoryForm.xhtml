@@ -15,6 +15,7 @@
             <h:outputLabel for="categoryName">Kategorienname:</h:outputLabel>
             <h:inputText id="categoryName" value="#{categoryController.categoryName}"/>
             <br></br>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{categoryController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

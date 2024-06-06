@@ -24,6 +24,7 @@
             <h:inputText value="#{orderItemController.selectedOrderItem.quantity}"/><br/>
             <h:outputLabel value="Produkt-ID"/>
             <h:inputText value="#{orderItemController.selectedOrderItem.productId}" readonly="true"/><br/>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{orderItemController.updateOrderItemRecord()}" styleClass="button"/>
         </h:form>
     </ui:define>

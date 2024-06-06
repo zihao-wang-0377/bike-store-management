@@ -34,8 +34,8 @@
             <br></br>
             <h:outputLabel for="phone">Telefonnummer:</h:outputLabel>
             <h:inputText id="phone" value="#{staffController.phone}"/>
-
             <br></br>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{staffController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

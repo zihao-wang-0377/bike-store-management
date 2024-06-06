@@ -15,6 +15,7 @@
             <h:outputLabel for="brandName" value="Markenname: "/>
             <h:inputText id="brandName" value="#{brandController.brandName}"/>
             <br></br>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{brandController.save()}" styleClass="save-button"/>
         </h:form>
     </ui:define>

@@ -28,6 +28,7 @@
             <h:inputText value="#{orderController.selectedOrder.staff.staffId}" readonly="true"/><br/>
             <h:outputLabel value="Geschäfts-ID: "/>
             <h:inputText value="#{orderController.selectedOrder.store.storeId}" readonly="true"/><br/>
+            <h:messages id="messages"/>
             <h:commandButton value="Speichern" action="#{orderController.saveOrder()}" styleClass="button"/>
         </h:form>
 
