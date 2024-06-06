@@ -28,8 +28,8 @@ public class CatagoryIT {
         webDriver.findElement(By.xpath("//*[@id=\"categoryForm:categoryName\"]")).sendKeys("1");
         webDriver.findElement(By.xpath("//*[@id=\"categoryForm\"]/input[3]")).click();
         Thread.sleep(600);
-        String expect = "category saved successfully";
-        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
+        String expect = "Kategorie erfolgreich gespeichert";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"categoryForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
     @Test
@@ -55,10 +55,10 @@ public class CatagoryIT {
         webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryName\"]")).sendKeys("1");
         Thread.sleep(600);
         webDriver.findElement(By.xpath("//*[@id=\"kategorie:categoryTable:0:delete\"]")).click();
-//        Thread.sleep(600);
-//        String expect = "catagory deleted successfully";
-//        String actual = webDriver.findElement(By.xpath("//*[@id=\"jakarta_faces_developmentstage_messages\"]/li/span")).getText();
-//        Assertions.assertEquals(expect, actual);
+        Thread.sleep(600);
+        String expect = "Kategorie erfolgreich gelöscht";
+        String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
+        Assertions.assertEquals(expect, actual);
     }
     @AfterEach
     public void teardown() {
