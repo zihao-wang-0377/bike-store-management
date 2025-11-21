@@ -13,8 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <maven.compiler.source>22</maven.compiler.source>
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
@@ -169,7 +169,7 @@
                     <doctitle>Software Engineering Projekt</doctitle>
                     <bottom>Copyright &#169; 2024 Bernd Müller</bottom>
                     <doclint>none</doclint>
-                    <release>21</release>
+                    <release>22</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -177,7 +177,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>5.0.0.Final</version>
                 <configuration>
-                    <version>31.0.1.Final</version>
+                    <version>33.0.2.Final</version>
                     <commands>
                         <command>
                             /subsystem=undertow/application-security-domain=other:write-attribute(name=integrated-jaspi,value=false)
