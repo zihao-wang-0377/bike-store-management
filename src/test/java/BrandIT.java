@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 @Tag("brand")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -17,7 +20,10 @@ public class BrandIT {
         webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
         webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
         webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("navForm")));
     }
+
     @Test
     @Order(1)
     public void createBrandTest() throws InterruptedException {
@@ -33,6 +39,7 @@ public class BrandIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"brandform:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @Test
     @Order(2)
     public void searchBrandTest() throws InterruptedException {
@@ -45,6 +52,7 @@ public class BrandIT {
         webDriver.findElement(By.xpath("//*[@id=\"brand:brandName\"]")).sendKeys("Hello World");
         Thread.sleep(600);
     }
+
     @Test
     @Order(3)
     public void deleteBrandTest() throws InterruptedException {
@@ -62,6 +70,7 @@ public class BrandIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @AfterEach
     public void teardown() {
         if (webDriver != null) {

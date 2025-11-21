@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
 @Tag("orderitem")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderItemIT {
@@ -17,6 +21,8 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
         webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
         webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("navForm")));
     }
 
     @Test
@@ -40,8 +46,8 @@ public class OrderItemIT {
         Assertions.assertEquals(expect, actual);
     }
 
-   @Test
-   @Order(2)
+    @Test
+    @Order(2)
     public void testSearchOrderItem() throws InterruptedException {
         WebElement hoverElement = webDriver.findElement(By.xpath("//*[@id=\"navForm\"]/div/div[5]/span"));
         Actions actions = new Actions(webDriver);
@@ -51,6 +57,7 @@ public class OrderItemIT {
         webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"orderItem:orderId\"]")).sendKeys("1");
     }
+
     @Test
     @Order(3)
     public void testEditOrderItem() throws InterruptedException {
@@ -69,6 +76,7 @@ public class OrderItemIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"orderItemDetail:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @Test
     @Order(4)
     public void testDeleteOrderItem() throws InterruptedException {
@@ -86,6 +94,7 @@ public class OrderItemIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @AfterEach
     public void teardown() {
         if (webDriver != null) {
@@ -93,4 +102,3 @@ public class OrderItemIT {
         }
     }
 }
-

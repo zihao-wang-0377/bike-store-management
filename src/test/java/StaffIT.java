@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
 @Tag("staff")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class StaffIT {
@@ -17,6 +21,8 @@ public class StaffIT {
         webDriver.findElement(By.xpath("//*[@id=\"loginform:username\"]")).sendKeys("admin.staff@bikes.shop");
         webDriver.findElement(By.xpath("//*[@id=\"loginform:password\"]")).sendKeys("444-3049");
         webDriver.findElement(By.xpath("//*[@id=\"loginform\"]/input[4]")).click();
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("navForm")));
     }
     @Test
     @Order(1)
@@ -37,6 +43,7 @@ public class StaffIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"staffForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @Test
     @Order(2)
     public void SearchStaffTest() throws InterruptedException {
@@ -48,6 +55,7 @@ public class StaffIT {
         webDriver.findElement(By.xpath("//*[@id=\"staff:lastname\"]")).clear();
         webDriver.findElement(By.xpath("//*[@id=\"staff:lastname\"]")).sendKeys("Elon");
     }
+
     @Test
     @Order(3)
     public void EditStaffTest() throws InterruptedException {
@@ -68,6 +76,7 @@ public class StaffIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"staffdetail:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @Test
     @Order(4)
     public void DeleteStaffTest() throws InterruptedException {
@@ -85,6 +94,7 @@ public class StaffIT {
         String actual = webDriver.findElement(By.xpath("//*[@id=\"messageForm:messages\"]")).getText();
         Assertions.assertEquals(expect, actual);
     }
+
     @AfterEach
     public void teardown() {
         if (webDriver != null) {
