@@ -42,7 +42,7 @@ public class Login {
                         FacesMessage.SEVERITY_ERROR, "Anmeldung fehlgeschlagen", null));
                 break;
             case SUCCESS:
-                return "homePage.xhtml";
+                return "homePage.xhtml?faces-redirect=true";
             case NOT_DONE:
         }
         return null;
