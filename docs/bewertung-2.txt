@@ -1,9 +1,0 @@
-- Branch pro Iteration hinterfragen (o)
-- Formatierung inkonsistent (Leerzeichen) (nutzen Sie einen automatische Formatierung) -
-- Commit-Messages teils weiterhin nichtssagend (vier Mal Variation von “CSS Verbesserungen”) -
-- Issues nur halbherzig genutzt (o)
-
-- HHH000038: Composite-id class does not override equals(),Composite-id class does not override hashCode(), siehe Log
-- Sie haben die produktive Datenbank verändern. Ich habe so oft gesagt, dass Sie das auf keinen Fall tun dürfen!!! 0 Punkte
-- nicht weiter reingeschaut
-Bewertung: 50%
