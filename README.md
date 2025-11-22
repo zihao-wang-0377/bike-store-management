@@ -9,6 +9,8 @@
 
 \* Dieses Projekt ist Teil des Bachelorstudiums der Informatik an der Ostfalia Hochschule für angewandte Wissenschaften und wird von Prof. Dr. Bernd Müller betreut. Es dient als Übung, um die Konzepte von Jakarta EE praxisnah anzuwenden.
 
+![bike_store_app.gif](assets/bike_store_app.gif)
+
 ## Installation und Bedienung
 
 - Für dieses Projekt nutzen wir WildFly 33.0.2.Final, Java 22 und Postgres 15.
